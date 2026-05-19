@@ -3,7 +3,7 @@ version: '3.8'
 services:
   # واجهة React
   frontend:
-    build: ./frontend
+    build: ./front
     ports:
       - "80:80"
     depends_on:
@@ -11,7 +11,7 @@ services:
 
   # خلفية Laravel
   backend:
-    build: ./backend
+    build: ./back
     volumes:
       - ./backend:/var/www
     environment:
