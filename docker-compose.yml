@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # واجهة React
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  # خلفية Laravel
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/var/www
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+    depends_on:
+      - db
+
+  # قاعدة البيانات
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: laravel_db
+      MYSQL_ROOT_PASSWORD: your_secure_password
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
