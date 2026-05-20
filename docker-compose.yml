@@ -6,6 +6,9 @@ services:
     build: ./front
     ports:
       - "80:80" # التعديل هنا ليعمل الموقع مباشرة على المنفذ الافتراضي
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
     depends_on:
       - backend
 
