@@ -16,8 +16,8 @@
 
   /* تعريف الخطوط المخصصة */
   /* --font-arabic: "Amiri", serif;*/
-    --font-arabic: 'Almarai',
-      sans-serif;
+    --font-arabic: "Amiri", serif;
+    
   --font-english: "Cinzel", serif;
 }
 
