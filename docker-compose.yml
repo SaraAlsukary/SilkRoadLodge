@@ -1,20 +1,15 @@
 version: '3.8'
 
 services:
-  # واجهة React
+  # واجهة React الخاصة بـ Silk
   frontend:
     build: ./front
     ports:
-      - "80:80" # التعديل هنا ليعمل الموقع مباشرة على المنفذ الافتراضي
-      - "443:443"
-    volumes:
-      - /etc/letsencrypt:/etc/letsencrypt:ro
-      - /var/www/Japanese-Academy-Backend:/var/www/Japanese-Academy-Backend:ro # ملفات الأكاديمية
-      - /run/php:/run/php
+      - "8080:80" # تم تغيير المنفذ الخارجي إلى 8080 ليتحدث معه الموجه المحايد داخلياً
     depends_on:
       - backend
 
-  # خلفية Laravel
+  # خلفية Laravel الخاصة بـ Silk
   backend:
     build: ./back
     volumes:
@@ -25,7 +20,7 @@ services:
     depends_on:
       - db
 
-  # قاعدة البيانات
+  # قاعدة بيانات Silk
   db:
     image: mysql:8.0
     environment:
