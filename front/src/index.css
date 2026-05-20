@@ -15,7 +15,9 @@
   /* البني الداكن جداً للنصوص */
 
   /* تعريف الخطوط المخصصة */
-  --font-arabic: "Amiri", serif;
+  /* --font-arabic: "Amiri", serif;*/
+    --font-arabic: 'Almarai',
+      sans-serif;
   --font-english: "Cinzel", serif;
 }
 

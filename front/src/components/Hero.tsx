@@ -29,7 +29,7 @@ export default function Home() {
     }, []);
 
     return (
-        <section className="relative w-full h-screen overflow-hidden">
+        <section className="relative w-full h-100 md:h-screen overflow-hidden">
 
             {/* 1. طبقة الصور المتغيرة */}
             <div className="absolute inset-0 z-0">

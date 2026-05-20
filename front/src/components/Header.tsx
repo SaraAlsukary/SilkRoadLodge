@@ -22,7 +22,7 @@ export default function Header() {
                         animate={{ opacity: 1, x: 0 }}
                         className="flex flex-col items-center"
                     >
-                        <span className="font-arabic text-2xl text-silk-dark leading-none">فندق طريق الحرير</span>
+                        <span className="font-arabic text-2xl text-silk-dark leading-none ">فندق طريق الحرير</span>
                         <span className="font-english text-xs text-silk-brown tracking-[0.2em] mt-1">SILK ROAD LODGE</span>
                     </motion.div>
 
