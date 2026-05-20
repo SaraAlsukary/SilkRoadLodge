@@ -5,9 +5,12 @@ services:
   frontend:
     build: ./front
     ports:
-      - "8080:80" # تم تغيير المنفذ الخارجي إلى 8080 ليتحدث معه الموجه المحايد داخلياً
+      - "8080:80"
     depends_on:
       - backend
+    networks:
+      - default
+      - proxy_network # ربط الواجهة بشبكة الموجه
 
   # خلفية Laravel الخاصة بـ Silk
   backend:
@@ -31,3 +34,10 @@ services:
 
 volumes:
   db_data:
+
+# تعريف الشبكة الخارجية الخاصة بالموجه المستقل
+networks:
+  default:
+  proxy_network:
+    external: true
+    name: global-proxy_default
