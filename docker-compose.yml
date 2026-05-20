@@ -9,6 +9,8 @@ services:
       - "443:443"
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/Japanese-Academy-Backend:/var/www/Japanese-Academy-Backend:ro # ملفات الأكاديمية
+      - /run/php:/run/php
     depends_on:
       - backend
 
