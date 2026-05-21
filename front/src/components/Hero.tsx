@@ -1,8 +1,9 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'; // إضافة الاستيراد هنا
 
-// قائمة الصور الخاصة بالفندق (ضعي هنا روابط صورك)
+// قائمة الصور الخاصة بالفندق
 const images = [
     "/imgs/1.jpeg",
     "/imgs/2.jpeg",
@@ -19,7 +20,8 @@ const images = [
 
 export default function Home() {
     const [index, setIndex] = useState(0);
-
+    const { t, i18n } = useTranslation(); // تفعيل الترجمة في المكون
+    const currentLanguage = i18n.language;
     // منطق تغيير الصور تلقائياً
     useEffect(() => {
         const timer = setInterval(() => {
@@ -54,19 +56,19 @@ export default function Home() {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.5, duration: 1 }}
-                    className="font-arabic text-4xl md:text-7xl mb-8 leading-tight"
+                    className={`font-arabic text-${currentLanguage === 'ja' ? '2xl' : currentLanguage === 'en' ? '3xl' : '4xl'} md:text-${currentLanguage === 'ja' ? '5xl' : currentLanguage==='en'?'5xl' : '7xl'} mb-8 leading-tight`}
                 >
-                    استعد ذكريات قوافل الحرير <br />
-                    <span className="text-silk-sand">واسترخِ في واحة من التاريخ</span>
+                    {t('hero_title_1')} <br />
+                    <span className="text-silk-sand">{t('hero_title_2')}</span>
                 </motion.h1>
 
                 <motion.p
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.7, duration: 1 }}
-                    className="font-arabic text-xl md:text-2xl opacity-90 mb-12 max-w-2xl"
+                    className={`font-arabic text-${currentLanguage === 'ja' ? 'md' : 'xl'} md:text-2xl opacity-90 mb-12 max-w-2xl`}
                 >
-                    في قلب تدمر، حيث تهمس الرمال بقصص الأجداد، ننتظرك لتكتب معنا فصلاً جديداً من الراحة والهدوء
+                    {t('hero_desc')}
                 </motion.p>
                 <NavLink to={'/rooms'}>
                     <motion.div
@@ -75,8 +77,14 @@ export default function Home() {
                         transition={{ delay: 0.9, duration: 1 }}
                         className="group relative px-10 py-4 border cursor-pointer border-silk-sand text-silk-cream font-arabic text-xl transition-all duration-500 overflow-hidden hover:text-silk-dark"
                     >
-                        <span className="relative z-10">ابدأ رحلتك معنا</span>
-                        <div className="absolute inset-0 bg-silk-sand transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right"></div>
+                        <span className="relative z-10">{t('hero_btn')}</span>
+                        {/* 
+                          ملاحظة بخصوص الأنيميشن للغات المختلفة:
+                          origin-right تعمل بشكل مثالي مع العربية (RTL).
+                          ولكن إذا كنت تريدها أن تتحرك من اليسار لليمين في اللغات الأجنبية (LTR)،
+                          يمكنك إضافة شرط بسيط: `i18n.language === 'ar' ? 'origin-right' : 'origin-left'`
+                        */}
+                        <div className="absolute inset-0 bg-silk-sand transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right rtl:origin-right ltr:origin-left"></div>
                     </motion.div>
                 </NavLink>
             </div>
