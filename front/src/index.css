@@ -3,11 +3,6 @@
 /* استيراد الخطوط من Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;600;700&display=swap');
 
-@font-face {
-  font-family: 'english';
-  src: url('./assets/fonts/LucidaUnicodeCalligraphy (1).woff2') format('woff2');
-  font-display: swap;
-}
 
 /* @font-face {
   font-family: 'arabic';
@@ -15,9 +10,17 @@
   font-display: swap;
 } */
 
+/* تعريف الخطوط المحلية من مجلد public (أوفلاين) */
 @font-face {
-  font-family: 'japanese';
-  src: url('./assets/fonts/yu-mincho-regular.woff2') format('woff2');
+  font-family: 'LucidaCalligraphy';
+  src: url('/fonts/LucidaUnicodeCalligraphy.woff2') format('woff2');
+  /* تم تعديل الاسم هنا ليصبح آمن وبدون مسافات */
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'YuMinchoLocal';
+  src: url('/fonts/yu-mincho-regular.woff2') format('woff2');
   font-display: swap;
 }
 
@@ -35,20 +38,29 @@
   /* تعريف الخطوط المخصصة */
   /* --font-arabic: "Amiri", serif;*/
   --font-arabic: "Amiri", serif;
-  --font-english: "english", serif;
-  --font-japanese: "japanese", serif;
+  --font-english: "LucidaCalligraphy", serif;
+  --font-japanese: "YuMinchoLocal", serif;
+
 }
 
-/* الإعدادات الافتراضية للموقع */
-/* body {
-  background-color: var(--color-silk-cream);
-  color: var(--color-silk-dark);
-  font-family: var(--font-arabic);
-} */
 @layer base {
   body {
     background-color: var(--color-silk-cream);
     color: var(--color-silk-dark);
+    /* الخط الافتراضي للموقع ككل */
     font-family: var(--font-arabic);
+  }
+
+  /* عندما تضيف الجافاسكربت كلاس اللغة، نجبر المتصفح على تبديل الخط فوراً */
+  body.font-arabic {
+    font-family: var(--font-arabic);
+  }
+
+  body.font-english {
+    font-family: var(--font-english);
+  }
+
+  body.font-japanese {
+    font-family: var(--font-japanese);
   }
 }
