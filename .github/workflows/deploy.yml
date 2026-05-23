@@ -30,7 +30,7 @@ jobs:
             git pull origin main
             
             # إعادة بناء الحاويات وتشغيلها في الخلفية
-            docker-compose up -d --build
+            docker compose up -d --build
             
             # (اختياري) أوامر Laravel لتنظيف التخزين المؤقت وتحديث قاعدة البيانات
             # docker-compose exec -T back php artisan migrate --force
