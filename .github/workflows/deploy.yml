@@ -1,0 +1,42 @@
+name: Deploy to Production
+
+# تحديد متى يتم تشغيل هذا الـ Workflow (عند الدفع لفرع main)
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          # الأوامر التي سيتم تنفيذها داخل الخادم
+          script: |
+            # انتقل إلى مسار المشروع على الخادم (قم بتعديل هذا المسار ليتطابق مع خادمك)
+            cd Silk
+            
+            # جلب أحدث التعديلات
+            git pull origin main
+            
+            # إعادة بناء الحاويات وتشغيلها في الخلفية
+            docker-compose up -d --build
+            
+            # (اختياري) أوامر Laravel لتنظيف التخزين المؤقت وتحديث قاعدة البيانات
+            # docker-compose exec -T back php artisan migrate --force
+            # docker-compose exec -T back php artisan config:cache
+            # docker-compose exec -T back php artisan route:cache
+            # docker-compose exec -T back php artisan view:cache
+            
+            # (اختياري) يمكنك تنظيف صور Docker القديمة لتوفير المساحة
+            # docker image prune -f
