@@ -9,7 +9,7 @@ export default function About() {
                 <img src="/logo.png" alt="Silk Road Lodge Logo" className='w-[400px] h-[400px] mx-auto mb-10' />
 
                 {/* عنوان القسم */}
-                <h2 className="font-arabic text-4xl md:text-5xl text-silk-dark mb-10">
+                <h2 className=" text-4xl md:text-5xl text-silk-dark mb-10">
                     {t('about_title')}
                 </h2>
 
@@ -19,7 +19,7 @@ export default function About() {
                     <div className="text-silk-sand text-3xl mb-6">❝</div>
 
                     {/* استخدام text-start بدلاً من text-right ليتوافق مع جميع اللغات */}
-                    <p className="text-start font-arabic text-xl md:text-2xl text-silk-dark/80 leading-relaxed md:leading-loose text-justify">
+                    <p className="text-start  text-xl md:text-2xl text-silk-dark/80 leading-relaxed md:leading-loose text-justify">
                         {t('about_desc')}
                     </p>
 

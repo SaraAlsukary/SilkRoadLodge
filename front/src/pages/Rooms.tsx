@@ -32,7 +32,7 @@ export default function Rooms() {
             <div className="max-w-7xl mx-auto">
                 {/* العنوان */}
                 <div className="text-center mb-16">
-                    <h2 className="font-arabic text-4xl text-silk-dark mb-4">غرفنا المميزة</h2>
+                    <h2 className=" text-4xl text-silk-dark mb-4">غرفنا المميزة</h2>
                     <div className="w-20 h-[2px] bg-silk-sand mx-auto"></div>
                 </div>
 

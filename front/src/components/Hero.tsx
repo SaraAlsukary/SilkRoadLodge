@@ -56,7 +56,7 @@ export default function Home() {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.5, duration: 1 }}
-                    className={`font-arabic text-${currentLanguage === 'ja' ? '2xl' : currentLanguage === 'en' ? '3xl' : '4xl'} md:text-${currentLanguage === 'ja' ? '5xl' : currentLanguage==='en'?'5xl' : '7xl'} mb-8 leading-tight`}
+                    className={` text-${currentLanguage === 'ja' ? '2xl' : currentLanguage === 'en' ?'xl' : '4xl'} md:text-${currentLanguage === 'ja' ? '5xl' : currentLanguage==='en'?'5xl' : '7xl'} mb-8 leading-tight`}
                 >
                     {t('hero_title_1')} <br />
                     <span className="text-silk-sand">{t('hero_title_2')}</span>
@@ -66,7 +66,7 @@ export default function Home() {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.7, duration: 1 }}
-                    className={`font-arabic text-${currentLanguage === 'ja' ? 'md' : 'xl'} md:text-2xl opacity-90 mb-12 max-w-2xl`}
+                    className={` text-${currentLanguage === 'ja' ? 'md' : 'md'} md:text-2xl opacity-90 mb-12 max-w-2xl`}
                 >
                     {t('hero_desc')}
                 </motion.p>
@@ -75,7 +75,7 @@ export default function Home() {
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.9, duration: 1 }}
-                        className="group relative px-10 py-4 border cursor-pointer border-silk-sand text-silk-cream font-arabic text-xl transition-all duration-500 overflow-hidden hover:text-silk-dark"
+                        className="group relative px-10 py-4 border cursor-pointer border-silk-sand text-silk-cream  text-md transition-all duration-500 overflow-hidden hover:text-silk-dark"
                     >
                         <span className="relative z-10">{t('hero_btn')}</span>
                         {/* 

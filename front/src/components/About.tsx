@@ -45,10 +45,10 @@ const AboutSnippet = () => { // قمت بتغيير الاسم قليلاً لت
                 {/* الجانب النصي */}
                 <div className="space-y-6">
                     {/* استخدام text-start ليتوافق مع جميع اللغات */}
-                    <h2 className={`ont-arabic text-${currentLanguage === 'ar' ? '4xl' : '2xl'} text-silk-dark text-start font-bold`}>
+                    <h2 className={`ont-arabic text-${currentLanguage === 'ar' ? '4xl' : currentLanguage === 'en' ? 'xl' : 'xl'} text-silk-dark text-start font-bold`}>
                         {t('home_about_title')}
                     </h2>
-                    <p className="font-arabic text-lg text-silk-dark/80 leading-loose text-start">
+                    <p className=" text-md text-silk-dark/80 leading-loose text-start">
                         {t('home_about_desc')}
                     </p>
                     {/* محاذاة الزر لتتناسب مع بداية النص */}

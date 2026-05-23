@@ -14,18 +14,18 @@ export default function RoomCard({ room }: { room: IRoom }) {
                     alt={room.title}
                     className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute top-4 right-4 bg-silk-brown/90 text-silk-cream px-3 py-1 font-arabic text-sm">
+                <div className="absolute top-4 right-4 bg-silk-brown/90 text-silk-cream px-3 py-1  text-sm">
                     {room.price} $ / ليلة
                 </div>
             </div>
 
             {/* محتوى البطاقة */}
             <div className="p-6 text-center">
-                <h3 className="font-arabic text-2xl text-silk-dark mb-3">{room.title}</h3>
-                <p className="font-arabic text-silk-dark/70 text-sm leading-relaxed mb-6">
+                <h3 className=" text-2xl text-silk-dark mb-3">{room.title}</h3>
+                <p className=" text-silk-dark/70 text-sm leading-relaxed mb-6">
                     {room.description}
                 </p>
-                <button className="cursor-pointer w-full py-3 border border-silk-brown text-silk-brown font-arabic text-lg hover:bg-silk-brown hover:text-silk-cream transition-colors duration-300">
+                <button className="cursor-pointer w-full py-3 border border-silk-brown text-silk-brown  text-lg hover:bg-silk-brown hover:text-silk-cream transition-colors duration-300">
                     حجز الغرفة
                 </button>
             </div>
