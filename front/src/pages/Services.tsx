@@ -100,12 +100,12 @@ export default function Services() {
                             </div>
 
                             {/* زر تفاصيل اختياري أسفل الكارد ليعطي لمسة فندقية فخمة */}
-                            <div className="pt-4 border-t border-silk-sand/20 flex justify-end">
+                            {/* <div className="pt-4 border-t border-silk-sand/20 flex justify-end">
                                 <span className="text-sm font-bold text-silk-sand group-hover:text-silk-brown transition-colors duration-300 cursor-pointer flex items-center gap-1">
                                     {t('service_more_details')}
                                     <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">→</span>
                                 </span>
-                            </div>
+                            </div> */}
                         </motion.div>
                     ))}
                 </div>

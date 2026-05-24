@@ -28,7 +28,7 @@ export default function Footer() {
                             <p>
                                 <span className="text-silk-sand block text-sm">{t('footer_mobile_whatsapp')}</span>
 
-                                <a href="tel:+963982221918" className="hover:text-silk-sand transition-colors inline-block" dir="ltr">
+                                <a href="tel:+963982221918" className="font-arabic hover:text-silk-sand transition-colors inline-block" dir="ltr">
                                     +963 982 221 918
                                 </a>
                             </p>
