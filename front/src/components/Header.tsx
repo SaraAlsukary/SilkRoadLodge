@@ -15,30 +15,6 @@ export default function Header() {
         { code: "en", name: "English" },
         { code: "ja", name: "日本語" },
     ];
-    // useEffect(() => {
-    //     // 1. تحديث الاتجاه (RTL للعربية و LTR للبقية)
-    //     const currentLang = i18n.language;
-    //     document.body.dir = currentLang === "ar" ? "rtl" : "ltr";
-
-    //     // 2. إزالة كلاسات الخطوط القديمة لتجنب التضارب
-    //     document.body.classList.remove("font-arabic", "font-english", "font-japanese");
-
-    //     // 3. إضافة كلاس الخط المناسب بناءً على اللغة الحالية
-    //     if (currentLang === "ar") {
-    //         document.body.classList.add("font-arabic");
-    //     } else if (currentLang === "en") {
-    //         document.body.classList.add("font-english");
-    //     } else if (currentLang === "ja" || currentLang === "japanese") { // تأكد من رمز اللغة اليابانية لديك
-    //         document.body.classList.add("font-japanese");
-    //     }
-
-    //     // 4. تحديث اتجاه الهيدر بشكل آمن دون أن ينهار التطبيق
-    //     const header = document.querySelector('header');
-    //     if (header) {
-    //         header.style.direction = 'ltr';
-    //     }
-    // }, [i18n.language]);
-    // إغلاق القائمة المنسدلة عند النقر في أي مكان آخر في الصفحة
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent | TouchEvent) => {
             if (langMenuRef.current && !langMenuRef.current.contains(event.target as Element)) {
@@ -56,8 +32,9 @@ export default function Header() {
 
     const navLinks = [
         { name: t("home"), href: "/" },
-        { name: t("rooms"), href: "/rooms" },
+        { name: t("rooms"), href: "/rooms-type" },
         { name: t("about"), href: "/about" },
+        { name: t("services_title"), href: "/services" },
     ];
 
     return (

@@ -7,6 +7,8 @@ import { useTranslation } from 'react-i18next';
 const Home = lazy(() => import('../pages/Home'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const About = lazy(() => import('../pages/About'));
+const RoomTypes = lazy(() => import('../pages/RoomTypes'));
+const Services = lazy(() => import('../pages/Services'));
 const Rooms = lazy(() => import('../pages/Rooms'));
 
 const Loader = <P extends object>(Component: ComponentType<P>) => {
@@ -18,6 +20,9 @@ const Loader = <P extends object>(Component: ComponentType<P>) => {
 };
 const HomeLazy = Loader(Home);
 const AboutLazy = Loader(About);
+const NotFoundLazy = Loader(NotFound);
+const ServicesLazy = Loader(Services);
+const RoomTypeLazy = Loader(RoomTypes);
 const RoomsLazy = Loader(Rooms);
 
 // في الراوتر:
@@ -59,6 +64,10 @@ const App = () => {
                     element: <AboutLazy />,
                 },
                 {
+                    path: 'rooms-type', // مسار صفحة الغرف (/rooms)
+                    element: <RoomTypeLazy />,
+                },
+                {
                     path: 'rooms', // مسار صفحة الغرف (/rooms)
                     element: <RoomsLazy />,
                 },
@@ -67,9 +76,14 @@ const App = () => {
                     // element: <Contact />,
                 },
                 {
-                    path: '*', // أي مسار لا يطابق المسارات السابقة
-                    element: <NotFound />,
+                    path: 'services',
+                    element: <ServicesLazy />
                 },
+                {
+                    path: '*', // أي مسار لا يطابق المسارات السابقة
+                    element: <NotFoundLazy />,
+                },
+
             ],
         },
     ]);
