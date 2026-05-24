@@ -27,15 +27,9 @@ export default function Footer() {
                         <div className="space-y-3  text-sm">
                             <p>
                                 <span className="text-silk-sand block text-sm">{t('footer_mobile_whatsapp')}</span>
-                                {/* اتجاه الأرقام يفضل أن يبقى LTR دائماً لتجنب تشوه الأرقام الدولية */}
-                                <a href="tel:+963995492228" className="hover:text-silk-sand transition-colors inline-block" dir="ltr">
-                                    +963 (0) 995 492 228
-                                </a>
-                            </p>
-                            <p>
-                                <span className="text-silk-sand block text-sm">{t('footer_landline')}</span>
-                                <a href="tel:+963125930077" className="hover:text-silk-sand transition-colors inline-block" dir="ltr">
-                                    +963 (0) 125 930 077
+
+                                <a href="tel:+963982221918" className="hover:text-silk-sand transition-colors inline-block" dir="ltr">
+                                    +963 982 221 918
                                 </a>
                             </p>
                             <p>
@@ -59,7 +53,7 @@ export default function Footer() {
                             {[
                                 {
                                     name: 'WhatsApp',
-                                    href: 'https://wa.me/963995492228',
+                                    href: 'https://wa.me/963982221918',
                                     color: 'hover:bg-[#25D366] hover:text-white',
                                     icon: (
                                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
