@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 
-// استيراد الأيقونات (يمكنك استخدام Lucide React أو تخصيص الـ SVGs كما فعلنا هنا لتجنب المكاتب الزائدة)
+// استيراد الأيقونات
 const icons = {
     tent: (
         <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
@@ -33,18 +33,41 @@ const icons = {
 export default function Services() {
     const { t } = useTranslation();
 
-    // مصفوفة البيانات الخاصة بالخدمات الخمس مع مفاتيح الترجمة والأيقونات المخصصة
+    // إضافة روابط الصور إلى كل خدمة
     const servicesData = [
-        { id: 'bedouin_tent', icon: icons.tent },
-        { id: 'safari_tour', icon: icons.safari },
-        { id: 'bicycles', icon: icons.bike },
-        { id: 'airport_pickup', icon: icons.airport },
-        { id: 'syria_tour', icon: icons.tour }
+        {
+            id: 'bedouin_tent',
+            icon: icons.tent,
+            image: './imgs/services/3.jpg'
+        },
+        {
+            id: 'safari_tour',
+            icon: icons.safari,
+            image: './imgs/services/5.jpg'
+
+        },
+        {
+            id: 'bicycles',
+            icon: icons.bike,
+            image: './imgs/services/1.jpg'
+        },
+        {
+            id: 'airport_pickup',
+            icon: icons.airport,
+            image: './imgs/services/4.jpg'
+
+        },
+        {
+            id: 'syria_tour',
+            icon: icons.tour,
+            image: './imgs/services/2.jpg'
+
+        }
     ];
 
     return (
         <section className="min-h-screen py-20 px-4 md:px-8 bg-silk-cream text-silk-dark transition-colors duration-300">
-            <div className="max-w-6xl mx-auto">
+            <div className="max-w-7xl mx-auto">
 
                 {/* رأس الصفحة الأنيق */}
                 <div className="text-center mb-16">
@@ -67,24 +90,33 @@ export default function Services() {
                     </motion.p>
                 </div>
 
-                {/* شبكة عرض الخدمات (Grid Layout) */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* شبكة عرض الخدمات مع الصور */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
                     {servicesData.map((service, index) => (
                         <motion.div
                             key={service.id}
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            whileHover={{ y: -5, boxShadow: '0 20px 25px -5px rgba(139, 94, 60, 0.1)' }}
+                            whileHover={{ y: -5, boxShadow: '0 25px 30px -5px rgba(139, 94, 60, 0.15)' }}
                             transition={{ duration: 0.4, delay: index * 0.1 }}
-                            className="group relative flex flex-col justify-between p-8 bg-silk-cream border border-silk-sand/30 rounded-lg shadow-sm overflow-hidden backdrop-blur-sm"
+                            className="group relative flex flex-col bg-white rounded-2xl shadow-sm overflow-hidden border border-silk-sand/20"
                         >
-                            {/* لمسة ديكورية خلفية تناسب روح طريق الحرير الكلاسيكية */}
-                            <div className="absolute top-0 right-0 w-24 h-24 bg-silk-sand/5 rounded-bl-full transition-all duration-300 group-hover:bg-silk-sand/10"></div>
+                            {/* حاوية الصورة مع تأثير التكبير */}
+                            <div className="relative h-64 w-full overflow-hidden">
+                                {/* طبقة شفافة داكنة لزيادة تباين الألوان تختفي عند التمرير */}
+                                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                                <img
+                                    src={service.image}
+                                    alt={t(`${service.id}_title`)}
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                />
+                            </div>
 
-                            <div>
-                                {/* حاوية الأيقونة */}
-                                <div className="w-16 h-16 flex items-center justify-center rounded-full bg-silk-brown text-silk-cream border border-silk-sand mb-6 transition-transform duration-300 group-hover:scale-110 shadow-md">
+                            {/* محتوى البطاقة */}
+                            <div className="flex flex-col flex-grow p-8 pt-10 relative bg-silk-cream">
+                                {/* الأيقونة العائمة (Floating Icon) */}
+                                <div className="absolute -top-8 right-8 rtl:left-8 rtl:right-auto w-16 h-16 flex items-center justify-center rounded-2xl bg-silk-brown text-silk-cream border-4 border-silk-cream transition-transform duration-300 group-hover:-translate-y-2 shadow-lg z-20">
                                     {service.icon}
                                 </div>
 
@@ -94,18 +126,20 @@ export default function Services() {
                                 </h3>
 
                                 {/* وصف الخدمة */}
-                                <p className="text-silk-dark/80 leading-relaxed font-medium mb-6">
+                                <p className="text-silk-dark/80 leading-relaxed font-medium mb-6 flex-grow">
                                     {t(`${service.id}_description`)}
                                 </p>
-                            </div>
 
-                            {/* زر تفاصيل اختياري أسفل الكارد ليعطي لمسة فندقية فخمة */}
-                            {/* <div className="pt-4 border-t border-silk-sand/20 flex justify-end">
-                                <span className="text-sm font-bold text-silk-sand group-hover:text-silk-brown transition-colors duration-300 cursor-pointer flex items-center gap-1">
-                                    {t('service_more_details')}
-                                    <span className="inline-block transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1">→</span>
-                                </span>
-                            </div> */}
+                                {/* زر التفاصيل بشكل عصري ومدمج */}
+                                <div className="pt-5 border-t border-silk-sand/30 mt-auto">
+                                    <span className="inline-flex items-center gap-2 text-sm font-bold text-silk-sand group-hover:text-silk-brown transition-colors duration-300 cursor-pointer uppercase tracking-wider">
+                                        {t('service_more_details') || 'Read More'}
+                                        <span className="transition-transform duration-300 group-hover:translate-x-2 rtl:group-hover:-translate-x-2">
+                                            →
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
                         </motion.div>
                     ))}
                 </div>
