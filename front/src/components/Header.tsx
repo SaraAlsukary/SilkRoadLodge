@@ -32,8 +32,8 @@ export default function Header() {
 
     const navLinks = [
         { name: t("home"), href: "/" },
-        { name: t("rooms"), href: "/rooms-type" },
         { name: t("about"), href: "/about" },
+        { name: t("rooms"), href: "/rooms-type" },
         { name: t("services_title"), href: "/services" },
     ];
 
@@ -59,7 +59,7 @@ export default function Header() {
                                 key={link.name}
                                 to={link.href}
                                 className={({ isActive }) =>
-                                    ` text-lg transition-all duration-300 relative ${isActive ? 'text-silk-brown font-bold' : 'text-silk-dark hover:text-silk-brown'}`
+                                    ` ${i18n.language === 'ar'?'text-2xl':' text-lg'} transition-all duration-300 relative ${isActive ? 'text-silk-brown font-bold' : 'text-silk-dark hover:text-silk-brown'}`
                                 }
                             >
                                 {({ isActive }) => (
@@ -104,7 +104,7 @@ export default function Header() {
                                             <button
                                                 key={lng.code}
                                                 onClick={() => changeLanguage(lng.code)}
-                                                className={`w-full text-start px-4 py-2 text-sm transition-colors ${i18n.language === lng.code
+                                                className={`w-full text-start px-4 py-2 text-xl transition-colors ${i18n.language === lng.code
                                                     ? 'bg-silk-brown/10 text-silk-brown font-bold'
                                                     : 'text-silk-dark hover:bg-silk-sand/30 hover:text-silk-brown'
                                                     }`}
@@ -120,7 +120,7 @@ export default function Header() {
 
                     {/* زر الحجز */}
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="hidden md:block">
-                        <NavLink to={'/rooms'} className="bg-silk-brown text-silk-cream px-6 py-2 rounded-sm font-arabic text-lg hover:bg-silk-sand hover:text-silk-dark transition-all">
+                        <NavLink to={'/rooms'} className={`bg-silk-brown text-silk-cream px-6 py-2  ${i18n.language === 'ar'?'text-xl':' text-lg'} rounded-sm font-arabic hover:bg-silk-sand hover:text-silk-dark transition-all`}>
                             {t("book_now") || "احجز الآن"}
                         </NavLink>
                     </motion.div>

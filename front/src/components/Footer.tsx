@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next';
 
 export default function Footer() {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const currentLanguage = i18n.language
 
     return (
         <footer className="bg-silk-dark text-silk-cream pt-16 pb-8">
@@ -11,29 +12,30 @@ export default function Footer() {
 
                     {/* القسم الأول: العنوان */}
                     <div>
-                        <h3 className=" text-2xl text-silk-sand mb-4 ">
+                        <h3 className={`text-${currentLanguage === 'ar' ? '4xl' : currentLanguage === 'en' ? '2xl' : '2xl'} text-silk-sand mb-4 `}>
                             {t('footer_hotel_name')}
                         </h3>
-                        <p className=" text-sm leading-relaxed opacity-80 text-center md:text-start">
+                        <p className={` text-${currentLanguage === 'ar' ? 'xl' : currentLanguage === 'en' ? 'md' : 'md'} leading-relaxed opacity-80 text-center md:text-start`}>
                             {t('footer_address')}
                         </p>
                     </div>
 
                     {/* القسم الثاني: الاتصال */}
                     <div>
-                        <h3 className=" text-lg tracking-widest text-silk-sand mb-4 uppercase">
+
+                        <h3 className={` text-${currentLanguage === 'ar' ? '3xl' : currentLanguage === 'en' ? 'lg' : 'lg'} tracking-widest text-silk-sand mb-4 uppercase`}>
                             {t('footer_contact_title')}
                         </h3>
-                        <div className="space-y-3  text-sm">
+                        <div className="space-y-3  text-lg">
                             <p>
-                                <span className="text-silk-sand block text-sm">{t('footer_mobile_whatsapp')}</span>
+                                <span className="text-silk-sand block text-xl mb-2">{t('footer_mobile_whatsapp')}</span>
 
                                 <a href="tel:+963982221918" className="font-arabic hover:text-silk-sand transition-colors inline-block" dir="ltr">
                                     +963 982 221 918
                                 </a>
                             </p>
                             <p>
-                                <span className="text-silk-sand block text-sm">{t('footer_email')}</span>
+                                <span className="text-silk-sand block text-xl mb-2">{t('footer_email')}</span>
                                 <a href="mailto:info@silkroadlodge.com" className="hover:text-silk-sand transition-colors">
                                     info@silkroadlodge.com
                                 </a>
@@ -44,7 +46,7 @@ export default function Footer() {
                     {/* القسم الثالث: التواصل الاجتماعي */}
                     {/* استبدلنا items-end بـ items-start */}
                     <div className="flex flex-col items-center md:items-start">
-                        <h3 className="text-2xl text-silk-sand mb-4">
+                        <h3 className={` text-${currentLanguage === 'ar' ? '3xl' : currentLanguage === 'en' ? 'lg' : 'lg'} text-2xl text-silk-sand mb-4`}>
                             {t('footer_follow_us')}
                         </h3>
 
@@ -99,7 +101,7 @@ export default function Footer() {
                 </div>
 
                 {/* الخط السفلي وحقوق النشر */}
-                <div className="mt-16 pt-8 border-t border-silk-sand/20 flex flex-col md:flex-row justify-between items-center text-xs opacity-60">
+                <div className="mt-16 pt-8 border-t border-silk-sand/20 flex flex-col md:flex-row justify-between items-center text-md opacity-60">
                     <p className=" mb-4 md:mb-0">
                         © {new Date().getFullYear()} {t('footer_copyright')}
                     </p>

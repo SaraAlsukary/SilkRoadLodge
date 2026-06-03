@@ -49,5 +49,10 @@
     "triple_room_name": "Triple Room",
     "triple_room_desc": "An excellent choice for small groups and families, accommodating three guests with three separate beds.",
     "quad_room_name": "Quad Room",
-    "quad_room_desc": "A generous family-style room that comfortably accommodates four guests, outfitted with four separate beds."
+    "quad_room_desc": "A generous family-style room that comfortably accommodates four guests, outfitted with four separate beds.",
+    "quad_room_price": "50$ per person",
+    "double_room_price": "50$ per person",
+    "single_room_price": "50$ per person",
+    "triple_room_price": "50$ per person",
+    "twin_room_price": "50$ per person"
 }

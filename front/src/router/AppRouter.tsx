@@ -43,10 +43,10 @@ const App = () => {
             document.body.classList.add("font-japanese");
         }
 
-        const header = document.querySelector('header');
-        if (header) {
-            header.style.direction = 'ltr';
-        }
+        // const header = document.querySelector('header');
+        // if (header) {
+        //     header.style.direction = 'ltr';
+        // }
     }, [i18n.language]);
     const router = createBrowserRouter([
         {

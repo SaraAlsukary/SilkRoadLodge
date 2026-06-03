@@ -66,24 +66,18 @@ export default function Home() {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.7, duration: 1 }}
-                    className={` text-${currentLanguage === 'ja' ? 'md' : 'md'} md:text-2xl opacity-90 mb-12 max-w-2xl`}
+                    className={` text-${currentLanguage === 'ar' ? '2xl' : 'md'} md:text-2xl opacity-90 mb-12 max-w-2xl`}
                 >
                     {t('hero_desc')}
                 </motion.p>
-                <NavLink to={'/rooms'}>
+                <NavLink to={'/rooms-type'}>
                     <motion.div
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.9, duration: 1 }}
-                        className="group relative px-10 py-4 border cursor-pointer border-silk-sand text-silk-cream  text-md transition-all duration-500 overflow-hidden hover:text-silk-dark"
+                        className={`group relative px-10 py-4 border cursor-pointer border-silk-sand font-bold text-silk-cream  ${i18n.language === 'ar'?'text-2xl':' text-md'} text-md transition-all duration-500 overflow-hidden hover:text-silk-dark`}
                     >
                         <span className="relative z-10">{t('hero_btn')}</span>
-                        {/* 
-                          ملاحظة بخصوص الأنيميشن للغات المختلفة:
-                          origin-right تعمل بشكل مثالي مع العربية (RTL).
-                          ولكن إذا كنت تريدها أن تتحرك من اليسار لليمين في اللغات الأجنبية (LTR)،
-                          يمكنك إضافة شرط بسيط: `i18n.language === 'ar' ? 'origin-right' : 'origin-left'`
-                        */}
                         <div className="absolute inset-0 bg-silk-sand transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-right rtl:origin-right ltr:origin-left"></div>
                     </motion.div>
                 </NavLink>

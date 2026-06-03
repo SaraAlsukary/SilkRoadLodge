@@ -48,12 +48,12 @@ const AboutSnippet = () => { // قمت بتغيير الاسم قليلاً لت
                     <h2 className={`ont-arabic text-${currentLanguage === 'ar' ? '4xl' : currentLanguage === 'en' ? 'xl' : 'xl'} text-silk-dark text-start font-bold`}>
                         {t('home_about_title')}
                     </h2>
-                    <p className=" text-md text-silk-dark/80 leading-loose text-start">
+                    <p className={` text-${currentLanguage === 'ar' ? 'xl' : currentLanguage === 'en' ? 'md' : 'md'} text-silk-dark/80 leading-loose text-start`}>
                         {t('home_about_desc')}
                     </p>
                     {/* محاذاة الزر لتتناسب مع بداية النص */}
                     <div className="text-start">
-                        <NavLink to={'/about'} className="inline-block text-silk-brown font-english uppercase tracking-widest border-b border-silk-brown hover:text-silk-dark transition-all cursor-pointer">
+                        <NavLink to={'/about'} className={`inline-block text-silk-brown text-${currentLanguage === 'ar' ? 'xl' : currentLanguage === 'en' ? 'md' : 'md'} font-english uppercase tracking-widest border-b border-silk-brown hover:text-silk-dark transition-all cursor-pointer`}>
                             {t('home_about_btn')}
                         </NavLink>
                     </div>

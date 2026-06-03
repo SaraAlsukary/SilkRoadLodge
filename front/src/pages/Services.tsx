@@ -31,8 +31,8 @@ const icons = {
 };
 
 export default function Services() {
-    const { t } = useTranslation();
-
+    const { t, i18n } = useTranslation();
+    const currentLang = i18n.language
     // إضافة روابط الصور إلى كل خدمة
     const servicesData = [
         {
@@ -84,7 +84,7 @@ export default function Services() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.2, duration: 0.6 }}
-                        className="text-lg text-silk-brown/80 max-w-2xl mx-auto font-medium"
+                        className={`${currentLang === 'ar' ? "text-2xl":"text-xl"} text-silk-brown/80 max-w-2xl mx-auto font-medium`}
                     >
                         {t('services_subtitle')}
                     </motion.p>
@@ -126,19 +126,19 @@ export default function Services() {
                                 </h3>
 
                                 {/* وصف الخدمة */}
-                                <p className="text-silk-dark/80 leading-relaxed font-medium mb-6 flex-grow">
+                                <p className="text-silk-dark/80 leading-relaxed font-medium text-xl mb-6 flex-grow">
                                     {t(`${service.id}_description`)}
                                 </p>
 
                                 {/* زر التفاصيل بشكل عصري ومدمج */}
-                                <div className="pt-5 border-t border-silk-sand/30 mt-auto">
-                                    <span className="inline-flex items-center gap-2 text-sm font-bold text-silk-sand group-hover:text-silk-brown transition-colors duration-300 cursor-pointer uppercase tracking-wider">
+                                {/* <div className="pt-5 border-t border-silk-sand/30 mt-auto">
+                                    <span className="inline-flex items-center gap-2 text-xl font-bold text-silk-sand group-hover:text-silk-brown transition-colors duration-300 cursor-pointer uppercase tracking-wider">
                                         {t('service_more_details') || 'Read More'}
                                         <span className="transition-transform duration-300 group-hover:translate-x-2 rtl:group-hover:-translate-x-2">
                                             →
                                         </span>
                                     </span>
-                                </div>
+                                </div> */}
                             </div>
                         </motion.div>
                     ))}

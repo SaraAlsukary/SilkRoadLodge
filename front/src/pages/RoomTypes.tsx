@@ -16,19 +16,25 @@ const icons = {
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-1.38-1.12-2.5-2.5-2.5H5.5A2.5 2.5 0 0 0 3 8.25v10.5c0 .414.336.75.75.75h.5a.75.75 0 0 0 .75-.75v-1.5h14v1.5c0 .414.336.75.75.75h.5a.75.75 0 0 0 .75-.75V8.25ZM3.75 12h16.5M6.75 8.25h3v2.25h-3V8.25Zm7.5 0h3v2.25h-3V8.25Z" />
         </svg>
+    ),
+    // 💡 تم تصحيح الكود هنا (تغيير الـ SVG بكود نظيف ومجرب لأيقونة بطاقة ائتمان/كاش)
+    price: (
+        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+        </svg>
     )
 };
 
 export default function RoomTypes() {
     const { t } = useTranslation();
 
-    // مصفوفة الغرف مع إضافة مسارات الصور (قم بوضع صورك في مجلد public/images/rooms)
+    // مصفوفة الغرف
     const roomsData = [
-        { id: 'single_room', guests: 1, beds: 1, icon: icons.single, image: '/imgs/rooms/single.jpg' },
-        { id: 'double_room', guests: 2, beds: 1, icon: icons.single, image: '/imgs/rooms/double.jpg' },
-        { id: 'twin_room', guests: 2, beds: 2, icon: icons.single, image: '/imgs/rooms/twin.jpg' },
-        { id: 'triple_room', guests: 3, beds: 3, icon: icons.single, image: '/imgs/rooms/triple.jpg' },
-        { id: 'quad_room', guests: 4, beds: 4, icon: icons.single, image: '/imgs/rooms/quad.jpg' }
+        { id: 'single_room', guests: 1, beds: 1, icon: icons.single, image: '/imgs/rooms/4.PNG' },
+        { id: 'double_room', guests: 2, beds: 1, icon: icons.single, image: '/imgs/rooms/4.PNG' },
+        { id: 'twin_room', guests: 2, beds: 2, icon: icons.single, image: '/imgs/rooms/1.JPG' },
+        { id: 'triple_room', guests: 3, beds: 3, icon: icons.single, image: '/imgs/rooms/3.PNG' },
+        { id: 'quad_room', guests: 4, beds: 4, icon: icons.single, image: '/imgs/rooms/2.JPG' }
     ];
 
     return (
@@ -68,53 +74,65 @@ export default function RoomTypes() {
                             className="group flex flex-col justify-between bg-silk-cream border border-silk-sand/20 rounded-xl overflow-hidden shadow-sm hover:shadow-2xl hover:border-silk-sand/50 transition-all duration-300 bg-white/40 backdrop-blur-xs"
                         >
                             <div>
-                                {/* 📸 حاوية الصورة المضافة حديثاً مع تأثير الزووم */}
+                                {/* حاوية الصورة */}
                                 <div className="h-56 w-full overflow-hidden relative">
                                     <img
                                         src={room.image}
                                         alt={t(`${room.id}_name`)}
                                         className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                                        // في حال لم تكن الصورة جاهزة بعد، هذا الكود يمنع ظهور فراغ قبيح ويستبدله بلون الحرير الفخم
                                         onError={(e) => {
                                             const target = e.target as HTMLImageElement;
                                             target.src = "https://placehold.co/600x400/8B5E3C/F3E9DC?text=Silk+Road+Hotel";
                                         }}
-                                   />
-                                    {/* طبقة تظليل جمالية ناعمة أسفل الصورة */}
+                                    />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                                 </div>
 
                                 {/* محتوى الكارد النصي */}
                                 <div className="p-6">
                                     <div className="flex justify-between items-start mb-3">
-                                        <h3 className="text-2xl font-bold text-silk-dark group-hover:text-silk-brown transition-colors duration-300">
+                                        <h3 className="text-2xl font-bold text-silk-brown group-hover:text-silk-dark transition-colors duration-300">
                                             {t(`${room.id}_name`)}
                                         </h3>
                                     </div>
 
-                                    <p className="text-silk-dark/80 font-medium text-sm leading-relaxed mb-4 min-h-[48px]">
+                                    <p className="text-silk-dark/80 font-medium text-xl leading-relaxed mb-4 min-h-[48px]">
                                         {t(`${room.id}_desc`)}
                                     </p>
                                 </div>
                             </div>
 
-                            {/* أسفل الكارد: الإحصائيات وزر الحجز */}
+                            {/* أسفل الكارد: الإحصائيات، السعر وزر الحجز */}
                             <div className="px-6 pb-6 space-y-4">
-                                <div className="flex items-center gap-5 text-xs font-bold text-silk-brown/90 pt-3 border-t border-silk-sand/15">
-                                    {/* عدد الأشخاص */}
-                                    <div className="flex items-center gap-1">
-                                        {room.icon}
-                                        <span>{room.guests} {t('guest_count')}</span>
+                                <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-t-silk-brown">
+
+                                    {/* الإحصائيات (الضيوف والأسرة) */}
+                                    <div className="flex items-center justify-between gap-3 w-full text-md font-bold text-silk-brown/90">
+                                        {/* عدد الأشخاص */}
+                                        <div className="flex items-center gap-1">
+                                            {room.icon}
+
+                                            <span>  <span className='font-arabic font-bold text-xl'>{room.guests} </span>{t('guest_count')}</span>
+                                        </div>
+
+                                        {/* عدد الأسرة */}
+                                        <div className="flex items-center gap-1">
+                                            {icons.bed}
+                                            <span> <span className='font-arabic font-bold text-xl'>{room.beds}</span> {t(room.beds === 1 ? 'bed_single' : 'bed_plural')}</span>
+                                        </div>
                                     </div>
 
-                                    {/* عدد الأسرة */}
-                                    <div className="flex items-center gap-1">
-                                        {icons.bed}
-                                        <span>{room.beds} {t(room.beds === 1 ? 'bed_single' : 'bed_plural')}</span>
+                                    {/* السعر المترجم المستدعى ديناميكياً */}
+                                    <div className="flex items-center gap-1 text-md font-bold text-silk-brown/90  px-2 py-1 ">
+                                        {icons.price}
+                                        <span>{t(`${room.id}_price`)}</span>
                                     </div>
+
                                 </div>
 
-                                <button className="w-full py-2.5 rounded-lg bg-transparent border border-silk-brown/30 text-silk-brown font-bold text-xs tracking-wider transition-all duration-300 hover:bg-silk-brown hover:text-silk-cream hover:border-silk-brown cursor-pointer">
+                                <button className="w-full py-2.5 rounded-lg bg-silk-brown border border-silk-brown
+                                 text-silk-cream font-bold text-lg tracking-wider transition-all duration-300 hover:bg-silk-dark
+                                  hover:text-silk-cream hover:border-silk-brown/30 cursor-pointer">
                                     {t('book_now')}
                                 </button>
                             </div>
