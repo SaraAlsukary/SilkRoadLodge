@@ -65,7 +65,7 @@ export default function Footer() {
                                 },
                                 {
                                     name: 'Facebook',
-                                    href: 'https://www.facebook.com/share/v/1Bm2z3HshV/?mibextid=wwXIfr', // الرابط المخصص للفوتر
+                                    href: 'https://www.facebook.com/share/1BGX4oJ64A/?mibextid=wwXIfr', // الرابط المخصص للفوتر
                                     color: 'hover:bg-[#1877F2] hover:text-white',
                                     icon: (
                                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

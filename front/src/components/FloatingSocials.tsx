@@ -33,7 +33,7 @@ export default function FloatingSocials() {
         },
         {
             name: 'Facebook',
-            href: '',
+            href: 'https://www.facebook.com/share/1BGX4oJ64A/?mibextid=wwXIfr',
             color: 'hover:bg-[#1877F2] hover:text-white', // لون فيسبوك الرسمي
             icon: (
                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
