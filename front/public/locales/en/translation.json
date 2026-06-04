@@ -54,7 +54,10 @@
 "double_room_price": "50$ per person",
 "single_room_price": "50$ per person",
 "triple_room_price": "50$ per person",
-"twin_room_price": "50$ per person"
+"twin_room_price": "50$ per person",
+"not_found_title": "Oops! This gateway no longer exists.",
+"not_found_desc": "It seems you have lost your way while wandering through the hotel corridors. Don't worry, you can return to our main oasis with a single click.",
+"not_found_btn": "Return to the Main Path"
 
 
 

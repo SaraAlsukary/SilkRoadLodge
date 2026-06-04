@@ -7,9 +7,8 @@ import { useTranslation } from 'react-i18next';
 const Home = lazy(() => import('../pages/Home'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const About = lazy(() => import('../pages/About'));
-const RoomTypes = lazy(() => import('../pages/RoomTypes'));
+const RoomTypes = lazy(() => import('../pages/Rooms'));
 const Services = lazy(() => import('../pages/Services'));
-const Rooms = lazy(() => import('../pages/Rooms'));
 
 const Loader = <P extends object>(Component: ComponentType<P>) => {
     return (props: P) => (
@@ -23,7 +22,6 @@ const AboutLazy = Loader(About);
 const NotFoundLazy = Loader(NotFound);
 const ServicesLazy = Loader(Services);
 const RoomTypeLazy = Loader(RoomTypes);
-const RoomsLazy = Loader(Rooms);
 
 // في الراوتر:
 const App = () => {
@@ -43,10 +41,6 @@ const App = () => {
             document.body.classList.add("font-japanese");
         }
 
-        // const header = document.querySelector('header');
-        // if (header) {
-        //     header.style.direction = 'ltr';
-        // }
     }, [i18n.language]);
     const router = createBrowserRouter([
         {
@@ -64,12 +58,8 @@ const App = () => {
                     element: <AboutLazy />,
                 },
                 {
-                    path: 'rooms-type', // مسار صفحة الغرف (/rooms)
-                    element: <RoomTypeLazy />,
-                },
-                {
                     path: 'rooms', // مسار صفحة الغرف (/rooms)
-                    element: <RoomsLazy />,
+                    element: <RoomTypeLazy />,
                 },
                 {
                     path: 'contact', // مسار صفحة اتصل بنا (/contact)

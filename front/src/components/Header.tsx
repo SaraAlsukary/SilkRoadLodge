@@ -9,12 +9,16 @@ export default function Header() {
     const { t, i18n } = useTranslation();
     const langMenuRef = useRef<HTMLDivElement>(null);
 
-    // قائمة اللغات (يمكنك إضافة أي عدد من اللغات هنا مستقبلاً بكل سهولة)
+    // قائمة اللغات المحدثة بالمسميات الصحيحة لكل لغة وتدعم الإضافات الجديدة
     const languages = [
         { code: "ar", name: "العربية" },
         { code: "en", name: "English" },
+        { code: "fr", name: "Français" },
+        { code: "es", name: "Español" },
+        { code: "zh", name: "简体中文" },
         { code: "ja", name: "日本語" },
     ];
+
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent | TouchEvent) => {
             if (langMenuRef.current && !langMenuRef.current.contains(event.target as Element)) {
@@ -27,13 +31,14 @@ export default function Header() {
 
     const changeLanguage = (lng: string) => {
         i18n.changeLanguage(lng);
-        setIsLangMenuOpen(false); // إغلاق القائمة بعد الاختيار
+        setIsLangMenuOpen(false); // إغلاق قائمة اللغات بعد الاختيار
+        setIsOpen(false);         // إغلاق قائمة الهاتف المحمول بعد اختيار اللغة
     };
 
     const navLinks = [
         { name: t("home"), href: "/" },
         { name: t("about"), href: "/about" },
-        { name: t("rooms"), href: "/rooms-type" },
+        { name: t("rooms"), href: "/rooms" },
         { name: t("services_title"), href: "/services" },
     ];
 
@@ -59,7 +64,7 @@ export default function Header() {
                                 key={link.name}
                                 to={link.href}
                                 className={({ isActive }) =>
-                                    ` ${i18n.language === 'ar'?'text-2xl':' text-lg'} transition-all duration-300 relative ${isActive ? 'text-silk-brown font-bold' : 'text-silk-dark hover:text-silk-brown'}`
+                                    ` ${i18n.language === 'ar' ? 'text-2xl' : ' text-lg'} transition-all duration-300 relative ${isActive ? 'text-silk-brown font-bold' : 'text-silk-dark hover:text-silk-brown'}`
                                 }
                             >
                                 {({ isActive }) => (
@@ -120,7 +125,7 @@ export default function Header() {
 
                     {/* زر الحجز */}
                     <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="hidden md:block">
-                        <NavLink to={'/rooms'} className={`bg-silk-brown text-silk-cream px-6 py-2  ${i18n.language === 'ar'?'text-xl':' text-lg'} rounded-sm font-arabic hover:bg-silk-sand hover:text-silk-dark transition-all`}>
+                        <NavLink to={'/rooms'} className={`bg-silk-brown text-silk-cream px-6 py-2  ${i18n.language === 'ar' ? 'text-xl' : ' text-lg'} rounded-sm font-arabic hover:bg-silk-sand hover:text-silk-dark transition-all`}>
                             {t("book_now") || "احجز الآن"}
                         </NavLink>
                     </motion.div>
@@ -158,15 +163,15 @@ export default function Header() {
                                 </NavLink>
                             ))}
 
-                            {/* منطقة اللغات في الموبايل (مصممة لتستوعب أي عدد من اللغات) */}
+                            {/* منطقة اللغات في الموبايل (مصممة لتستوعب وتناسب أي لغة باسمها الصحيح) */}
                             <div className="pt-4 mt-2 border-t border-silk-sand/30">
                                 <div className="flex flex-wrap justify-center gap-2">
                                     {languages.map((lng) => (
                                         <button
                                             key={lng.code}
                                             onClick={() => changeLanguage(lng.code)}
-                                            className={`px-4 py-1.5 rounded-full text-sm font-english transition-colors ${i18n.language === lng.code
-                                                ? 'bg-silk-brown text-silk-cream'
+                                            className={`px-4 py-1.5 rounded-full text-sm transition-colors ${i18n.language === lng.code
+                                                ? 'bg-silk-brown text-silk-cream font-bold'
                                                 : 'border border-silk-sand text-silk-dark hover:border-silk-brown'
                                                 }`}
                                         >

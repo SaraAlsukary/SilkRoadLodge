@@ -70,7 +70,7 @@ export default function Home() {
                 >
                     {t('hero_desc')}
                 </motion.p>
-                <NavLink to={'/rooms-type'}>
+                <NavLink to={'/rooms'}>
                     <motion.div
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}

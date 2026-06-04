@@ -54,5 +54,9 @@
     "double_room_price": "50$ per person",
     "single_room_price": "50$ per person",
     "triple_room_price": "50$ per person",
-    "twin_room_price": "50$ per person"
+    "twin_room_price": "50$ per person",
+    "not_found_title": "申し訳ありません、このページは存在しません。",
+    "not_found_desc": "ホテルの廊下を散策しているうちに、道に迷ってしまったようです。ご安心ください、ボタン一つでメインのオアシスに戻ることができます。",
+    "not_found_btn": "メインルートに戻る"
+    
 }

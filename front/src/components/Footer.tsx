@@ -102,7 +102,7 @@ export default function Footer() {
 
                 {/* الخط السفلي وحقوق النشر */}
                 <div className="mt-16 pt-8 border-t border-silk-sand/20 flex flex-col md:flex-row justify-between items-center text-md opacity-60">
-                    <p className=" mb-4 md:mb-0">
+                    <p className=" mb-4 text-center md:mb-0 md:text-left">
                         © {new Date().getFullYear()} {t('footer_copyright')}
                     </p>
                     {/* استخدمنا gap-6 بدلاً من space-x-reverse لدعم ممتاز للـ RTL و LTR */}
