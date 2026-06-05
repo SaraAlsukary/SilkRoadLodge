@@ -22,15 +22,36 @@ services:
       - APP_DEBUG=false
     depends_on:
       - db
+    networks:
+      - default # تأكيد وجوده في الشبكة الافتراضية للاتصال بالقاعدة
 
   # قاعدة بيانات Silk
   db:
     image: mysql:8.0
+    restart: always # مضاف لضمان إعادة التشغيل التلقائي عند حدوث خطأ
     environment:
-      MYSQL_DATABASE: laravel_db
-      MYSQL_ROOT_PASSWORD: your_secure_password
+      MYSQL_DATABASE: silk_db
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root_2424
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+      - default # لتستطيع الحاويات الداخلية مثل الباك و phpMyAdmin رؤيتها
+
+  # إضافة أداة تصفح قاعدة البيانات phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8085:80" # قمنا بتغيير المنفذ الخارجي إلى 8085 لأن المنفذ 8080 محجوز للفرونت إند لديك
+    environment:
+      PMA_HOST: db # اسم خدمة قاعدة البيانات بالأعلى ليرتبط بها تلقائياً
+      MYSQL_ROOT_PASSWORD: root_2424 # كلمة مرور الـ root لتسهيل الدخول المباشر
+    depends_on:
+      - db
+    networks:
+      - default # لتكون في نفس شبكة قاعدة البيانات
+      - proxy_network # مضاف اختياريًا في حال أردت ربطها بالموجه الخارجي مستقبلاً بدومين
 
 volumes:
   db_data:

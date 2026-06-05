@@ -21,22 +21,22 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          # الأوامر التي سيتم تنفيذها داخل الخادم
+          # الأوامر التي سيتم تنفيذها داخل الخادم تلقائياً
           script: |
-            # انتقل إلى مسار المشروع على الخادم (قم بتعديل هذا المسار ليتطابق مع خادمك)
-            cd Silk
+            # 1. انتقل إلى مسار المشروع على الخادم (تأكد أن المجلد اسمه Silk فعلاً)
+            cd ~/Silk || cd /var/www/Silk
             
-            # جلب أحدث التعديلات
+            # 2. جلب أحدث التعديلات البرمجية من GitHub
             git pull origin main
             
-            # إعادة بناء الحاويات وتشغيلها في الخلفية
+            # 3. إعادة بناء الحاويات وتشغيلها (استخدام المعيار الحديث docker compose بدون خط بين الكلمتين)
             docker compose up -d --build
             
-            # (اختياري) أوامر Laravel لتنظيف التخزين المؤقت وتحديث قاعدة البيانات
-            # docker-compose exec -T back php artisan migrate --force
-            # docker-compose exec -T back php artisan config:cache
-            # docker-compose exec -T back php artisan route:cache
-            # docker-compose exec -T back php artisan view:cache
+            # 4. تنفيذ هجرات قاعدة البيانات وتنظيف الكاش للـ Laravel (تم تفعيلها وتعديل اسم الحاوية إلى backend)
+            docker compose exec -T backend php artisan migrate --force
+            docker compose exec -T backend php artisan config:cache
+            docker compose exec -T backend php artisan route:cache
+            docker compose exec -T backend php artisan view:cache
             
-            # (اختياري) يمكنك تنظيف صور Docker القديمة لتوفير المساحة
-            # docker image prune -f
+            # 5. تنظيف مخلفات الصور القديمة لتوفير مساحة السيرفر (مهمة جداً في دوكر لكي لا تمتلئ الذاكرة)
+            docker image prune -f
