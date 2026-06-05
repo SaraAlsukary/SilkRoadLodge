@@ -6,6 +6,8 @@ services:
     build: ./front
     ports:
       - "8080:80"
+    volumes:
+      - ./back:/var/www
     depends_on:
       - backend
     networks:
