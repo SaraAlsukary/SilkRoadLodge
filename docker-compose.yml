@@ -25,7 +25,7 @@ services:
       - db
     networks:
       - default # تأكيد وجوده في الشبكة الافتراضية للاتصال بالقاعدة
-
+      - proxy_network #
   # قاعدة بيانات Silk
   db:
     image: mysql:8.0
