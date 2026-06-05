@@ -49,16 +49,20 @@
     "triple_room_name": "Triple Room",
     "triple_room_desc": "An excellent choice for small groups and families, accommodating three guests with three separate beds.",
     "quad_room_name": "Quad Room",
-    "quad_room_desc": "A generous family-style room that comfortably accommodates four guests, outfitted with four separate beds."
-,"quad_room_price": "50$ per person",
-"double_room_price": "50$ per person",
-"single_room_price": "50$ per person",
-"triple_room_price": "50$ per person",
-"twin_room_price": "50$ per person",
-"not_found_title": "Oops! This gateway no longer exists.",
-"not_found_desc": "It seems you have lost your way while wandering through the hotel corridors. Don't worry, you can return to our main oasis with a single click.",
-"not_found_btn": "Return to the Main Path"
-
-
-
+    "quad_room_desc": "A generous family-style room that comfortably accommodates four guests, outfitted with four separate beds.",
+    "quad_room_price": "50$ per person",
+    "double_room_price": "50$ per person",
+    "single_room_price": "50$ per person",
+    "triple_room_price": "50$ per person",
+    "twin_room_price": "50$ per person",
+    "not_found_title": "Oops! This gateway no longer exists.",
+    "not_found_desc": "It seems you have lost your way while wandering through the hotel corridors. Don't worry, you can return to our main oasis with a single click.",
+    "not_found_btn": "Return to the Main Path",
+    "loading": "Preparing the oasis and fetching data...",
+    "error_title": "Oops, something went wrong!",
+    "error_rooms": "We couldn't retrieve the room details from our oasis at the moment. Please try again later.",
+    "technical_details": "Technical details",
+    "status_available": "Available Now",
+    "status_booked": "Currently Booked",
+    "available_on": "Available on"
 }

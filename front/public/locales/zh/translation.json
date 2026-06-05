@@ -57,5 +57,12 @@
     "twin_room_price": "每人 50 美元",
     "not_found_title": "抱歉，此页面不存在！",
     "not_found_desc": "看来您 corner 在游览酒店长廊时迷失了方向。别 worry，只需轻轻一点，即可返回我们的主绿洲。",
-    "not_found_btn": "返回主航道"
+    "not_found_btn": "返回主航道",
+    "loading": "正在准备绿洲并获取数据...",
+    "error_title": "抱歉，发生了未知错误！",
+    "error_rooms": "目前无法从我们的绿洲获取客房数据。请稍后再试。",
+    "technical_details": "技术细节",
+    "status_available": "空室（即時予約可）",
+    "status_booked": "満室（予約あり）",
+    "available_on": "空室予定日:"
 }

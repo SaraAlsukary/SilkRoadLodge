@@ -35,9 +35,9 @@ const App = () => {
 
         if (currentLang === "ar") {
             document.body.classList.add("font-arabic");
-        } else if (currentLang === "en") {
+        } else if (currentLang === "en" || "ja" || "es" || "fr") {
             document.body.classList.add("font-english");
-        } else {
+        } else if (currentLang === 'ja' || "zh") {
             document.body.classList.add("font-japanese");
         }
 

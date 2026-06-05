@@ -57,5 +57,12 @@
     "twin_room_price": "50 dólares por persona",
     "not_found_title": "¡Ups! Esta puerta ya no existe.",
     "not_found_desc": "Parece que te has perdido mientras explorabas los pasillos del hotel. No te preocupes, puedes volver a nuestro oasis principal con un solo clic.",
-    "not_found_btn": "Volver a la ruta principal"
+    "not_found_btn": "Volver a la ruta principal",
+    "loading": "Preparando el oasis y recuperando datos...",
+    "error_title": "¡Ups, algo salió mal!",
+    "error_rooms": "No pudimos recuperar los detalles de las habitaciones de nuestro oasis en este momento. Por favor, inténtelo de nuevo más tarde.",
+    "technical_details": "Detalles técnicos",
+    "status_available": "Disponible Ahora",
+    "status_booked": "Reservada Actualmente",
+    "available_on": "Disponible el"
 }
