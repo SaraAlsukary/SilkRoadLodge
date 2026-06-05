@@ -28,7 +28,7 @@ jobs:
             
             # 2. جلب أحدث التعديلات البرمجية من GitHub
             git pull origin main
-            docker compose down -v
+            # docker compose down -v
             # 3. إعادة بناء الحاويات وتشغيلها (استخدام المعيار الحديث docker compose بدون خط بين الكلمتين)
             docker compose up -d --build
             
