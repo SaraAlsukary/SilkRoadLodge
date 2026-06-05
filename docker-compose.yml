@@ -31,7 +31,6 @@ services:
     restart: always # مضاف لضمان إعادة التشغيل التلقائي عند حدوث خطأ
     environment:
       MYSQL_DATABASE: silk_db
-      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: root_2424
     volumes:
       - db_data:/var/lib/mysql
