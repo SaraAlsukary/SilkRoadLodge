@@ -5,22 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\Translatable\HasTranslations; // 👈 حزمة الترجمة
+use Spatie\Translatable\HasTranslations;
 use App\Models\Booking;
 use Carbon\Carbon;
+
 class Room extends Model implements HasMedia
 {
     use InteractsWithMedia, HasTranslations;
 
-    protected $fillable = ['name', 'description', 'guests', 'beds', 'price','booking_status'];
+    // 1. إزالة booking_status من هنا لأنها قيمة ديناميكية حاسوبية
+    protected $fillable = ['name', 'description', 'guests', 'beds', 'price'];
 
-    // 💡 إخبار لارافيل بالحقول التي سيتم ترجمتها تلقائياً
-    public $translatable = ['name', 'description'];
+    // 2. إخبار لارافيل بالحقول التي سيتم ترجمتها تلقائياً
+    public array $translatable = ['name', 'description'];
 
-    protected $appends = ['image_url'];
+    // 3. دمج الحقلين الديناميكيين ليظهرا في الـ API تلقائياً
+    protected $appends = ['image_url', 'booking_status'];
 
     /**
-     * علاقة الغرفة مع الحجوزات (تأكدي من وجود موديل Booking وجدول للملف)
+     * علاقة الغرفة مع الحجوزات
      */
     public function bookings()
     {
@@ -36,15 +39,18 @@ class Room extends Model implements HasMedia
 
         // البحث عن حجز نشط يغطي تاريخ اليوم
         $activeBooking = $this->bookings()
-            ->where('status', 'confirmed') // أو حسب حالات الحجز عندك (مؤكد مثلاً)
+            ->where('status', 'confirmed')
             ->where('check_in', '<=', $today)
             ->where('check_out', '>=', $today)
             ->first();
 
         if ($activeBooking) {
+            // التأكد من تحويل النص إلى Carbon بأمان قبل عمل format
+            $checkOutDate = Carbon::parse($activeBooking->check_out);
+
             return [
                 'is_booked' => true,
-                'available_at' => $activeBooking->check_out->format('Y-m-d'), // تاريخ انتهاء الحجز
+                'available_at' => $checkOutDate->format('Y-m-d'),
             ];
         }
 
@@ -53,6 +59,10 @@ class Room extends Model implements HasMedia
             'available_at' => null,
         ];
     }
+
+    /**
+     * جلب رابط الصورة
+     */
     public function getImageUrlAttribute(): string
     {
         return $this->getFirstMediaUrl('images') ?: 'https://placehold.co/600x400/8B5E3C/F3E9DC?text=Silk+Road+Hotel';

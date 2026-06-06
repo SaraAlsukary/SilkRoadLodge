@@ -446,7 +446,7 @@ export default function RoomTypes() {
     if (isError) {
         return (
             <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="max-w-xl mx-auto my-12 p-8 text-center bg-white/40 backdrop-blur-md rounded-2xl border border-silk-sand/30 shadow-xl"
             >
@@ -522,89 +522,86 @@ export default function RoomTypes() {
                             transition={{ duration: 0.4, delay: index * 0.05 }}
                             className="group flex flex-col justify-between bg-silk-cream border border-silk-sand/20 rounded-xl overflow-hidden shadow-sm hover:shadow-2xl hover:border-silk-sand/50 transition-all duration-300 bg-white/40 backdrop-blur-xs"
                         >
-                            
-                                <div className="h-56 w-full overflow-hidden relative">
-                                    <div className="h-56 w-full overflow-hidden relative">
-                                        {/* 🌟 شارة حالة الحجز المصممة بأناقة */}
-                                        <div className="absolute top-4 right-4 z-10 flex flex-col gap-1 items-end">
-                                            {room?.booking_status?.is_booked ? (
-                                                <>
-                                                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-800/90 text-silk-cream backdrop-blur-xs border border-silk-sand/20 shadow-md tracking-wide">
-                                                        {t('status_booked', 'محجوزة حالياً')}
-                                                    </span>
-                                                    <span className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-white/80 text-amber-950 font-mono shadow-sm">
-                                                        {t('available_on', 'متاحة في:')} {room.booking_status.available_at}
-                                                    </span>
-                                                </>
-                                            ) : (
-                                                <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-800/90 text-silk-cream backdrop-blur-xs border border-emerald-600/20 shadow-md tracking-wide">
-                                                    {t('status_available', 'متاحة الآن')}
-                                                </span>
-                                            )}
-                                        </div>
-
-                                        <img
-                                            src={room.displayImage}
-                                            alt={room.name}
-                                            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                                            onError={(e) => {
-                                                const target = e.target as HTMLImageElement;
-                                                target.src = "https://placehold.co/600x400/8B5E3C/F3E9DC?text=Silk+Road+Hotel";
-                                            }}
-                                        />
-
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                                    </div>
-
-                                    <div className="p-6">
-                                        <div className="flex justify-between items-start mb-3">
-                                            <h3 className="text-2xl font-bold text-silk-brown group-hover:text-silk-dark transition-colors duration-300">
-                                                {room.name}
-                                            </h3>
-                                        </div>
-
-                                        <p className="text-silk-dark/80 font-medium text-xl leading-relaxed mb-4 min-h-[48px]">
-                                            {room.description}
-                                        </p>
-                                    </div>
+                            {/* 1. حاوية الصورة والشارات الحية (مستقلة ونظيفة) */}
+                            <div className="h-56 w-full overflow-hidden relative">
+                                {/* 🌟 شارة حالة الحجز */}
+                                <div className="absolute top-4 right-4 z-10 flex flex-col gap-1 items-end">
+                                    {room?.booking_status?.is_booked ? (
+                                        <>
+                                            <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-800/90 text-silk-cream backdrop-blur-xs border border-silk-sand/20 shadow-md tracking-wide">
+                                                {t('status_booked', 'محجوزة حالياً')}
+                                            </span>
+                                            <span className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-white/80 text-amber-950 font-mono shadow-sm">
+                                                {t('available_on', 'متاحة في:')} {room.booking_status.available_at}
+                                            </span>
+                                        </>
+                                    ) : (
+                                        <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-800/90 text-silk-cream backdrop-blur-xs border border-emerald-600/20 shadow-md tracking-wide">
+                                            {t('status_available', 'متاحة الآن')}
+                                        </span>
+                                    )}
                                 </div>
 
-                                <div className="px-6 pb-6 space-y-4">
-                                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-t-silk-brown">
+                                <img
+                                    src={room.displayImage}
+                                    alt={room.name}
+                                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                                    onError={(e) => {
+                                        const target = e.target as HTMLImageElement;
+                                        target.src = "https://placehold.co/600x400/8B5E3C/F3E9DC?text=Silk+Road+Hotel";
+                                    }}
+                                />
 
-                                        <div className="flex items-center justify-between gap-3 w-full text-md font-bold text-silk-brown/90">
-                                            <div className="flex items-center gap-1">
-                                                {room.icon}
-                                                <span>
-                                                    <span className='font-arabic font-bold text-xl'>{room.guests}</span>{' '}
-                                                    {t('guest_count')}
-                                                </span>
-                                            </div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                            </div> {/* 👈 تم إغلاق حاوية الصورة هنا بشكل صحيح */}
 
-                                            <div className="flex items-center gap-1">
-                                                {icons.bed}
-                                                <span>
-                                                    <span className='font-arabic font-bold text-xl'>{room.beds}</span>{' '}
-                                                    {t(room.beds === 1 ? 'bed_single' : 'bed_plural')}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        {/* الكود الجديد: يستدعي الجملة النصية الكاملة من ملف الترجمة مباشرة */}
-                                        <div className="flex items-center gap-1 text-md font-semibold text-silk-brown/90 px-2 py-1">
-                                            {icons.price}
-                                            <span className="font-medium text-base">
-                                                {t(`${room.slug}_price`)}
+                            {/* 2. حاوية نصوص الكارد (الاسم والوصف) */}
+                            <div className="p-6 flex-grow">
+                                <div className="flex justify-between items-start mb-3">
+                                    <h3 className="text-2xl font-bold text-silk-brown group-hover:text-silk-dark transition-colors duration-300">
+                                        {room.name}
+                                    </h3>
+                                </div>
+
+                                <p className="text-silk-dark/80 font-medium text-xl leading-relaxed mb-4 min-h-[48px]">
+                                    {room.description}
+                                </p>
+                            </div>
+
+                            {/* 3. حاوية التفاصيل السفلى والأزرار */}
+                            <div className="px-6 pb-6 space-y-4">
+                                <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-t-silk-brown">
+                                    <div className="flex items-center justify-between gap-3 w-full text-md font-bold text-silk-brown/90">
+                                        <div className="flex items-center gap-1">
+                                            {room.icon}
+                                            <span>
+                                                <span className='font-arabic font-bold text-xl'>{room.guests}</span>{' '}
+                                                {t('guest_count')}
                                             </span>
                                         </div>
 
+                                        <div className="flex items-center gap-1">
+                                            {icons.bed}
+                                            <span>
+                                                <span className='font-arabic font-bold text-xl'>{room.beds}</span>{' '}
+                                                {t(room.beds === 1 ? 'bed_single' : 'bed_plural')}
+                                            </span>
+                                        </div>
                                     </div>
 
-                                    <button className="w-full py-2.5 rounded-lg bg-silk-brown border border-silk-brown
-                                   text-silk-cream font-bold text-lg tracking-wider transition-all duration-300 hover:bg-silk-dark
-                                   hover:text-silk-cream hover:border-silk-brown/30 cursor-pointer">
-                                        {t('book_now')}
-                                    </button>
+                                    {/* السعر المستدعى من ملف الترجمة */}
+                                    <div className="flex items-center gap-1 text-md font-semibold text-silk-brown/90 px-2 py-1">
+                                        {icons.price}
+                                        <span className="font-medium text-base">
+                                            {t(`${room.slug}_price`)}
+                                        </span>
+                                    </div>
                                 </div>
+
+                                <button className="w-full py-2.5 rounded-lg bg-silk-brown border border-silk-brown text-silk-cream font-bold text-lg tracking-wider transition-all duration-300 hover:bg-silk-dark hover:text-silk-cream hover:border-silk-brown/30 cursor-pointer">
+                                    {t('book_now')}
+                                </button>
+                            </div>
                         </motion.div>
                     ))}
                 </div>
