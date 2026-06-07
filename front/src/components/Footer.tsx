@@ -107,7 +107,7 @@ export default function Footer() {
                     </p>
                     {/* استخدمنا gap-6 بدلاً من space-x-reverse لدعم ممتاز للـ RTL و LTR */}
                     <div className="flex gap-6 font-english uppercase">
-                        <span>{t('footer_developed_by')} ss</span>
+                        <span>{t('footer_developed_by')}</span>
                     </div>
                 </div>
             </div>

@@ -105,7 +105,7 @@ export default function RoomTypes() {
             displayImage: apiRoom.image || config.fallbackImage
         };
     }) || [];
-
+    console.log(mergedRooms)
     return (
         <section className="min-h-screen py-20 px-4 md:px-8 bg-silk-cream text-silk-dark transition-colors duration-300">
             <div className="max-w-6xl mx-auto">
