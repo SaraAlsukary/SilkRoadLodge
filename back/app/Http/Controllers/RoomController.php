@@ -1,6 +1,6 @@
 <?php
 
-// app/Http/Controllers/Api/RoomTypeController.php
+// app/Http/Controllers/Api/RoomController.php
 
 namespace App\Http\Controllers;
 
@@ -14,27 +14,27 @@ class RoomController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        // 💡 قراءة اللغة المطلوبة من الفرونت إند وتطبيقها في لارافيل
         $lang = $request->header('Accept-Language', 'en');
         App::setLocale($lang);
 
         $rooms = Room::all()->map(function ($room) {
             return [
                 'id' => $room->id,
-                'name' => $room->name,               // يرجع باللغة المطلوبة تلقائياً بفضل الحزمة
-                'description' => $room->description, // يرجع باللغة المطلوبة تلقائياً
+                'name' => $room->name,
+                'description' => $room->description,
                 'guests' => $room->guests,
                 'beds' => $room->beds,
-                'slug' => $room->slug,             // رقم السعر الحقيقي
-                'price' => $room->price,             // رقم السعر الحقيقي
+                'slug' => $room->slug,
+                'price' => $room->price,
                 'image' => $room->image_url,
+                'booking_status' => $room->booking_status, // 👈 أضف هذا السطر هنا ليتم إرساله للفرونت إند
             ];
         });
 
         return response()->json($rooms);
     }
 
-    /**
+ /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)

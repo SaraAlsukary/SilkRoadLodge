@@ -54,7 +54,7 @@ export default function Services() {
         {
             id: 'airport_pickup',
             icon: icons.airport,
-            image: './imgs/services/4.jpg'
+            image: './imgs/services/4.png'
 
         },
         {

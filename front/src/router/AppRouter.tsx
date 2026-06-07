@@ -9,6 +9,7 @@ const NotFound = lazy(() => import('../pages/NotFound'));
 const About = lazy(() => import('../pages/About'));
 const RoomTypes = lazy(() => import('../pages/Rooms'));
 const Services = lazy(() => import('../pages/Services'));
+const Booking = lazy(() => import('../pages/Booking'));
 
 const Loader = <P extends object>(Component: ComponentType<P>) => {
     return (props: P) => (
@@ -22,6 +23,8 @@ const AboutLazy = Loader(About);
 const NotFoundLazy = Loader(NotFound);
 const ServicesLazy = Loader(Services);
 const RoomTypeLazy = Loader(RoomTypes);
+const BookingLazy = Loader(Booking);
+
 
 // في الراوتر:
 const App = () => {
@@ -60,6 +63,9 @@ const App = () => {
                 {
                     path: 'rooms', // مسار صفحة الغرف (/rooms)
                     element: <RoomTypeLazy />,
+                }, {
+                    path: 'booking',
+                    element: <BookingLazy />
                 },
                 {
                     path: 'contact', // مسار صفحة اتصل بنا (/contact)
