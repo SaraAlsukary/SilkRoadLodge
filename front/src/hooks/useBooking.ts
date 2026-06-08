@@ -16,9 +16,6 @@ export function useBooking() {
     // 👈 الحالة الجديدة لتخزين الفترات الزمنية المحجوزة للغرفة المطلوبة
     const [bookedDates, setBookedDates] = useState<BookedInterval[]>([]);
 
-    /**
-     * جلب الفترات المحجوزة لغرفة معينة بناءً على الـ ID
-     */
     const fetchBookedDates = async (roomId: string | number) => {
         setIsLoading(true);
         setError(null);

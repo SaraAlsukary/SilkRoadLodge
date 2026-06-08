@@ -48,6 +48,9 @@ export default function BookingRoom() {
         notes: ''
     });
 
+    // جلب بيانات الغرفة المختارة حالياً لمعالجة تواريخها
+    const selectedRoom = rooms?.find((r: ApiRoom) => r.id === parseInt(formData.room_id));
+
     useEffect(() => {
         if (roomIdFromUrl) {
             setFormData(prev => ({ ...prev, room_id: roomIdFromUrl }));
@@ -131,7 +134,6 @@ export default function BookingRoom() {
             newErrors.check_out = t('err_checkout_before', 'تاريخ الخروج يجب أن يكون بعد تاريخ الدخول');
         }
 
-        const selectedRoom = rooms?.find((r: ApiRoom) => r.id === parseInt(formData.room_id));
         const guestsNum = parseInt(formData.guests_count);
 
         if (!formData.guests_count || isNaN(guestsNum) || guestsNum < 1) {
@@ -187,9 +189,9 @@ export default function BookingRoom() {
     };
 
     const availableServices = [
-        { id: 'breakfast', label: t('service_breakfast', 'وجبة إفطار فاخرة') },
-        { id: 'airport_pickup', label: t('service_pickup', 'توصيل من وإلى المطار') },
-        { id: 'spa', label: t('service_spa', 'دخول حوض الاستجمام والسبا') },
+        { id: 'breakfast', label: t('service_breakfast', 'وجبة إفطار') },
+        { id: 'lunch', label: t('service_lunch', 'توصيل من وإلى المطار') },
+        { id: 'dinner', label: t('service_dinner', 'دخول حوض الاستجمام والسبا') },
     ];
 
     if (success) {
@@ -237,8 +239,6 @@ export default function BookingRoom() {
                     <div className={`w-16 h-0.5 rounded-full ${step === 2 ? 'bg-silk-brown' : 'bg-silk-sand/30'}`}></div>
                     <div className={`flex items-center justify-center w-10 h-10 rounded-full font-bold transition-all duration-300 ${step === 2 ? 'bg-silk-brown text-silk-cream' : 'bg-silk-sand/30 text-silk-brown'}`}>2</div>
                 </div>
-
-                
 
                 <div className="bg-white/40 backdrop-blur-md border border-silk-sand/20 rounded-2xl p-6 md:p-10 shadow-xl">
                     <form onSubmit={handleSubmit} noValidate className="space-y-6">
@@ -292,16 +292,30 @@ export default function BookingRoom() {
                                 <motion.div key="step2" initial={{ opacity: 0, x: isRtl ? -20 : 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: isRtl ? 20 : -20 }} transition={{ duration: 0.3 }} className="space-y-5">
                                     <h3 className="text-xl font-bold text-silk-brown border-b border-silk-sand/30 pb-2 mb-4">{t('stay_details', 'تفاصيل الإقامة')}</h3>
 
+                                    {/* 🌟 قسم عرض التواريخ المحجوزة مسبقاً (مرتبة من الأقدم للأحدث) */}
+                                    {selectedRoom?.existing_bookings && selectedRoom.existing_bookings.length > 0 && (
+                                        <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl space-y-2 mb-4">
+                                            <h4 className="text-sm font-bold text-amber-800 flex items-center gap-2">
+                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                                </svg>
+                                                {t('reserved_dates_title', 'التواريخ غير المتاحة لهذه الغرفة:')}
+                                            </h4>
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-32 overflow-y-auto pr-1 text-xs font-semibold text-amber-900/90">
+                                                {/* 🌟 هنا قمنا بإضافة الترتيب */}
+                                                {[...selectedRoom.existing_bookings]
+                                                    .sort((a, b) => new Date(a.check_in).getTime() - new Date(b.check_in).getTime())
+                                                    .map((booking, idx) => (
+                                                        <div key={idx} className="bg-white/50 px-3 py-1.5 rounded-lg border border-amber-600/10 flex justify-between items-center dir-ltr">
+                                                            <span>{booking.check_in}</span>
+                                                            <span className="text-amber-600 font-bold mx-1">➔</span>
+                                                            <span>{booking.check_out}</span>
+                                                        </div>
+                                                    ))}
+                                            </div>
+                                        </div>
+                                    )}
                                     <div>
-                                        {/* <label className="block text-sm font-bold text-silk-brown mb-2">{t('select_room', 'اختر نوع الغرفة')}</label>
-                                        <select name="room_id" value={formData.room_id} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-bold transition-all ${errors.room_id ? 'border-rose-500' : 'border-silk-sand/40'}`}>
-                                            <option value="">{t('choose_room_placeholder', '-- الرجاء اختيار غرفة --')}</option>
-                                            {rooms?.map((room: ApiRoom) => (
-                                                <option key={room.id} value={room.id}>
-                                                    {room.name} ({room.price}$ / {t('night', 'ليلة')})
-                                                </option>
-                                            ))}
-                                        </select> */}
                                         {errors.room_id && <p className="text-rose-600 text-xs mt-1.5 font-bold">{errors.room_id}</p>}
                                     </div>
 
@@ -337,7 +351,7 @@ export default function BookingRoom() {
 
                                     <div>
                                         <label className="block text-sm font-bold text-silk-brown mb-2">{t('special_notes', 'ملاحظات خاصة (اختياري)')}</label>
-                                        <textarea name="notes" rows={3} value={formData.notes} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-silk-sand/40 bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all text-silk-dark" placeholder={t('notes_placeholder', 'أي متطلبات خاصة بالسرير، التدخين، إلخ...')} />
+                                        <textarea name="notes" rows={3} value={formData.notes} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-silk-sand/40 bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all text-silk-dark" placeholder={t('notes_placeholder', 'أي متمتطلبات خاصة بالسرير، التدخين، إلخ...')} />
                                     </div>
                                 </motion.div>
                             )}
@@ -345,12 +359,12 @@ export default function BookingRoom() {
 
                         <div className="flex justify-between items-center gap-2 md:gap-0 pt-4 border-t border-silk-sand/20">
                             {step === 2 && (
-                                <button type="button" onClick={() => setStep(1)} className={` ${i18n.language==='zh'||"ja"?"w-30":""} px-6 py-3 border ${i18n.language === 'en'||'fr'||'zh'||'es' ? " text-xs" : ""}  md:text-lg  border-silk-brown text-silk-brown font-bold rounded-xl hover:bg-silk-brown/5 transition-all duration-300 cursor-pointer`}>
+                                <button type="button" onClick={() => setStep(1)} className={` ${i18n.language === 'zh' || "ja" ? "w-30" : ""} px-6 py-3 border ${i18n.language === 'en' || 'fr' || 'zh' || 'es' ? " text-xs" : ""}  md:text-lg  border-silk-brown text-silk-brown font-bold rounded-xl hover:bg-silk-brown/5 transition-all duration-300 cursor-pointer`}>
                                     {t('back', 'السابق')}
                                 </button>
                             )}
                             <button type="submit" disabled={isLoading} className={`py-3 px-8 bg-silk-brown hover:bg-silk-dark text-silk-cream 
-                                font-bold rounded-xl shadow-md transition-all duration-300 cursor-pointer ${i18n.language === 'en'||'fr'||'zh'||'es' ? "text-xs" : ""}  md:text-lg  ${step === 1 ? 'w-full md:w-auto ms-auto' : 'w-full md:w-auto ms-auto flex items-center justify-center gap-2'}`}>
+                                font-bold rounded-xl shadow-md transition-all duration-300 cursor-pointer ${i18n.language === 'en' || 'fr' || 'zh' || 'es' ? "text-xs" : ""}  md:text-lg  ${step === 1 ? 'w-full md:w-auto ms-auto' : 'w-full md:w-auto ms-auto flex items-center justify-center gap-2'}`}>
                                 {isLoading ? (
                                     <div className="w-5 h-5 border-2 border-silk-cream border-t-transparent rounded-full animate-spin"></div>
                                 ) : step === 1 ? (

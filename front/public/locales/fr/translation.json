@@ -84,8 +84,6 @@
     "check_in_date": "Date d'Arrivée",
     "check_out_date": "Date de Départ",
     "guests_count": "Nombre de Personnes",
-    "extra_services": "Services Additionnels Exclusifs",
-    "service_breakfast": "Petit-Déjeuner Buffet Gourmet",
     "service_pickup": "Transfert Privé Aéroport",
     "service_spa": "Accès au Spa & Bien-être",
     "special_notes": "Demandes Spéciales & Notes (Optionnel)",
@@ -118,5 +116,10 @@
     "err_checkout_req": "La date de départ est obligatoire",
     "err_checkout_before": "La date de départ doit être postérieure à la date d'arrivée",
     "err_guests_min": "Le nombre de personnes doit être d'au moins 1",
-    "err_guests_max": "Cette chambre ne peut accueillir que le nombre de personnes spécifié"
+    "err_guests_max": "Cette chambre ne peut accueillir que le nombre de personnes spécifié",
+    "reserved_dates_title": "Dates réservées pour cette chambre:",
+    "extra_services": "Services disponibles",
+    "service_breakfast": "Petit-déjeuner",
+    "service_lunch": "Déjeuner",
+    "service_dinner": "Dîner"
 }

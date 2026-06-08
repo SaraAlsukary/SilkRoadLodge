@@ -83,10 +83,6 @@
     "check_in_date": "Check-In Date",
     "check_out_date": "Check-Out Date",
     "guests_count": "Number of Guests",
-    "extra_services": "Exclusive Extra Services",
-    "service_breakfast": "Gourmet Breakfast Buffet",
-    "service_pickup": "Private Airport Transfer",
-    "service_spa": "Spa & Wellness Access",
     "special_notes": "Special Requests & Notes (Optional)",
     "notes_placeholder": "Any requirements regarding bedding, smoking preferences, or early arrival...",
     "back": "Back",
@@ -117,5 +113,10 @@
     "err_checkout_req": "Check-out date is required",
     "err_checkout_before": "Check-out date must be after check-in date",
     "err_guests_min": "Number of guests must be at least 1",
-    "err_guests_max": "This room only accommodates the specified number of guests"
+    "err_guests_max": "This room only accommodates the specified number of guests",
+    "reserved_dates_title": "Reserved dates for this room:",
+    "extra_services": "Available Services",
+    "service_breakfast": "Breakfast",
+    "service_lunch": "Lunch",
+    "service_dinner": "Dinner"
 }

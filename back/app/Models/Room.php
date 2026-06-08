@@ -20,7 +20,7 @@ class Room extends Model implements HasMedia
     public array $translatable = ['name', 'description'];
 
     // 3. دمج الحقلين الديناميكيين ليظهرا في الـ API تلقائياً
-    protected $appends = ['image_url', 'booking_status'];
+    protected $appends = ['image_url', 'booking_status','blocked_dates'];
 
     /**
      * علاقة الغرفة مع الحجوزات
@@ -29,7 +29,23 @@ class Room extends Model implements HasMedia
     {
         return $this->hasMany(Booking::class);
     }
+    // 1. تحديث الـ appends
 
+    /**
+     * 🌟 جلب جميع الفترات المحجوزة للغرفة ليتم تعطيلها في تقويم العميل
+     */
+    public function getBlockedDatesAttribute(): array
+    {
+        // نعتمد على العلاقة المحملة مسبقاً (Eager Loaded) لتسريع الأداء
+        return $this->bookings->map(function ($booking) {
+            return [
+                // تاريخ بداية الحجز
+                'start' => $booking->check_in,
+                // تاريخ الخروج ناقص يوم (لأن يوم الخروج يعتبر متاحاً لحجز جديد يمر بنفس اليوم)
+                'end'   => \Carbon\Carbon::parse($booking->check_out)->subDay()->format('Y-m-d'),
+            ];
+        })->values()->toArray();
+    }
     /**
      * 🌟 جلب حالة الحجز الحالية ديناميكياً مع حساب التواريخ المتداخلة
      */
@@ -37,37 +53,32 @@ class Room extends Model implements HasMedia
     {
         $today = Carbon::today();
 
-        // 1. جلب جميع الحجوزات المؤكدة القادمة لهذه الغرفة مرتبة حسب تاريخ الدخول
-        $bookings = $this->bookings()
-            ->where('status', 'confirmed')
-            ->where('check_out', '>', $today->format('Y-m-d'))
-            ->orderBy('check_in')
-            ->get();
+        // 🌟 استخدام العلاقة المحملة مسبقاً لتجنب الاستعلامات المتكررة
+        $bookings = $this->bookings;
 
         $is_booked = false;
         $checkDate = $today->copy();
 
-        // 2. فحص هل الغرفة محجوزة "اليوم"؟
+        // فحص هل الغرفة محجوزة "اليوم"
         foreach($bookings as $booking) {
             $start = Carbon::parse($booking->check_in)->startOfDay();
             $end = Carbon::parse($booking->check_out)->startOfDay();
 
-            // نستخدم subDay لأن يوم الخروج يعتبر متاحاً للحجز الجديد
             if ($today->betweenIncluded($start, $end->copy()->subDay())) {
                 $is_booked = true;
-                break;
+                break; // الغرفة محجوزة اليوم، نوقف الفحص
             }
         }
 
-        // إذا لم تكن محجوزة اليوم، لا داعي للبحث عن تاريخ قادم
+        // إذا لم تكن محجوزة "اليوم" بالتحديد، فهي متاحة الآن
         if (!$is_booked) {
             return [
-                'is_booked' => false,
-                'available_at' => null,
+                'is_booked'    => false,
+                'available_at' => null, // متاحة من اليوم
             ];
         }
 
-        // 3. البحث الذكي عن أقرب تاريخ متاح فعلياً (يتخطى الحجوزات المتتالية)
+        // البحث عن أقرب تاريخ متاح بعد اليوم
         while (true) {
             $conflict = false;
 
@@ -75,23 +86,20 @@ class Room extends Model implements HasMedia
                 $start = Carbon::parse($booking->check_in)->startOfDay();
                 $end = Carbon::parse($booking->check_out)->startOfDay();
 
-                // إذا كان التاريخ الذي نفحصه حالياً يقع داخل فترة حجز
                 if ($checkDate->betweenIncluded($start, $end->copy()->subDay())) {
                     $conflict = true;
-                    // اقفز مباشرة إلى تاريخ خروج هذا الحجز وابدأ الفحص من جديد
-                    $checkDate = $end->copy();
+                    $checkDate = $end->copy(); // اقفز لتاريخ الخروج
                     break;
                 }
             }
 
-            // إذا فحصنا جميع الحجوزات ولم نجد تعارضاً مع تاريخنا، إذن هذا هو التاريخ المتاح!
             if (!$conflict) {
                 break;
             }
         }
 
         return [
-            'is_booked' => true,
+            'is_booked'    => true,
             'available_at' => $checkDate->format('Y-m-d'),
         ];
     }

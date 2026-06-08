@@ -84,8 +84,6 @@
     "check_in_date": "チェックイン日",
     "check_out_date": "チェックアウト日",
     "guests_count": "ご宿泊人数",
-    "extra_services": "限定オプショナルサービス",
-    "service_breakfast": "豪華朝食ブッフェ",
     "service_pickup": "専用車による空港送迎",
     "service_spa": "スパ＆ウェルネス施設のご利用",
     "special_notes": "特別なリクエスト・備考（任意）",
@@ -118,5 +116,10 @@
     "err_checkout_req": "チェックアウト日は必須です",
     "err_checkout_before": "チェックアウト日はチェックイン日より後の日付にしてください",
     "err_guests_min": "宿泊人数は少なくとも1名以上でなければなりません",
-    "err_guests_max": "この客室は指定された定員までしか宿泊できません"
+    "err_guests_max": "この客室は指定された定員までしか宿泊できません",
+    "reserved_dates_title": "この部屋の予約済み日程:",
+    "extra_services": "利用可能なサービス",
+    "service_breakfast": "朝食",
+    "service_lunch": "昼食",
+    "service_dinner": "夕食"
 }

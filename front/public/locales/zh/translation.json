@@ -84,8 +84,6 @@
     "check_in_date": "入住日期",
     "check_out_date": "退房日期",
     "guests_count": "入住人数",
-    "extra_services": "专属尊享服务",
-    "service_breakfast": "豪华自助早餐",
     "service_pickup": "私人机场接送服务",
     "service_spa": "水疗与健身中心体验",
     "special_notes": "特殊要求与备注（选填）",
@@ -118,5 +116,10 @@
     "err_checkout_req": "退房日期是必填项",
     "err_checkout_before": "退房日期必须在入住日期之后",
     "err_guests_min": "入住人数至少为1人",
-    "err_guests_max": "入住人数不能超过该房型设定的最大容纳人数"
+    "err_guests_max": "入住人数不能超过该房型设定的最大容纳人数",
+    "reserved_dates_title": "此房间的已预订日期:",
+    "extra_services": "可选服务",
+    "service_breakfast": "早餐",
+    "service_lunch": "午餐",
+    "service_dinner": "晚餐"
 }

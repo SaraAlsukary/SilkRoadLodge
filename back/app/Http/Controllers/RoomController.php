@@ -12,28 +12,41 @@ use Illuminate\Support\Facades\App;
 
 class RoomController extends Controller
 {
-    public function index(Request $request): JsonResponse
+public function index(Request $request): JsonResponse
     {
         $lang = $request->header('Accept-Language', 'en');
-        App::setLocale($lang);
+        \App::setLocale($lang);
 
-        $rooms = Room::all()->map(function ($room) {
+        // جلب الغرف مع الحجوزات المستقبلية أو الحالية فقط المؤكدة
+        $rooms = Room::with(['bookings' => function ($query) {
+            $query->where('status', 'confirmed') // تأكد من وجود عمود status في جدول الحجوزات لديك
+                  ->where('check_out', '>', now()->format('Y-m-d'));
+        }])->get()->map(function ($room) {
             return [
-                'id' => $room->id,
-                'name' => $room->name,
-                'description' => $room->description,
-                'guests' => $room->guests,
-                'beds' => $room->beds,
-                'slug' => $room->slug,
-                'price' => $room->price,
-                'image' => $room->image_url,
-                'booking_status' => $room->booking_status, // 👈 أضف هذا السطر هنا ليتم إرساله للفرونت إند
+                'id'             => $room->id,
+                'name'           => $room->name,
+                'description'    => $room->description,
+                'guests'         => $room->guests,
+                'beds'           => $room->beds,
+                'slug'           => $room->slug,
+                'price'          => $room->price,
+                'image'          => $room->image_url,
+                'booking_status' => $room->booking_status,
+
+                // 🌟 التعديل هنا: تشكيل مصفوفة الحجوزات لتطابق ما يتوقعه React
+                'existing_bookings' => $room->bookings->map(function ($booking) {
+                    return [
+                        // تأكد من أن أسماء الأعمدة هنا تطابق قاعدة بياناتك
+                        // قد تحتاج لاستخدام format('Y-m-d') إذا كانت بصيغة Carbon
+                        'check_in'  => is_string($booking->check_in) ? $booking->check_in : $booking->check_in->format('Y-m-d'),
+                        'check_out' => is_string($booking->check_out) ? $booking->check_out : $booking->check_out->format('Y-m-d'),
+                    ];
+                })->values()->toArray(),
             ];
         });
 
         return response()->json($rooms);
     }
-
  /**
      * Store a newly created resource in storage.
      */
