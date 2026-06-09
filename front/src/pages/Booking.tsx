@@ -16,8 +16,64 @@ interface ApiRoom {
     name: string;
     price: number;
     guests: number;
-    existing_bookings?: BookingRange[]; // 🌟 مصفوفة التواريخ المحجوزة مسبقاً للغرفة
+    existing_bookings?: BookingRange[];
 }
+
+// 🌍 بيانات مفاتيح الاتصال مع كود البلد (ISO) لجلب الصورة
+const phoneCodesData = [
+    { code: '+963', iso: 'sy' }, { code: '+20', iso: 'eg' }, { code: '+966', iso: 'sa' },
+    { code: '+961', iso: 'lb' }, { code: '+962', iso: 'jo' }, { code: '+971', iso: 'ae' },
+    { code: '+212', iso: 'ma' }, { code: '+213', iso: 'dz' }, { code: '+216', iso: 'tn' },
+    { code: '+964', iso: 'iq' }, { code: '+965', iso: 'kw' }, { code: '+968', iso: 'om' },
+    { code: '+974', iso: 'qa' }, { code: '+973', iso: 'bh' }, { code: '+967', iso: 'ye' },
+    { code: '+970', iso: 'ps' }, { code: '+218', iso: 'ly' }, { code: '+249', iso: 'sd' },
+    { code: '+81', iso: 'jp' }, { code: '+86', iso: 'cn' }, { code: '+33', iso: 'fr' },
+    { code: '+34', iso: 'es' }, { code: '+1', iso: 'us' }, { code: '+44', iso: 'gb' },
+    { code: '+1', iso: 'ca' }, { code: '+49', iso: 'de' }, { code: '+39', iso: 'it' },
+    { code: '+90', iso: 'tr' }, { code: '+98', iso: 'ir' }, { code: '+91', iso: 'in' },
+    { code: '+55', iso: 'br' }, { code: '+61', iso: 'au' }
+];
+
+// 🌍 بيانات الجنسيات مع كود البلد (ISO)
+const nationalitiesData: Record<string, { value: string; label: string; iso: string }[]> = {
+    ar: [
+        { value: 'Syrian', label: 'سوري', iso: 'sy' }, { value: 'Egyptian', label: 'مصري', iso: 'eg' },
+        { value: 'Saudi', label: 'سعودي', iso: 'sa' }, { value: 'Lebanese', label: 'لبناني', iso: 'lb' },
+        { value: 'Jordanian', label: 'أردني', iso: 'jo' }, { value: 'Emirati', label: 'إماراتي', iso: 'ae' },
+        { value: 'Moroccan', label: 'مغربي', iso: 'ma' }, { value: 'Algerian', label: 'جزائري', iso: 'dz' },
+        { value: 'Tunisian', label: 'تونسي', iso: 'tn' }, { value: 'Iraqi', label: 'عراقي', iso: 'iq' },
+        { value: 'Kuwaiti', label: 'كويتي', iso: 'kw' }, { value: 'Omani', label: 'عماني', iso: 'om' },
+        { value: 'Qatari', label: 'قطري', iso: 'qa' }, { value: 'Bahraini', label: 'بحريني', iso: 'bh' },
+        { value: 'Yemeni', label: 'يمني', iso: 'ye' }, { value: 'Palestinian', label: 'فلسطيني', iso: 'ps' },
+        { value: 'Libyan', label: 'ليبي', iso: 'ly' }, { value: 'Sudanese', label: 'سوداني', iso: 'sd' },
+        { value: 'Japanese', label: 'ياباني', iso: 'jp' }, { value: 'Chinese', label: 'صيني', iso: 'cn' },
+        { value: 'French', label: 'فرنسي', iso: 'fr' }, { value: 'Spanish', label: 'إسباني', iso: 'es' },
+        { value: 'American', label: 'أمريكي', iso: 'us' }, { value: 'British', label: 'بريطاني', iso: 'gb' },
+        { value: 'Canadian', label: 'كندي', iso: 'ca' }, { value: 'German', label: 'ألماني', iso: 'de' },
+        { value: 'Italian', label: 'إيطالي', iso: 'it' }, { value: 'Turkish', label: 'تركي', iso: 'tr' },
+        { value: 'Iranian', label: 'إيراني', iso: 'ir' }, { value: 'Indian', label: 'هندي', iso: 'in' },
+        { value: 'Brazilian', label: 'برازيلي', iso: 'br' }, { value: 'Australian', label: 'أسترالي', iso: 'au' }
+    ],
+    en: [
+        { value: 'Syrian', label: 'Syrian', iso: 'sy' }, { value: 'Egyptian', label: 'Egyptian', iso: 'eg' },
+        { value: 'Saudi', label: 'Saudi', iso: 'sa' }, { value: 'Lebanese', label: 'Lebanese', iso: 'lb' },
+        { value: 'Jordanian', label: 'Jordanian', iso: 'jo' }, { value: 'Emirati', label: 'Emirati', iso: 'ae' },
+        { value: 'Moroccan', label: 'Moroccan', iso: 'ma' }, { value: 'Algerian', label: 'Algerian', iso: 'dz' },
+        { value: 'Tunisian', label: 'Tunisian', iso: 'tn' }, { value: 'Iraqi', label: 'Iraqi', iso: 'iq' },
+        { value: 'Kuwaiti', label: 'Kuwaiti', iso: 'kw' }, { value: 'Omani', label: 'Omani', iso: 'om' },
+        { value: 'Qatari', label: 'Qatari', iso: 'qa' }, { value: 'Bahraini', label: 'Bahraini', iso: 'bh' },
+        { value: 'Yemeni', label: 'Yemeni', iso: 'ye' }, { value: 'Palestinian', label: 'Palestinian', iso: 'ps' },
+        { value: 'Libyan', label: 'Libyan', iso: 'ly' }, { value: 'Sudanese', label: 'Sudanese', iso: 'sd' },
+        { value: 'Japanese', label: 'Japanese', iso: 'jp' }, { value: 'Chinese', label: 'Chinese', iso: 'cn' },
+        { value: 'French', label: 'French', iso: 'fr' }, { value: 'Spanish', label: 'Spanish', iso: 'es' },
+        { value: 'American', label: 'American', iso: 'us' }, { value: 'British', label: 'British', iso: 'gb' },
+        { value: 'Canadian', label: 'Canadian', iso: 'ca' }, { value: 'German', label: 'German', iso: 'de' },
+        { value: 'Italian', label: 'Italian', iso: 'it' }, { value: 'Turkish', label: 'Turkish', iso: 'tr' },
+        { value: 'Iranian', label: 'Iranian', iso: 'ir' }, { value: 'Indian', label: 'Indian', iso: 'in' },
+        { value: 'Brazilian', label: 'Brazilian', iso: 'br' }, { value: 'Australian', label: 'Australian', iso: 'au' }
+    ],
+    // اختصاراً يمكنك إضافة باقي اللغات (fr, ja, zh, es) بنفس النسق بإضافة iso لكل عنصر
+};
 
 export default function BookingRoom() {
     const { t, i18n } = useTranslation();
@@ -33,13 +89,21 @@ export default function BookingRoom() {
     const [step, setStep] = useState(1);
     const [errors, setErrors] = useState<Record<string, string>>({});
 
+    // 🌟 حالات القوائم المنسدلة المخصصة
+    const [phoneDropdownOpen, setPhoneDropdownOpen] = useState(false);
+    const [natDropdownOpen, setNatDropdownOpen] = useState(false);
+
     const [formData, setFormData] = useState({
         room_id: roomIdFromUrl,
         customer_name: '',
+        phone_code: '+963',
+        phone_iso: 'sy', // لتخزين العلم المختار للرقم
         customer_phone: '',
         customer_email: '',
         gender: 'male',
         nationality: '',
+        nationality_iso: '', // لتخزين العلم المختار للجنسية
+        nationality_label: '', // لعرض النص داخل القائمة
         age: '',
         guests_count: '1',
         check_in: '',
@@ -48,7 +112,6 @@ export default function BookingRoom() {
         notes: ''
     });
 
-    // جلب بيانات الغرفة المختارة حالياً لمعالجة تواريخها
     const selectedRoom = rooms?.find((r: ApiRoom) => r.id === parseInt(formData.room_id));
 
     useEffect(() => {
@@ -142,7 +205,6 @@ export default function BookingRoom() {
             newErrors.guests_count = t('err_guests_max', `هذه الغرفة تتسع لـ ${selectedRoom.guests} ضيوف كحد أقصى`);
         }
 
-        // 🌟 فحص تعارض التواريخ مع الحجوزات السابقة للغرفة المحددة
         if (formData.check_in && formData.check_out && selectedRoom?.existing_bookings) {
             const userIn = new Date(formData.check_in);
             const userOut = new Date(formData.check_out);
@@ -150,7 +212,6 @@ export default function BookingRoom() {
             const isOverlapping = selectedRoom.existing_bookings.some((booking: BookingRange) => {
                 const bookedIn = new Date(booking.check_in);
                 const bookedOut = new Date(booking.check_out);
-                // شرط التقاطع: تاريخ دخول المستخدم قبل خروج المحجوز، وتاريخ خروج المستخدم بعد دخول المحجوز
                 return userIn < bookedOut && userOut > bookedIn;
             });
 
@@ -179,20 +240,30 @@ export default function BookingRoom() {
         try {
             await createBooking({
                 ...formData,
+                customer_phone: `${formData.phone_code} ${formData.customer_phone}`,
                 room_id: parseInt(formData.room_id),
                 age: parseInt(formData.age),
                 guests_count: parseInt(formData.guests_count)
             });
         } catch (err) {
-            // التعامل مع الأخطاء عبر الـ Hook
+            // التعامل مع الخطأ
         }
     };
 
     const availableServices = [
+
+        { id: 'bedouin_tent', label: t('bedouin_tent_title') },
+        { id: 'safari_tour_title', label: t('safari_tour_title') },
+        { id: 'bicycles_title', label: t('bicycles_title') },
+        { id: 'airport_pickup_title', label: t('airport_pickup_title') },
+        { id: 'syria_tour_title', label: t('syria_tour_title') },
         { id: 'breakfast', label: t('service_breakfast', 'وجبة إفطار') },
         { id: 'lunch', label: t('service_lunch', 'توصيل من وإلى المطار') },
         { id: 'dinner', label: t('service_dinner', 'دخول حوض الاستجمام والسبا') },
     ];
+
+    // قائمة الجنسيات المعتمدة على اللغة الحالية
+    const currentNationalities = nationalitiesData[currentLanguage] || nationalitiesData['en'];
 
     if (success) {
         return (
@@ -209,10 +280,7 @@ export default function BookingRoom() {
                     </div>
                     <h2 className="text-3xl font-bold text-silk-brown mb-3">{t('booking_success_title', 'تم الحجز بنجاح!')}</h2>
                     <p className="text-silk-dark/80 mb-6 font-medium">{t('booking_success_desc', 'سعداء باختياركم نزل طريق الحرير. تم تأكيد حجزكم وسنرسل التفاصيل عبر البريد الإلكتروني.')}</p>
-                    <button
-                        onClick={() => window.location.href = '/'}
-                        className="w-full py-3 bg-silk-brown hover:bg-silk-dark text-silk-cream font-bold rounded-xl shadow-lg transition-all duration-300 cursor-pointer"
-                    >
+                    <button onClick={() => window.location.href = '/'} className="w-full py-3 bg-silk-brown hover:bg-silk-dark text-silk-cream font-bold rounded-xl shadow-lg transition-all duration-300 cursor-pointer">
                         {t('back_home', 'العودة للرئيسية')}
                     </button>
                 </motion.div>
@@ -225,13 +293,9 @@ export default function BookingRoom() {
             <div className="max-w-3xl mx-auto">
 
                 <div className="text-center mb-10">
-                    <h2 className="text-4xl md:text-5xl font-bold text-silk-brown mb-3 tracking-wide">
-                        {t('book_your_stay', 'احجز إقامتك الاستثنائية')}
-                    </h2>
+                    <h2 className="text-4xl md:text-5xl font-bold text-silk-brown mb-3 tracking-wide">{t('book_your_stay', 'احجز إقامتك الاستثنائية')}</h2>
                     <div className="w-20 h-1 bg-silk-sand mx-auto rounded-full mb-3"></div>
-                    <p className="text-silk-brown/70 font-medium text-lg">
-                        {t('booking_subtitle', 'اكتشف عبق التاريخ والفخامة في نزل طريق الحرير')}
-                    </p>
+                    <p className="text-silk-brown/70 font-medium text-lg">{t('booking_subtitle', 'اكتشف عبق التاريخ والفخامة في نزل طريق الحرير')}</p>
                 </div>
 
                 <div className="flex items-center justify-center mb-8 gap-4">
@@ -255,33 +319,129 @@ export default function BookingRoom() {
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-sm font-bold text-silk-brown mb-2">{t('phone_number', 'رقم الهاتف')}</label>
-                                            <input type="tel" name="customer_phone" value={formData.customer_phone} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all text-left dir-ltr ${errors.customer_phone ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`} placeholder="+963 9X XXX XXXX" />
+                                            <label className="block text-md font-bold text-silk-brown mb-2">{t('phone_number', 'رقم الهاتف')}</label>
+                                            <div dir='rtl' className={`flex flex-row-reverse md:flex-row-reverse rounded-xl border bg-white/80 focus-within:ring-2 focus-within:ring-silk-brown/50 transition-all  relative ${errors.customer_phone ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`}>
+
+                                                {/* 🌟 القائمة المنسدلة المخصصة لكود البلد */}
+                                                <div className="relative w-32">
+                                                    <div
+                                                        onClick={() => setPhoneDropdownOpen(!phoneDropdownOpen)}
+                                                        className="flex items-center gap-2 px-3 py-3 h-full cursor-pointer hover:bg-silk-sand/10 transition-colors"
+                                                    >
+                                                        <img src={`https://flagcdn.com/w20/${formData.phone_iso}.png`} alt="flag" className="w-5 shadow-sm" />
+                                                        <span className="font-bold text-silk-dark text-sm">{formData.phone_code}</span>
+                                                    </div>
+
+                                                    {phoneDropdownOpen && (
+                                                        <>
+                                                            <div className="fixed inset-0 z-10" onClick={() => setPhoneDropdownOpen(false)}></div>
+                                                            <ul className="absolute top-full left-0 mt-2 w-32 max-h-48 overflow-y-auto bg-white border border-silk-sand/30 rounded-xl shadow-xl z-20">
+                                                                {phoneCodesData.map((pc, idx) => (
+                                                                    <li
+                                                                        key={idx}
+                                                                        onClick={() => {
+                                                                            setFormData(prev => ({ ...prev, phone_code: pc.code, phone_iso: pc.iso }));
+                                                                            setPhoneDropdownOpen(false);
+                                                                        }}
+                                                                        className="flex items-center gap-3 px-4 py-2 hover:bg-silk-sand/20 cursor-pointer transition-colors"
+                                                                    >
+                                                                        <img src={`https://flagcdn.com/w20/${pc.iso}.png`} alt="" className="w-5 shadow-sm" />
+                                                                        <span className="font-medium text-sm text-silk-dark">{pc.code}</span>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        </>
+                                                    )}
+                                                </div>
+
+                                                <div className="w-px bg-silk-sand/40 my-2"></div>
+                                                <input
+                                                    type="tel"
+                                                    name="customer_phone"
+                                                    value={formData.customer_phone}
+                                                    onChange={handleInputChange}
+                                                    className="w-full px-3 py-3 bg-transparent focus:outline-none font-medium text-left"
+                                                    placeholder="9X XXX XXXX"
+                                                />
+                                            </div>
                                             {errors.customer_phone && <p className="text-rose-600 text-xs mt-1.5 font-bold">{errors.customer_phone}</p>}
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-bold text-silk-brown mb-2">{t('email_address', 'البريد الإلكتروني')}</label>
-                                            <input type="email" name="customer_email" value={formData.customer_email} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all text-left dir-ltr ${errors.customer_email ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`} placeholder="example@silkroad.com" />
+                                            <label className={`block text-md font-bold text-silk-brown mb-2`}>{t('email_address', 'البريد الإلكتروني')}</label>
+                                            <input type="email" name="customer_email" value={formData.customer_email} onChange={handleInputChange} dir='ltr' className={` w-full px-4 py-3 rounded-xl border bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all text-left dir-ltr ${errors.customer_email ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`} placeholder="example@silkroadlodge.com" />
                                             {errors.customer_email && <p className="text-rose-600 text-xs mt-1.5 font-bold">{errors.customer_email}</p>}
                                         </div>
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         <div>
-                                            <label className="block text-sm font-bold text-silk-brown mb-2">{t('gender', 'الجنس')}</label>
+                                            <label className="block text-md font-bold text-silk-brown mb-2">{t('gender', 'الجنس')}</label>
                                             <select name="gender" value={formData.gender} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-silk-sand/40 bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-bold transition-all">
                                                 <option value="male">{t('male', 'ذكر')}</option>
                                                 <option value="female">{t('female', 'أنثى')}</option>
                                             </select>
                                         </div>
-                                        <div>
-                                            <label className="block text-sm font-bold text-silk-brown mb-2">{t('nationality', 'الجنسية')}</label>
-                                            <input type="text" name="nationality" value={formData.nationality} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all ${errors.nationality ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`} placeholder={t('nationality_placeholder', 'Syrian')} />
+
+                                        {/* 🌟 القائمة المنسدلة المخصصة للجنسية */}
+                                        <div className="relative">
+                                            <label className="block text-md font-bold text-silk-brown mb-2">{t('nationality', 'الجنسية')}</label>
+                                            <div
+                                                onClick={() => setNatDropdownOpen(!natDropdownOpen)}
+                                                className={`flex items-center justify-between w-full px-4 py-3 rounded-xl border bg-white/80 cursor-pointer transition-all ${errors.nationality ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40 focus:ring-2 focus:ring-silk-brown/50'}`}
+                                            >
+                                                {formData.nationality ? (
+                                                    <div className="flex items-center gap-2">
+                                                        <img src={`https://flagcdn.com/w20/${formData.nationality_iso}.png`} alt="flag" className="w-5 shadow-sm" />
+                                                        <span className="font-bold text-silk-dark">{formData.nationality_label}</span>
+                                                    </div>
+                                                ) : (
+                                                    <span className="font-bold text-silk-dark/60">{t('nationality')}</span>
+                                                )}
+                                                <svg className="w-4 h-4 text-silk-dark/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+                                            </div>
+
+                                            {natDropdownOpen && (
+                                                <>
+                                                    <div className="fixed inset-0 z-10" onClick={() => setNatDropdownOpen(false)}></div>
+                                                    <ul className="absolute top-full left-0 mt-2 w-full max-h-60 overflow-y-auto bg-white border border-silk-sand/30 rounded-xl shadow-xl z-20">
+                                                        {currentNationalities.map((nat) => (
+                                                            <li
+                                                                key={nat.value}
+                                                                onClick={() => {
+                                                                    setFormData(prev => ({
+                                                                        ...prev,
+                                                                        nationality: nat.value,
+                                                                        nationality_iso: nat.iso,
+                                                                        nationality_label: nat.label
+                                                                    }));
+                                                                    setErrors(prev => ({ ...prev, nationality: '' }));
+                                                                    setNatDropdownOpen(false);
+                                                                }}
+                                                                className="flex items-center gap-3 px-4 py-3 hover:bg-silk-sand/20 cursor-pointer transition-colors border-b border-silk-sand/10 last:border-0"
+                                                            >
+                                                                <img src={`https://flagcdn.com/w20/${nat.iso}.png`} alt="" className="w-6 shadow-sm" />
+                                                                <span className="font-bold text-md text-silk-dark">{nat.label}</span>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </>
+                                            )}
                                             {errors.nationality && <p className="text-rose-600 text-xs mt-1.5 font-bold">{errors.nationality}</p>}
                                         </div>
+
                                         <div>
-                                            <label className="block text-sm font-bold text-silk-brown mb-2">{t('age', 'العمر')}</label>
-                                            <input type="number" name="age" value={formData.age} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all ${errors.age ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`} placeholder="25" />
+                                            <label className="block text-md font-bold text-silk-brown mb-2">{t('age')}</label>
+                                            <select
+                                                name="age"
+                                                value={formData.age}
+                                                onChange={handleInputChange}
+                                                className={`w-full px-4 py-3 rounded-xl border bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-bold transition-all ${errors.age ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`}
+                                            >
+                                                <option value="">{t('age', 'اختر')}</option>
+                                                {Array.from({ length: 83 }, (_, i) => i + 18).map((num) => (
+                                                    <option key={num} value={num}>{num}</option>
+                                                ))}
+                                            </select>
                                             {errors.age && <p className="text-rose-600 text-xs mt-1.5 font-bold">{errors.age}</p>}
                                         </div>
                                     </div>
@@ -292,17 +452,15 @@ export default function BookingRoom() {
                                 <motion.div key="step2" initial={{ opacity: 0, x: isRtl ? -20 : 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: isRtl ? 20 : -20 }} transition={{ duration: 0.3 }} className="space-y-5">
                                     <h3 className="text-xl font-bold text-silk-brown border-b border-silk-sand/30 pb-2 mb-4">{t('stay_details', 'تفاصيل الإقامة')}</h3>
 
-                                    {/* 🌟 قسم عرض التواريخ المحجوزة مسبقاً (مرتبة من الأقدم للأحدث) */}
                                     {selectedRoom?.existing_bookings && selectedRoom.existing_bookings.length > 0 && (
                                         <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl space-y-2 mb-4">
-                                            <h4 className="text-sm font-bold text-amber-800 flex items-center gap-2">
+                                            <h4 className="text-md font-bold text-amber-800 flex items-center gap-2">
                                                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                                                 </svg>
                                                 {t('reserved_dates_title', 'التواريخ غير المتاحة لهذه الغرفة:')}
                                             </h4>
                                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-32 overflow-y-auto pr-1 text-xs font-semibold text-amber-900/90">
-                                                {/* 🌟 هنا قمنا بإضافة الترتيب */}
                                                 {[...selectedRoom.existing_bookings]
                                                     .sort((a, b) => new Date(a.check_in).getTime() - new Date(b.check_in).getTime())
                                                     .map((booking, idx) => (
@@ -315,42 +473,39 @@ export default function BookingRoom() {
                                             </div>
                                         </div>
                                     )}
-                                    <div>
-                                        {errors.room_id && <p className="text-rose-600 text-xs mt-1.5 font-bold">{errors.room_id}</p>}
-                                    </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                         <div>
-                                            <label className="block text-sm font-bold text-silk-brown mb-2">{t('check_in_date', 'تاريخ الدخول')}</label>
+                                            <label className="block text-md font-bold text-silk-brown mb-2">{t('check_in_date', 'تاريخ الدخول')}</label>
                                             <input type="date" name="check_in" value={formData.check_in} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all ${errors.check_in ? 'border-rose-500' : 'border-silk-sand/40'}`} />
                                             {errors.check_in && <p className="text-rose-600 text-xs mt-1.5 font-bold">{errors.check_in}</p>}
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-bold text-silk-brown mb-2">{t('check_out_date', 'تاريخ الخروج')}</label>
+                                            <label className="block text-md font-bold text-silk-brown mb-2">{t('check_out_date', 'تاريخ الخروج')}</label>
                                             <input type="date" name="check_out" value={formData.check_out} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all ${errors.check_out ? 'border-rose-500' : 'border-silk-sand/40'}`} />
                                             {errors.check_out && <p className="text-rose-600 text-xs mt-1.5 font-bold">{errors.check_out}</p>}
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-bold text-silk-brown mb-2">{t('guests_count', 'عدد الضيوف')}</label>
+                                            <label className="block text-md font-bold text-silk-brown mb-2">{t('guests_count', 'عدد الضيوف')}</label>
                                             <input type="number" name="guests_count" value={formData.guests_count} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all ${errors.guests_count ? 'border-rose-500' : 'border-silk-sand/40'}`} />
                                             {errors.guests_count && <p className="text-rose-600 text-xs mt-1.5 font-bold">{errors.guests_count}</p>}
                                         </div>
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-bold text-silk-brown mb-3">{t('extra_services', 'خدمات إضافية طلبتها')}</label>
+                                        <label className="block text-md font-bold text-silk-brown mb-3">{t('extra_services', 'خدمات إضافية طلبتها')}</label>
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                                             {availableServices.map(service => (
                                                 <label key={service.id} className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${formData.requested_services.includes(service.id) ? 'border-silk-brown bg-silk-brown/10 font-bold' : 'border-silk-sand/30 bg-white/60 hover:bg-white/90'}`}>
                                                     <input type="checkbox" checked={formData.requested_services.includes(service.id)} onChange={() => handleCheckboxChange(service.id)} className="w-4 h-4 accent-silk-brown rounded" />
-                                                    <span className="text-sm text-silk-dark">{service.label}</span>
+                                                    <span className="text-md text-silk-dark">{service.label}</span>
                                                 </label>
                                             ))}
                                         </div>
                                     </div>
 
                                     <div>
-                                        <label className="block text-sm font-bold text-silk-brown mb-2">{t('special_notes', 'ملاحظات خاصة (اختياري)')}</label>
+                                        <label className="block text-md font-bold text-silk-brown mb-2">{t('special_notes', 'ملاحظات خاصة (اختياري)')}</label>
                                         <textarea name="notes" rows={3} value={formData.notes} onChange={handleInputChange} className="w-full px-4 py-3 rounded-xl border border-silk-sand/40 bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all text-silk-dark" placeholder={t('notes_placeholder', 'أي متمتطلبات خاصة بالسرير، التدخين، إلخ...')} />
                                     </div>
                                 </motion.div>
@@ -359,12 +514,12 @@ export default function BookingRoom() {
 
                         <div className="flex justify-between items-center gap-2 md:gap-0 pt-4 border-t border-silk-sand/20">
                             {step === 2 && (
-                                <button type="button" onClick={() => setStep(1)} className={` ${i18n.language === 'zh' || "ja" ? "w-30" : ""} px-6 py-3 border ${i18n.language === 'en' || 'fr' || 'zh' || 'es' ? " text-xs" : ""}  md:text-lg  border-silk-brown text-silk-brown font-bold rounded-xl hover:bg-silk-brown/5 transition-all duration-300 cursor-pointer`}>
+                                <button type="button" onClick={() => setStep(1)} className={` ${i18n.language === 'zh' || i18n.language === "ja" ? "w-30" : ""} px-6 py-3 border ${['en', 'fr', 'zh', 'es'].includes(i18n.language) ? " text-xs" : ""}  md:text-lg  border-silk-brown text-silk-brown font-bold rounded-xl hover:bg-silk-brown/5 transition-all duration-300 cursor-pointer`}>
                                     {t('back', 'السابق')}
                                 </button>
                             )}
                             <button type="submit" disabled={isLoading} className={`py-3 px-8 bg-silk-brown hover:bg-silk-dark text-silk-cream 
-                                font-bold rounded-xl shadow-md transition-all duration-300 cursor-pointer ${i18n.language === 'en' || 'fr' || 'zh' || 'es' ? "text-xs" : ""}  md:text-lg  ${step === 1 ? 'w-full md:w-auto ms-auto' : 'w-full md:w-auto ms-auto flex items-center justify-center gap-2'}`}>
+                                font-bold rounded-xl shadow-md transition-all duration-300 cursor-pointer ${['en', 'fr', 'zh', 'es'].includes(i18n.language) ? "text-xs" : "text-xl"}  md:text-lg  ${step === 1 ? 'w-full md:w-auto ms-auto' : 'w-full md:w-auto ms-auto flex items-center justify-center gap-2'}`}>
                                 {isLoading ? (
                                     <div className="w-5 h-5 border-2 border-silk-cream border-t-transparent rounded-full animate-spin"></div>
                                 ) : step === 1 ? (

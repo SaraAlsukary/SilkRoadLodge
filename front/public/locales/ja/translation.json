@@ -69,7 +69,7 @@
     "booking_subtitle": "シルクロードホテルで、歴史の薫りとラグジュアリーをご体験ください",
     "personal_info": "お客様情報",
     "full_name": "お名前（フルネーム）",
-    "phone_number": "电话番号",
+    "phone_number": "電話番号またはWhatsApp",
     "email_address": "メールアドレス",
     "gender": "性別",
     "male": "男性",
@@ -121,5 +121,6 @@
     "extra_services": "利用可能なサービス",
     "service_breakfast": "朝食",
     "service_lunch": "昼食",
-    "service_dinner": "夕食"
+    "service_dinner": "夕食",
+    
 }
