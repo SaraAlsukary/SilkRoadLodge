@@ -35,6 +35,13 @@ export default function Footer() {
                                 </a>
                             </p>
                             <p>
+                                <span className="text-silk-sand block text-xl mb-2">{t('footer_landline')}</span>
+
+                                <a href="tel:+963982221918" className="font-arabic hover:text-silk-sand transition-colors inline-block" dir="ltr">
+                                    +963 125 930 077
+                                </a>
+                            </p>
+                            <p>
                                 <span className="text-silk-sand block text-xl mb-2">{t('footer_email')}</span>
                                 <a href="mailto:info@silkroadlodge.com" className="hover:text-silk-sand transition-colors">
                                     info@silkroadlodge.com
