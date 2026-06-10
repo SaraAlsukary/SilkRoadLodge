@@ -75,7 +75,8 @@
     "male": "男",
     "female": "女",
     "other": "其他",
-    "nationality": "国籍",
+    "nationality": "国家",
+    "search_placeholder": "搜索...",
     "age": "年龄",
     "stay_details": "住宿详情",
     "select_room": "选择房型或套房",
@@ -121,5 +122,6 @@
     "extra_services": "可选服务",
     "service_breakfast": "早餐",
     "service_lunch": "午餐",
-    "service_dinner": "晚餐"
+    "service_dinner": "晚餐",
+    "booking_loading": "正在处理您的预订..."
 }

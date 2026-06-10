@@ -75,7 +75,8 @@
     "male": "Masculino",
     "female": "Femenino",
     "other": "Otro",
-    "nationality": "Nacionalidad",
+    "search_placeholder": "Buscar...",
+    "nationality": "País",
     "age": "Edad",
     "stay_details": "Detalles de la Estancia",
     "select_room": "Seleccione el Tipo de Habitación o Suite",
@@ -121,6 +122,7 @@
     "extra_services": "Servicios disponibles",
     "service_breakfast": "Desayuno",
     "service_lunch": "Almuerzo",
-    "service_dinner": "Cena"
+    "service_dinner": "Cena",
+    "booking_loading": "Procesando su reserva..."
     
 }

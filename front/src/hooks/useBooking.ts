@@ -50,18 +50,27 @@ export function useBooking() {
             const response = await api.post('/bookings', bookingData, {
                 headers: {
                     "Accept-Language": i18n.language
-                }
+                },
+                timeout:300000                
             });
             if (response.data.success) {
                 setSuccess(true);
                 return response.data;
             }
         } catch (err: any) {
-            const serverMessage = err.response?.data?.message || 'حدث خطأ أثناء إرسال الحجز.';
-            setError(serverMessage);
+            // 1. طباعة الخطأ الكامل في الكونسول لتشخيصه
+            console.error("تفاصيل الخطأ الكاملة:", err);
+            console.error("استجابة السيرفر إن وجدت:", err.response);
+
+            // 2. التحقق مما إذا كان الخطأ بسبب انقطاع الاتصال أو الوقت
+            if (err.code === 'ECONNABORTED') {
+                setError('استغرق الخادم وقتاً طويلاً للرد. تم استلام طلبك وجاري معالجته.');
+            } else {
+                // رسالة الخطأ العادية
+                const serverMessage = err.response?.data?.message || 'حدث خطأ أثناء إرسال الحجز.';
+                setError(serverMessage);
+            }
             throw err;
-        } finally {
-            setIsLoading(false);
         }
     };
 

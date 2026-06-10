@@ -75,7 +75,8 @@
     "male": "Homme",
     "female": "Femme",
     "other": "Autre",
-    "nationality": "Nationalité",
+    "nationality": "Pays",
+    "search_placeholder": "Rechercher...",
     "age": "Âge",
     "stay_details": "Détails du Séjour",
     "select_room": "Sélectionnez le Type de Chambre ou Suite",
@@ -121,5 +122,6 @@
     "extra_services": "Services disponibles",
     "service_breakfast": "Petit-déjeuner",
     "service_lunch": "Déjeuner",
-    "service_dinner": "Dîner"
+    "service_dinner": "Dîner",
+    "booking_loading": "Traitement de votre réservation..."
 }

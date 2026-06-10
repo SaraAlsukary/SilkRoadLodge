@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Mail\BookingConfirmed;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 use Illuminate\Http\Request;
 use App\Models\Booking;
@@ -37,6 +40,10 @@ class BookingController extends Controller
     /**
      * إنشاء حجز جديد مع فحص التداخل الديناميكي
      */
+
+/**
+ * إنشاء حجز جديد مع فحص التداخل الديناميكي
+ */
     public function store(Request $request)
     {
         // ملاحظة: يُفضل نقل الـ Validation إلى FormRequest منفصل مستقبلاً لتنظيف الـ Controller
@@ -65,16 +72,24 @@ class BookingController extends Controller
         if ($isRoomOccupied) {
             return response()->json([
                 'success' => false,
-                'message' => __('messages.room_already_booked') // 🌟 التغيير هنا
+                'message' => __('messages.room_already_booked')
             ], 422);
         }
 
         $validatedData['status'] = 'confirmed';
         $booking = Booking::create($validatedData);
 
+        // 🌟 إرسال بريد التأكيد للعميل هنا
+        try {
+            Mail::to($booking->customer_email)->send(new BookingConfirmed($booking));
+        } catch (\Exception $e) {
+            // تسجيل الخطأ في الـ Log في حال فشل سيرفر الاستضافة بالإرسال، حتى لا يتأثر المستخدم
+            Log::error('فشل إرسال إيميل تأكيد الحجز: ' . $e->getMessage());
+        }
+
         return response()->json([
             'success' => true,
-            'message' => __('messages.booking_created'), // 🌟 التغيير هنا
+            'message' => __('messages.booking_created'),
             'data' => $booking->load('room')
         ], 201);
     }

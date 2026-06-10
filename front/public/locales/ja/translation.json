@@ -73,9 +73,10 @@
     "email_address": "メールアドレス",
     "gender": "性別",
     "male": "男性",
+    "search_placeholder": "検索...",
     "female": "女性",
     "other": "その他",
-    "nationality": "国籍",
+    "nationality": "国",
     "age": "年齢",
     "stay_details": "ご宿泊内容",
     "select_room": "客室またはスイートのタイプを選択",
@@ -121,5 +122,6 @@
     "extra_services": "利用可能なサービス",
     "service_breakfast": "朝食",
     "service_lunch": "昼食",
-    "service_dinner": "夕食"    
+    "service_dinner": "夕食",
+    "booking_loading": "予約を処理しています..."
 }
