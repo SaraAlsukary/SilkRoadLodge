@@ -25,12 +25,11 @@ class Room extends Model implements HasMedia
     /**
      * علاقة الغرفة مع الحجوزات
      */
+        // 1. تحديث الـ appends
     public function bookings()
     {
-        return $this->hasMany(Booking::class);
+        return $this->belongsToMany(Booking::class, 'booking_room');
     }
-    // 1. تحديث الـ appends
-
     /**
      * 🌟 جلب جميع الفترات المحجوزة للغرفة ليتم تعطيلها في تقويم العميل
      */

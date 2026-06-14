@@ -10,34 +10,43 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            // ربط الحجز بالغرفة (نوع الغرفة)
-            $table->foreignId('room_id')->constrained()->onDelete('cascade');
 
-            // بيانات العميل الشخصية
-            $table->string('customer_name');        // الاسم الكامل
-            $table->string('customer_phone');       // رقم الهاتف
-            $table->string('customer_email');       // البريد الإلكتروني
-            $table->enum('gender', ['male', 'female', 'other']); // الجنس
-            $table->string('nationality');          // الجنسية
-            $table->integer('age');                 // العمر
+            // بيانات العميل
+            $table->string('customer_name');
+            $table->string('customer_phone');
+            $table->string('customer_email');
+            $table->enum('gender', ['male', 'female', 'other']);
+            $table->string('nationality');
+            $table->integer('age');
 
-            // تفاصيل الإقامة
-            $table->integer('guests_count');        // عدد الأشخاص
-            $table->date('check_in');               // تاريخ تسجيل الدخول
-            $table->date('check_out');              // تاريخ تسجيل الخروج
+            // تفاصيل الحجز والموارد
+            $table->integer('guests_count');
+            $table->integer('rooms_count');
+            $table->integer('double_beds_count'); // عدد الأسرة المزدوجة المستهلكة
+            $table->integer('single_beds_count'); // عدد الأسرة المفردة المستهلكة
+            $table->text('booked_room_names');    // النص الجميل الذي سيظهر للإدارة والعميل
 
-            // الخدمات والملاحظات
-            $table->json('requested_services')->nullable(); // الخدمات المطلوبة (مصفوفة مخزنة كـ JSON)
-            $table->text('notes')->nullable();              // حقل ملاحظات
+            $table->date('check_in');
+            $table->date('check_out');
 
-            // حالة الحجز
+            $table->json('requested_services')->nullable();
+            $table->text('notes')->nullable();
             $table->string('status')->default('confirmed');
+            $table->timestamps();
+        });
+
+        // الجدول الوسيط لربط الحجز بالغرف الفعلية (حجز الوعاء)
+        Schema::create('booking_room', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('booking_id')->constrained()->onDelete('cascade');
+            $table->foreignId('room_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
+        Schema::dropIfExists('booking_room');
         Schema::dropIfExists('bookings');
     }
 };

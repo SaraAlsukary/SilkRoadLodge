@@ -4,13 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Room;
+
 class Booking extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'room_id',
         'customer_name',
         'customer_phone',
         'customer_email',
@@ -18,6 +17,10 @@ class Booking extends Model
         'nationality',
         'age',
         'guests_count',
+        'rooms_count',
+        'double_beds_count',
+        'single_beds_count',
+        'booked_room_names',
         'check_in',
         'check_out',
         'requested_services',
@@ -28,11 +31,11 @@ class Booking extends Model
     protected $casts = [
         'check_in' => 'date',
         'check_out' => 'date',
-        'requested_services' => 'array', // تحويل حقل الخدمات تلقائياً إلى مصفوفة (Array)
+        'requested_services' => 'array',
     ];
 
-    public function room()
+    public function rooms()
     {
-        return $this->belongsTo(Room::class);
+        return $this->belongsToMany(Room::class, 'booking_room');
     }
 }

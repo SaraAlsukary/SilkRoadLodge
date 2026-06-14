@@ -1,28 +1,21 @@
 <?php
 
 return [
-    'room_already_booked' => 'Lo sentimos, esta habitación ya está reservada para las fechas seleccionadas.',
+    // Mensajes del Sistema
+    'room_already_booked' => 'Lo sentimos, una o más de las habitaciones seleccionadas ya están reservadas para las fechas seleccionadas.',
     'booking_created'     => 'Reserva creada con éxito.',
     'booking_not_found'   => 'Reserva no encontrada.',
     'booking_updated'     => 'Reserva actualizada con éxito.',
     'booking_deleted'     => 'Reserva eliminada con éxito.',
+
+    // Correo del Cliente (Confirmación)
     'booking_confirmation_subject' => 'Confirmación de tu reserva - Silk Road Lodge',
     'hotel_name' => 'Silk Road Lodge',
     'greeting' => 'Hola :name,',
     'booking_success_msg' => 'Nos complace informarle que su reserva ha sido confirmada con éxito. Aquí están los detalles de su reserva:',
-    'room_number' => 'Número de habitación',
-    'check_in' => 'Fecha de entrada',
-    'check_out' => 'Fecha de salida',
-    'guests_count' => 'Número de huéspedes',
-    'looking_forward' => 'Esperamos su visita y brindarle una estancia confortable.',
-    'automated_email_footer' => 'Este es un correo electrónico automático, por favor no responda directamente.',
-    'booking_confirmation_subject' => 'Confirmación de Reserva - Silk Road Lodge',
-    'hotel_name' => 'Silk Road Lodge',
-    'greeting' => 'Hola, :name',
-    'booking_success_msg' => 'Nos complace confirmar su reserva. A continuación encontrará los detalles de su estancia:',
 
     // Campos de la tabla
-    'room_number' => 'Habitación reservada',
+    'room_number' => 'Habitaciones Reservadas',
     'check_in' => 'Fecha de entrada',
     'check_out' => 'Fecha de salida',
     'guests_count' => 'Número de huéspedes',
@@ -30,11 +23,11 @@ return [
     'special_notes' => 'Sus notas especiales:',
 
     // Pie de página
-    'looking_forward' => '¡Esperamos recibirle pronto!',
+    'looking_forward' => 'Esperamos su visita y brindarle una estancia confortable.',
     'automated_email_footer' => 'Este es un correo electrónico automático, por favor no responda directamente.',
 
     // Servicios adicionales
-    'bedouin_tent' => 'Experiencia en tienda beduina',
+    'bedouin_tent_title' => 'Experiencia en tienda beduina',
     'safari_tour_title' => 'Excursión de safari por el desierto',
     'bicycles_title' => 'Alquiler de bicicletas',
     'airport_pickup_title' => 'Servicio de traslado al aeropuerto',
@@ -42,4 +35,25 @@ return [
     'breakfast' => 'Desayuno',
     'lunch' => 'Almuerzo',
     'dinner' => 'Cena',
+
+    // Correo de Administración
+    'new_booking_notification' => 'Nueva reserva recibida',
+    'admin_new_booking_title' => 'Notificación de nueva reserva 🛎️',
+    'admin_new_booking_subtitle' => 'Se ha recibido una nueva solicitud de reserva, aquí están los detalles completos:',
+    'customer_name_label' => 'Nombre del cliente:',
+    'phone_label' => 'Número de teléfono:',
+    'email_label' => 'Correo electrónico:',
+    'nationality_label' => 'Nacionalidad:',
+    'age_gender_label' => 'Edad / Género:',
+    'room_label' => 'Habitaciones:',
+    'check_in_label' => 'Fecha de entrada:',
+    'check_out_label' => 'Fecha de salida:',
+    'guests_count_label' => 'Número de huéspedes:',
+    'requested_services_label' => 'Servicios adicionales:',
+    'customer_notes_label' => 'Notas del cliente:',
+
+    // Datos Adicionales
+    'years' => 'años',
+    'male' => 'Masculino',
+    'female' => 'Femenino',
 ];

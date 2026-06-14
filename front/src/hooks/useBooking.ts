@@ -39,8 +39,8 @@ export function useBooking() {
     };
 
     /**
-     * إرسال وإنشاء حجز جديد
-     */
+       * إرسال وإنشاء حجز جديد
+       */
     const createBooking = async (bookingData: any) => {
         setIsLoading(true);
         setError(null);
@@ -51,29 +51,33 @@ export function useBooking() {
                 headers: {
                     "Accept-Language": i18n.language
                 },
-                timeout:300000                
+                timeout: 300000
             });
             if (response.data.success) {
                 setSuccess(true);
                 return response.data;
             }
         } catch (err: any) {
-            // 1. طباعة الخطأ الكامل في الكونسول لتشخيصه
             console.error("تفاصيل الخطأ الكاملة:", err);
             console.error("استجابة السيرفر إن وجدت:", err.response);
 
-            // 2. التحقق مما إذا كان الخطأ بسبب انقطاع الاتصال أو الوقت
             if (err.code === 'ECONNABORTED') {
                 setError('استغرق الخادم وقتاً طويلاً للرد. تم استلام طلبك وجاري معالجته.');
             } else {
-                // رسالة الخطأ العادية
-                const serverMessage = err.response?.data?.message || 'حدث خطأ أثناء إرسال الحجز.';
-                setError(serverMessage);
+                // 🌟 استخراج رسالة الخطأ الأساسية
+                let errorMessage = err.response?.data?.message || 'حدث خطأ أثناء إرسال الحجز.';
+
+                // 🌟 استخراج تفاصيل أخطاء الـ Validation من لارافيل (إن وجدت)
+                if (err.response?.data?.errors) {
+                    const validationErrors = Object.values(err.response.data.errors).flat().join(' | ');
+                    errorMessage = `${errorMessage} - ${validationErrors}`;
+                }
+
+                setError(errorMessage);
             }
             throw err;
         }
     };
-
     // قمنا بإضافة fetchBookedDates و bookedDates للمخرجات ليتم استدعاؤها في الـ Component
     return {
         createBooking,

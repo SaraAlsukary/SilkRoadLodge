@@ -10,6 +10,7 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('/rooms',RoomController::class);
 Route::apiResource('bookings', BookingController::class);
+Route::get('/check-resources', [BookingController::class,'checkResources']);
 
 
 

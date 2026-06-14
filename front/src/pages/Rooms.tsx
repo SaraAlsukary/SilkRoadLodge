@@ -66,7 +66,7 @@ export default function RoomTypes() {
         return (
             <div className="flex justify-center items-center min-h-[400px]">
                 <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-silk-brown"></div>
-                <span className="ml-3 text-silk-brown font-medium">{t('loading')}</span>
+                <span className="mx-3 text-silk-brown font-medium">{t('loading')}</span>
             </div>
         );
     }
@@ -105,7 +105,7 @@ export default function RoomTypes() {
             displayImage: apiRoom.image || config.fallbackImage
         };
     }) || [];
-    console.log(mergedRooms)
+
     return (
         <section className="min-h-screen py-20 px-4 md:px-8 bg-silk-cream text-silk-dark transition-colors duration-300">
             <div className="max-w-6xl mx-auto">
@@ -133,7 +133,7 @@ export default function RoomTypes() {
                                 className="group flex flex-col justify-between bg-silk-cream border border-silk-sand/20 rounded-xl overflow-hidden shadow-sm hover:shadow-2xl hover:border-silk-sand/50 transition-all duration-300 bg-white/40 backdrop-blur-xs"
                             >
                                 <div className="h-56 w-full overflow-hidden relative">
-                                    <div className="absolute top-4 right-4 z-10 flex flex-col gap-1 items-end">
+                                    {/* <div className="absolute top-4 right-4 z-10 flex flex-col gap-1 items-end">
                                         {room?.booking_status?.is_booked ? (
                                             <>
                                                 <span className="px-3 py-1 rounded-full text-sm font-bold bg-amber-800/90 text-silk-cream backdrop-blur-xs border border-silk-sand/20 shadow-md tracking-wide">
@@ -148,7 +148,7 @@ export default function RoomTypes() {
                                                 {t('status_available', 'متاحة الآن')}
                                             </span>
                                         )}
-                                    </div>
+                                    </div> */}
 
                                     <img
                                         src={room.displayImage}
