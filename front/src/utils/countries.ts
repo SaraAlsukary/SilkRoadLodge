@@ -9,7 +9,7 @@ export const nationalitiesData: Record<string, { value: string; label: string; i
         { value: 'UAE', label: 'الإمارات', iso: 'ae' },
         { value: 'Morocco', label: 'المغرب', iso: 'ma' },
         { value: 'Algeria', label: 'الجزائر', iso: 'dz' },
-        { value: 'Tunisia', label: 'تunes', iso: 'tn' },
+        { value: 'Tunisia', label: 'تونس', iso: 'tn' },
         { value: 'Iraq', label: 'العراق', iso: 'iq' },
         { value: 'Kuwait', label: 'الكويت', iso: 'kw' },
         { value: 'Oman', label: 'عمان', iso: 'om' },
