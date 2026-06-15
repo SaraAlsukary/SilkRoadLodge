@@ -8,7 +8,7 @@ import { phoneCodesData } from '../utils/phoneCode';
 import { LANGUAGE_PRIORITIES } from '../utils/languages';
 import { isValidPhoneNumber, type CountryCode } from 'libphonenumber-js';
 
-// 1. تعريف أنواع الغرف الكلاسيكية بناءً على ترجماتك واستهلاكها من الموارد
+// 1. تعريف أنواع الغرف الكلاسيكية
 interface RoomType {
     id: string;
     nameKey: string;
@@ -25,7 +25,7 @@ const ROOM_TYPES: RoomType[] = [
     { id: 'quad', nameKey: 'quad_room_name', guests: 4, doubles: 0, singles: 4 }
 ];
 
-// 2. الخوارزمية الذهبية: البحث عن التجميعات الممكنة بناءً على الموارد والقاعدة الذهبية
+// 2. الخوارزمية الذهبية
 const findRoomConfigurations = (
     reqRooms: number,
     reqGuests: number,
@@ -38,16 +38,21 @@ const findRoomConfigurations = (
     const backtrack = (
         startIdx: number,
         currentCombo: RoomType[],
-        currentGuests: number,
+        currentCapacity: number,
         currentDoubles: number,
         currentSingles: number
     ) => {
         // إذا وصلنا لعدد الغرف المطلوب
         if (currentCombo.length === reqRooms) {
 
-            // 🌟 القاعدة الذهبية: السعة الإجمالية >= عدد الأشخاص
-            // (لا يوجد حد أعلى! شخص واحد يمكنه حجز 4 غرف رباعية إذا أراد)
-            if (currentGuests >= reqGuests) {
+            const totalBeds = currentDoubles + currentSingles;
+
+            // 🌟 القواعد الصارمة:
+            // 1. السعة الإجمالية للغرف تكفي لعدد الأشخاص (currentCapacity >= reqGuests)
+            // 2. إجمالي عدد الأسرة لا يتجاوز عدد الأشخاص (totalBeds <= reqGuests)
+            // بفضل هذه القاعدة، إذا كان عدد الأشخاص = عدد الغرف (مثلاً 3 أصدقاء بـ 3 غرف)
+            // سيتم حصر الخيارات حصراً بالغرف ذات السرير الواحد (Single و Double).
+            if (currentCapacity >= reqGuests && totalBeds <= reqGuests) {
                 const signature = currentCombo.map(r => r.id).sort().join('|');
                 if (!seen.has(signature)) {
                     seen.add(signature);
@@ -60,12 +65,17 @@ const findRoomConfigurations = (
         for (let i = startIdx; i < ROOM_TYPES.length; i++) {
             const room = ROOM_TYPES[i];
 
-            // التحقق من أن الفندق يمتلك أسرة كافية لهذا النوع من الغرف حالياً
-            if (currentDoubles + room.doubles <= availDoubles &&
-                currentSingles + room.singles <= availSingles) {
+            const newDoubles = currentDoubles + room.doubles;
+            const newSingles = currentSingles + room.singles;
+            const newBeds = newDoubles + newSingles;
+
+            // التحقق من أن الفندق يمتلك أسرة كافية، وأن الأسرة لا تتجاوز الأشخاص
+            if (newDoubles <= availDoubles &&
+                newSingles <= availSingles &&
+                newBeds <= reqGuests) {
 
                 currentCombo.push(room);
-                backtrack(i, currentCombo, currentGuests + room.guests, currentDoubles + room.doubles, currentSingles + room.singles);
+                backtrack(i, currentCombo, currentCapacity + room.guests, newDoubles, newSingles);
                 currentCombo.pop();
             }
         }
@@ -73,7 +83,7 @@ const findRoomConfigurations = (
 
     backtrack(0, [], 0, 0, 0);
 
-    // الترتيب: نعرض الخيار الأقرب منطقياً للسعة المطلوبة في الأعلى (لكن نظهر جميع الخيارات الأخرى تحتها)
+    // الترتيب: نعرض الخيار الأقرب منطقياً للسعة المطلوبة
     return results.sort((a, b) => {
         const capA = a.reduce((sum, r) => sum + r.guests, 0);
         const capB = b.reduce((sum, r) => sum + r.guests, 0);
@@ -99,12 +109,10 @@ export default function BookingRoom() {
     const isRtl = currentLanguage === 'ar';
 
     const { createBooking, isLoading, error: serverError, success } = useBooking();
-    // const [searchParams] = useSearchParams();
 
     const [step, setStep] = useState(1);
     const [errors, setErrors] = useState<Record<string, string>>({});
 
-    // الموارد الافتراضية للفندق
     const [availableResources, setAvailableResources] = useState({ rooms: 8, doubles: 8, singles: 10 });
     const [isCheckingResources, setIsCheckingResources] = useState(false);
 
@@ -136,20 +144,15 @@ export default function BookingRoom() {
 
     const [selectedCombo, setSelectedCombo] = useState<RoomType[] | null>(null);
 
-    // التحقق من الموارد من السيرفر عند تحديد التاريخ
     useEffect(() => {
         const fetchResources = async () => {
             if (formData.check_in && formData.check_out && new Date(formData.check_out) > new Date(formData.check_in)) {
                 setIsCheckingResources(true);
                 try {
-                    const res = await fetch(`https://silkroadlodge.com/api/check-resources?check_in=${formData.check_in}&check_out=${formData.check_out}`);
                     // const res = await fetch(`http://127.0.0.1:8000/api/check-resources?check_in=${formData.check_in}&check_out=${formData.check_out}`);
-
-                    // تأكد من صحة مسار الـ API الخاص بك هنا
-                    // const res = await fetch(`http://localhost:8000/api/check-resources?check_in=${formData.check_in}&check_out=${formData.check_out}`);
+                    const res = await fetch(`https://silkroadlodge.com/api/check-resources?check_in=${formData.check_in}&check_out=${formData.check_out}`);
                     if (res.ok) {
                         const data = await res.json();
-                        console.log(data)
                         setAvailableResources({
                             rooms: data.available_rooms,
                             doubles: data.available_doubles,
@@ -193,27 +196,21 @@ export default function BookingRoom() {
         }));
     };
 
-    // توليد التجميعات المتاحة
-    // const availableCombinations = useMemo(() => {
-    //     if (!formData.check_in || !formData.check_out || !formData.guests_count || !formData.rooms_count) return [];
-    //     const reqRooms = parseInt(formData.rooms_count);
-    //     const reqGuests = parseInt(formData.guests_count);
-    //     if (reqRooms > availableResources.rooms) return [];
-
-    //     return findRoomConfigurations(reqRooms, reqGuests, availableResources.doubles, availableResources.singles);
-    // }, [availableResources, formData.check_in, formData.check_out, formData.guests_count, formData.rooms_count]);
     const availableCombinations = useMemo(() => {
         if (!formData.check_in || !formData.check_out || !formData.guests_count || !formData.rooms_count) return [];
         const reqRooms = parseInt(formData.rooms_count);
         const reqGuests = parseInt(formData.guests_count);
+
         if (reqRooms > availableResources.rooms) return [];
 
-        // جلب كل الخيارات الممكنة
-        const allCombos = findRoomConfigurations(reqRooms, reqGuests, availableResources.doubles, availableResources.singles);
+        // لا نحتاج للبحث إذا كان المستخدم يطلب غرفاً أكثر من الأشخاص (حالة غير منطقية)
+        if (reqRooms > reqGuests) return [];
 
-        // 🌟 نأخذ أفضل 3 خيارات فقط (الأقرب لعدد الأشخاص المطلوب ثم مساحات أكبر للرفاهية)
+        const allCombos = findRoomConfigurations(reqRooms, reqGuests, availableResources.doubles, availableResources.singles);
         return allCombos.slice(0, 3);
+
     }, [availableResources, formData.check_in, formData.check_out, formData.guests_count, formData.rooms_count]);
+
     const validateStep1 = (): boolean => {
         const newErrors: Record<string, string> = {};
         if (!formData.customer_name.trim()) newErrors.customer_name = t('err_name_req');
@@ -223,17 +220,13 @@ export default function BookingRoom() {
         if (!formData.customer_email) newErrors.customer_email = t('err_email_req');
         else if (!emailRegex.test(formData.customer_email)) newErrors.customer_email = t('err_email_inv');
 
-        // if (!formData.customer_phone) newErrors.customer_phone = t('err_phone_req');
-        // else if (formData.customer_phone.length < 7) newErrors.customer_phone = t('err_phone_inv');
         if (!formData.customer_phone) {
             newErrors.customer_phone = t('err_phone_req');
         } else {
-            // نمرر الرقم ورمز الدولة (يجب أن يكون بأحرف كبيرة uppercase)
             const isValid = isValidPhoneNumber(
                 formData.customer_phone,
                 formData.phone_iso.toUpperCase() as CountryCode
             );
-
             if (!isValid) {
                 newErrors.customer_phone = t('err_phone_inv', 'رقم الهاتف غير صالح لهذه الدولة');
             }
@@ -242,7 +235,6 @@ export default function BookingRoom() {
 
         const ageNum = parseInt(formData.age);
         if (!formData.age || isNaN(ageNum)) newErrors.age = t('err_age_req');
-        // else if (ageNum < 18) newErrors.age = t('err_age_min');
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -259,14 +251,24 @@ export default function BookingRoom() {
         if (!formData.check_out) newErrors.check_out = t('err_checkout_req');
         else if (formData.check_in && new Date(formData.check_out) <= new Date(formData.check_in)) newErrors.check_out = t('err_checkout_before');
 
-        if (!formData.guests_count || parseInt(formData.guests_count) < 1) newErrors.guests_count = t('err_guests_min');
-        if (!formData.rooms_count || parseInt(formData.rooms_count) < 1) newErrors.rooms_count = t('err_rooms_min');
+        const guestsInt = parseInt(formData.guests_count);
+        const roomsInt = parseInt(formData.rooms_count);
 
-        if (parseInt(formData.rooms_count) > availableResources.rooms) {
+        if (!formData.guests_count || guestsInt < 1) newErrors.guests_count = t('err_guests_min');
+        if (!formData.rooms_count || roomsInt < 1) newErrors.rooms_count = t('err_rooms_min');
+
+        // 🌟 التحقق الإضافي: منع حجز غرف أكثر من الأشخاص
+        if (roomsInt > guestsInt) {
+            newErrors.rooms_count = 'لا يمكن أن يكون عدد الغرف المطلوبة أكبر من عدد الأشخاص';
+        }
+
+        if (roomsInt > availableResources.rooms) {
             newErrors.rooms_count = `عذراً، المتاح حالياً هو ${availableResources.rooms} غرف فقط`;
         }
 
-        if (!selectedCombo) newErrors.combination = t('err_select_combo');
+        if (!selectedCombo && !newErrors.rooms_count && !newErrors.guests_count) {
+            newErrors.combination = t('err_select_combo');
+        }
 
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -280,7 +282,6 @@ export default function BookingRoom() {
         const totalDoubles = selectedCombo.reduce((sum, r) => sum + r.doubles, 0);
         const totalSingles = selectedCombo.reduce((sum, r) => sum + r.singles, 0);
 
-        // تجهيز الاسم النصي للإيميل باستخدام لغة العميل الحالية
         const counts: Record<string, number> = {};
         selectedCombo.forEach(room => {
             const translatedName = t(room.nameKey);
@@ -289,7 +290,6 @@ export default function BookingRoom() {
         const bookedRoomNames = Object.entries(counts).map(([name, count]) => `${count} × ${name}`).join(' + ');
 
         try {
-            // يتم إرسال هذا الـ Payload إلى السيرفر ليقوم بربط الحجز بغرف عشوائية كأوعية، وحفظ تفاصيل الأسرة.
             await createBooking({
                 ...formData,
                 customer_phone: `${formData.phone_code} ${formData.customer_phone}`,
@@ -517,7 +517,7 @@ export default function BookingRoom() {
                                         </div>
                                     </div>
 
-                                    {formData.check_in && formData.check_out && !isCheckingResources && (
+                                    {formData.check_in && formData.check_out && !isCheckingResources && !errors.rooms_count && !errors.guests_count && (
                                         <div className="mt-8">
                                             <h4 className="text-xl font-bold text-silk-brown mb-5 flex items-center gap-2">
                                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
@@ -529,25 +529,6 @@ export default function BookingRoom() {
                                                     {availableCombinations.map((combo, idx) => {
                                                         const isSelected = selectedCombo === combo;
                                                         const capacity = combo.reduce((sum, r) => sum + r.guests, 0);
-                                                        const requestedGuests = parseInt(formData.guests_count);
-
-                                                        // 🌟 تحديد وسم (Badge) ذكي بناءً على سعة التجميعة
-                                                        // let badgeText = '';
-                                                        // let badgeColor = '';
-
-                                                        // if (idx === 0 && capacity === requestedGuests) {
-                                                        //     // badgeText = t('badge_exact_match', 'الخيار الأنسب (تطابق تام)');
-                                                        //     badgeColor = 'bg-emerald-100 text-emerald-700 border-emerald-200';
-                                                        // } else if (idx === 0) {
-                                                        //     // badgeText = t('badge_best_value', 'أفضل قيمة متبقية');
-                                                        //     badgeColor = 'bg-blue-100 text-blue-700 border-blue-200';
-                                                        // } else if (idx === 1) {
-                                                        //     // badgeText = t('badge_extra_space', 'مساحة إضافية وراحة');
-                                                        //     badgeColor = 'bg-amber-100 text-amber-700 border-amber-200';
-                                                        // } else {
-                                                        //     badgeText = t('badge_luxury_space', 'خيار الرفاهية الواسع');
-                                                        //     badgeColor = 'bg-purple-100 text-purple-700 border-purple-200';
-                                                        // }
 
                                                         return (
                                                             <motion.div
@@ -558,10 +539,6 @@ export default function BookingRoom() {
                                                                 onClick={() => { setSelectedCombo(combo); if (errors.combination) setErrors(prev => ({ ...prev, combination: '' })); }}
                                                                 className={`relative p-5 rounded-2xl border-2 cursor-pointer transition-all duration-300 flex flex-col justify-center ${isSelected ? 'border-silk-brown bg-silk-brown/5 shadow-md scale-[1.01]' : 'border-silk-sand/30 bg-white/80 hover:bg-silk-cream hover:border-silk-sand'}`}
                                                             >
-                                                                {/* الوسم الجمالي (Badge) */}
-                                                                {/* <div className={`absolute top-0 right-5 -translate-y-1/2 px-3 py-1 rounded-full text-xs font-bold border ${badgeColor} shadow-sm`}>
-                                                                    {badgeText}
-                                                                </div> */}
 
                                                                 <div className="flex justify-between items-center w-full">
                                                                     <div className="flex-1">
@@ -608,7 +585,7 @@ export default function BookingRoom() {
                                             )}
                                             {errors.combination && <p className="text-rose-600 text-sm mt-3 font-bold flex items-center gap-1"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>{errors.combination}</p>}
                                         </div>
-                                    )}
+                              )}
                                     <div>
                                         <label className="block text-md font-bold text-silk-brown mb-3">{t('extra_services')}</label>
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
@@ -642,5 +619,3 @@ export default function BookingRoom() {
         </section>
     );
 }
-
-
