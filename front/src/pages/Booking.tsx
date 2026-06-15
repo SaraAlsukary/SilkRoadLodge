@@ -425,7 +425,7 @@ export default function BookingRoom() {
                                                     <div className="fixed inset-0 z-10" onClick={() => setGenderDropdownOpen(false)}></div>
                                                     <div className="absolute top-full left-0 mt-2 w-full bg-white border border-silk-sand/30 rounded-xl shadow-xl z-20 flex flex-col overflow-hidden">
                                                         <ul className="flex-1">
-                                                            {['male', 'female', 'other'].map(g => (
+                                                            {['male', 'female'].map(g => (
                                                                 <li key={g} onClick={() => { setFormData(prev => ({ ...prev, gender: g })); setGenderDropdownOpen(false); }} className={`px-4 py-3 hover:bg-silk-sand/20 cursor-pointer transition-colors border-b border-silk-sand/10 font-bold text-md ${formData.gender === g ? 'text-silk-brown bg-silk-cream/50' : 'text-silk-dark'}`}>{t(g)}</li>
                                                             ))}
                                                         </ul>
@@ -532,22 +532,22 @@ export default function BookingRoom() {
                                                         const requestedGuests = parseInt(formData.guests_count);
 
                                                         // 🌟 تحديد وسم (Badge) ذكي بناءً على سعة التجميعة
-                                                        let badgeText = '';
-                                                        let badgeColor = '';
+                                                        // let badgeText = '';
+                                                        // let badgeColor = '';
 
-                                                        if (idx === 0 && capacity === requestedGuests) {
-                                                            badgeText = t('badge_exact_match', 'الخيار الأنسب (تطابق تام)');
-                                                            badgeColor = 'bg-emerald-100 text-emerald-700 border-emerald-200';
-                                                        } else if (idx === 0) {
-                                                            badgeText = t('badge_best_value', 'أفضل قيمة متبقية');
-                                                            badgeColor = 'bg-blue-100 text-blue-700 border-blue-200';
-                                                        } else if (idx === 1) {
-                                                            badgeText = t('badge_extra_space', 'مساحة إضافية وراحة');
-                                                            badgeColor = 'bg-amber-100 text-amber-700 border-amber-200';
-                                                        } else {
-                                                            badgeText = t('badge_luxury_space', 'خيار الرفاهية الواسع');
-                                                            badgeColor = 'bg-purple-100 text-purple-700 border-purple-200';
-                                                        }
+                                                        // if (idx === 0 && capacity === requestedGuests) {
+                                                        //     // badgeText = t('badge_exact_match', 'الخيار الأنسب (تطابق تام)');
+                                                        //     badgeColor = 'bg-emerald-100 text-emerald-700 border-emerald-200';
+                                                        // } else if (idx === 0) {
+                                                        //     // badgeText = t('badge_best_value', 'أفضل قيمة متبقية');
+                                                        //     badgeColor = 'bg-blue-100 text-blue-700 border-blue-200';
+                                                        // } else if (idx === 1) {
+                                                        //     // badgeText = t('badge_extra_space', 'مساحة إضافية وراحة');
+                                                        //     badgeColor = 'bg-amber-100 text-amber-700 border-amber-200';
+                                                        // } else {
+                                                        //     badgeText = t('badge_luxury_space', 'خيار الرفاهية الواسع');
+                                                        //     badgeColor = 'bg-purple-100 text-purple-700 border-purple-200';
+                                                        // }
 
                                                         return (
                                                             <motion.div
@@ -559,9 +559,9 @@ export default function BookingRoom() {
                                                                 className={`relative p-5 rounded-2xl border-2 cursor-pointer transition-all duration-300 flex flex-col justify-center ${isSelected ? 'border-silk-brown bg-silk-brown/5 shadow-md scale-[1.01]' : 'border-silk-sand/30 bg-white/80 hover:bg-silk-cream hover:border-silk-sand'}`}
                                                             >
                                                                 {/* الوسم الجمالي (Badge) */}
-                                                                <div className={`absolute top-0 right-5 -translate-y-1/2 px-3 py-1 rounded-full text-xs font-bold border ${badgeColor} shadow-sm`}>
+                                                                {/* <div className={`absolute top-0 right-5 -translate-y-1/2 px-3 py-1 rounded-full text-xs font-bold border ${badgeColor} shadow-sm`}>
                                                                     {badgeText}
-                                                                </div>
+                                                                </div> */}
 
                                                                 <div className="flex justify-between items-center w-full">
                                                                     <div className="flex-1">
