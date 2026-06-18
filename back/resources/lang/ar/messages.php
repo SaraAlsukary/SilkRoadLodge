@@ -43,7 +43,7 @@ return [
     'customer_name_label' => 'اسم العميل:',
     'phone_label' => 'رقم الهاتف:',
     'email_label' => 'البريد الإلكتروني:',
-    'nationality_label' => 'الجنسية:',
+    'nationality_label' => 'الدولة:',
     'age_gender_label' => 'العمر / الجنس:',
     'room_label' => 'الغرف:',
     'check_in_label' => 'تاريخ الدخول:',

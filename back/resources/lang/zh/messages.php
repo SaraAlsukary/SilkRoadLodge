@@ -43,7 +43,7 @@ return [
     'customer_name_label' => '客户姓名：',
     'phone_label' => '手机号码：',
     'email_label' => '电子邮箱：',
-    'nationality_label' => '国籍：',
+    'nationality_label' => '国家：',
     'age_gender_label' => '年龄 / 性别：',
     'room_label' => '客房：',
     'check_in_label' => '入住日期：',

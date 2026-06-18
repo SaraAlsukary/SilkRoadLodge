@@ -102,8 +102,8 @@ class BookingController extends Controller
         // إرسال الإيميلات
         try {
             \Illuminate\Support\Facades\Mail::to($booking->customer_email)->send(new \App\Mail\BookingConfirmed($booking));
-            $adminEmail = 'saraals6216@gmail.com';
-            // $adminEmail = 'info@silkroadlodge.com';
+            // $adminEmail = 'saraals6216@gmail.com';
+            $adminEmail = 'info@silkroadlodge.com';
             \Illuminate\Support\Facades\Mail::to($adminEmail)->send((new \App\Mail\AdminNewBookingMail($booking))->locale('ar'));
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('فشل إرسال إيميلات الحجز: ' . $e->getMessage());

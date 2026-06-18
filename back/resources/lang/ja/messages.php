@@ -43,7 +43,7 @@ return [
     'customer_name_label' => '顧客名：',
     'phone_label' => '電話番号：',
     'email_label' => 'メールアドレス：',
-    'nationality_label' => '国籍：',
+    'nationality_label' => '国：',
     'age_gender_label' => '年齢 / 性別：',
     'room_label' => '客室：',
     'check_in_label' => 'チェックイン日：',

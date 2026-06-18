@@ -43,7 +43,7 @@ return [
     'customer_name_label' => 'Nombre del cliente:',
     'phone_label' => 'Número de teléfono:',
     'email_label' => 'Correo electrónico:',
-    'nationality_label' => 'Nacionalidad:',
+    'nationality_label' => 'País:',
     'age_gender_label' => 'Edad / Género:',
     'room_label' => 'Habitaciones:',
     'check_in_label' => 'Fecha de entrada:',
