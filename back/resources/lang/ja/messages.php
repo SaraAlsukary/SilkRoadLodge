@@ -56,4 +56,8 @@ return [
     'years' => '歳',
     'male' => '男性',
     'female' => '女性',
+    // ... النصوص القديمة
+    'rooms_count' => '部屋数',
+    'double_beds_count_label' => 'ダブルベッド:',
+    'single_beds_count_label' => 'シングルベッド:',
 ];

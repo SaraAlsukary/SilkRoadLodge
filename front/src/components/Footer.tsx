@@ -114,7 +114,9 @@ export default function Footer() {
                     </p>
                     {/* استخدمنا gap-6 بدلاً من space-x-reverse لدعم ممتاز للـ RTL و LTR */}
                     <div className="flex gap-6 font-english uppercase">
-                        <span>{t('footer_developed_by')}</span>
+                        <a href={'https://sawagroup.co.jp'} target="_blank" rel="noopener noreferrer" className="hover:text-silk-brown transition-colors">
+                            {t('footer_developed_by')}
+                        </a>
                     </div>
                 </div>
             </div>

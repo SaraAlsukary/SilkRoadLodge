@@ -136,5 +136,19 @@
     "badge_best_value": "最佳超值选择",
     "badge_extra_space": "额外空间与舒适",
     "badge_luxury_space": "宽敞奢华之选",
-    "modify_search_hint": "请调整您的入住日期或减少预订的客房数量。"
+    "modify_search_hint": "请调整您的入住日期或减少预订的客房数量。",
+    "checking_resources": "正在检查此日期的可用客房和床位...",
+    "available_rooms_label": "可用客房",
+    "available_doubles_label": "双人床",
+    "available_singles_label": "单人床",
+    "double_beds_input_label": "双人床数量",
+    "single_beds_input_label": "单人床数量",
+    "err_double_beds_min": "双人床数量不能小于零",
+    "err_single_beds_min": "单人床数量不能小于零",
+    "err_double_beds_max": "此日期仅剩 {{max}} 张双人床",
+    "err_single_beds_max": "此日期仅剩 {{max}} 张单人床",
+    "err_rooms_max": "此日期仅剩 {{max}} 间客房",
+    "err_capacity_insufficient": "所选床位容量（{{bedCapacity}} 人）不足以满足所需的访客人数（{{guestsCount}} 人）。",
+    "first_name": "名字",
+    "last_name": "姓氏"
 }

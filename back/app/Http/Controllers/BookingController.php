@@ -46,7 +46,7 @@ class BookingController extends Controller
             'available_singles' => max(0, 10 - $usedSingles),
         ]);
     }
-/**
+    /**
      * إرسال وإنشاء حجز جديد
      */
     public function store(Request $request)
@@ -102,8 +102,8 @@ class BookingController extends Controller
         // إرسال الإيميلات
         try {
             \Illuminate\Support\Facades\Mail::to($booking->customer_email)->send(new \App\Mail\BookingConfirmed($booking));
-            // $adminEmail = 'saraals6216@gmail.com';
-            $adminEmail = 'info@silkroadlodge.com';
+            $adminEmail = 'saraals6216@gmail.com';
+            // $adminEmail = 'info@silkroadlodge.com';
             \Illuminate\Support\Facades\Mail::to($adminEmail)->send((new \App\Mail\AdminNewBookingMail($booking))->locale('ar'));
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('فشل إرسال إيميلات الحجز: ' . $e->getMessage());
@@ -115,73 +115,6 @@ class BookingController extends Controller
             'data' => $booking
         ], 201);
     }
-    // /**
-    //  * إنشاء حجز جديد
-    //  */
-    // public function store(Request $request)
-    // {
-    //     $validatedData = $request->validate([
-    //         'customer_name'      => 'required|string|max:255',
-    //         'customer_phone'     => 'required|string|max:20',
-    //         'customer_email'     => 'required|email|max:255',
-    //         'gender'             => 'required|in:male,female,other',
-    //         'nationality'        => 'required|string|max:100',
-    //         'age'                => 'required|integer|min:18',
-    //         'guests_count'       => 'required|integer|min:1',
-    //         'rooms_count'        => 'required|integer|min:1',
-    //         'double_beds_count'  => 'required|integer|min:0',
-    //         'single_beds_count'  => 'required|integer|min:0',
-    //         'booked_room_names'  => 'required|string|max:1000',
-    //         'check_in'           => 'required|date|after_or_equal:today',
-    //         'check_out'          => 'required|date|after:check_in',
-    //         'requested_services' => 'nullable|array',
-    //         'notes'              => 'nullable|string|max:1000',
-    //     ]);
-
-    //     // 🌟 الفحص الذكي والمطابق 100% للواجهة (بالعمليات الحسابية)
-    //     $overlappingBookings = Booking::where('status', 'confirmed')
-    //         ->where('check_in', '<', $request->check_out)
-    //         ->where('check_out', '>', $request->check_in)
-    //         ->get();
-
-    //     $usedRooms = $overlappingBookings->sum('rooms_count');
-    //     $usedDoubles = $overlappingBookings->sum('double_beds_count');
-    //     $usedSingles = $overlappingBookings->sum('single_beds_count');
-
-    //     $availableRooms = max(0, 8 - $usedRooms);
-    //     $availableDoubles = max(0, 8 - $usedDoubles);
-    //     $availableSingles = max(0, 10 - $usedSingles);
-
-    //     // إذا كان الطلب يتجاوز السعة المتبقية
-    //     if ($request->rooms_count > $availableRooms ||
-    //         $request->double_beds_count > $availableDoubles ||
-    //         $request->single_beds_count > $availableSingles) {
-
-    //         return response()->json([
-    //             'success' => false,
-    //             'message' => __('messages.room_already_booked') ?? 'عذراً، الموارد المتبقية لا تكفي لتلبية هذا الطلب.'
-    //         ], 422);
-    //     }
-
-    //     // الحفظ في قاعدة البيانات
-    //     $validatedData['status'] = 'confirmed';
-    //     $booking = Booking::create($validatedData);
-
-    //     // إرسال الإيميلات
-    //     try {
-    //         Mail::to($booking->customer_email)->send(new BookingConfirmed($booking));
-    //         $adminEmail = 'saraals6216@gmail.com';
-    //         Mail::to($adminEmail)->send((new AdminNewBookingMail($booking))->locale('ar'));
-    //     } catch (\Exception $e) {
-    //         Log::error('فشل إرسال إيميلات الحجز: ' . $e->getMessage());
-    //     }
-
-    //     return response()->json([
-    //         'success' => true,
-    //         'message' => __('messages.booking_created'),
-    //         'data' => $booking
-    //     ], 201);
-    // }
 
     /**
      * عرض تفاصيل حجز

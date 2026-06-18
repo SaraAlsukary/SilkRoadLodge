@@ -56,4 +56,7 @@ return [
     'years' => 'years',
     'male' => 'Male',
     'female' => 'Female',
+    'rooms_count' => 'Number of Rooms',
+    'double_beds_count_label' => 'Double Beds:',
+    'single_beds_count_label' => 'Single Beds:',
 ];

@@ -128,28 +128,14 @@ export default function RoomTypes() {
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                whileHover={{ y: -8 }} // تمكين حركات التحويم دائماً لأن الغرفة لم تعد مقفلة
+                                whileHover={{ y: -8 }}
                                 transition={{ duration: 0.4, delay: index * 0.05 }}
-                                className="group flex flex-col justify-between bg-silk-cream border border-silk-sand/20 rounded-xl overflow-hidden shadow-sm hover:shadow-2xl hover:border-silk-sand/50 transition-all duration-300 bg-white/40 backdrop-blur-xs"
+                                // 1. أضفنا (flex flex-col h-full) للكارد الأب ليقبل التمدد بشكل سليم
+                                className="group bg-[#49392a] border border-silk-sand/70  rounded-xl overflow-hidden shadow-sm hover:shadow-2xl hover:border-silk-sand/50 transition-all duration-300 flex flex-col h-full"
                             >
-                                <div className="h-56 w-full overflow-hidden relative">
-                                    {/* <div className="absolute top-4 right-4 z-10 flex flex-col gap-1 items-end">
-                                        {room?.booking_status?.is_booked ? (
-                                            <>
-                                                <span className="px-3 py-1 rounded-full text-sm font-bold bg-amber-800/90 text-silk-cream backdrop-blur-xs border border-silk-sand/20 shadow-md tracking-wide">
-                                                    {t('status_booked', 'محجوزة حالياً')}
-                                                </span>
-                                                <span className="px-2 py-0.5 rounded-md text-sm font-bold bg-white/80 text-amber-950  shadow-sm">
-                                                    {t('available_on', 'متاحة في:')} {room.booking_status.available_at}
-                                                </span>
-                                            </>
-                                        ) : (
-                                            <span className="px-3 py-1 rounded-full text-sm font-bold bg-emerald-800/90 text-silk-cream backdrop-blur-xs border border-emerald-600/20 shadow-md tracking-wide">
-                                                {t('status_available', 'متاحة الآن')}
-                                            </span>
-                                        )}
-                                    </div> */}
-
+                                {/* قسم الصورة */}
+                                {/* 2. أضفنا shrink-0 لمنع الصورة من الانكماش إذا طال النص جداً */}
+                                <div className="h-56 w-full shrink-0 overflow-hidden relative">
                                     <img
                                         src={room.displayImage}
                                         alt={room.name}
@@ -162,48 +148,62 @@ export default function RoomTypes() {
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                                 </div>
 
-                                <div className="p-6 flex-grow">
-                                    <div className="flex justify-between items-start mb-3">
-                                        <h3 className="text-2xl font-bold text-silk-brown group-hover:text-silk-dark transition-colors duration-300">
-                                            {room.name}
-                                        </h3>
-                                    </div>
-                                    <p className="text-silk-dark/80 font-medium text-xl leading-relaxed mb-4 min-h-[48px]">
-                                        {room.description}
-                                    </p>
-                                </div>
+                                {/* الحاوية الرئيسية للمحتوى */}
+                                {/* 3. أضفنا flex-grow لتأخذ باقي مساحة الكارد */}
+                                <div className="text-[#f6dbbc] flex flex-col flex-grow">
 
-                                <div className="px-6 pb-6 space-y-4">
-                                    <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-t-silk-brown">
-                                        <div className="flex items-center justify-between gap-3 w-full text-md font-bold text-silk-brown/90">
-                                            <div className="flex items-center gap-1">
-                                                {room.icon}
-                                                <span>
-                                                    <span className='font-arabic font-bold text-xl'>{room.guests}</span>{' '}{t('guest_count')}
-                                                </span>
+                                    {/* القسم العلوي: العنوان والوصف */}
+                                    {/* 4. أضفنا flex-grow هنا ليتكفل هذا القسم بملء أي فراغ ويدفع ما تحته للأسفل */}
+                                    <div className="p-5 pb-2 flex-grow">
+                                        <div className="mb-2">
+                                            <h3 className="text-2xl font-bold">
+                                                {room.name}
+                                            </h3>
+                                        </div>
+                                        <p className="font-medium text-xl leading-relaxed">
+                                            {room.description}
+                                        </p>
+                                    </div>
+
+                                    {/* القسم السفلي: الأيقونات والزر مع التدرج اللوني */}
+                                    {/* 5. أضفنا mt-auto لضمان التصاقه بالأسفل، و shrink-0 لمنع انكماشه */}
+                                    <div className="p-5 bg-gradient-to-b from-[#49392a] to-[#f6dbbc]/80 backdrop-blur-sm mt-auto shrink-0">
+
+                                        {/* 3. الخط والأيقونات */}
+                                        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 pb-4 border-t border-white/20">
+                                            <div className="flex items-center justify-between gap-3 w-full text-md font-bold">
+                                                <div className="flex items-center gap-1">
+                                                    {room.icon}
+                                                    <span>
+                                                        <span className='font-arabic font-bold text-xl'>{room.guests}</span>{' '}{t('guest_count')}
+                                                    </span>
+                                                </div>
+                                                <div className="flex items-center gap-1">
+                                                    {icons.bed}
+                                                    <span>
+                                                        <span className='font-arabic font-bold text-xl'>{room.beds}</span>{' '}{t(room.beds === 1 ? 'bed_single' : 'bed_plural')}
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div className="flex items-center gap-1">
-                                                {icons.bed}
-                                                <span>
-                                                    <span className='font-arabic font-bold text-xl'>{room.beds}</span>{' '}{t(room.beds === 1 ? 'bed_single' : 'bed_plural')}
+                                            <div className="flex items-center gap-1 text-md font-semibold px-2 py-1">
+                                                {icons.price}
+                                                <span className="font-medium text-base">
+                                                    {t(`${room.slug}_price`)}
                                                 </span>
                                             </div>
                                         </div>
-                                        <div className="flex items-center gap-1 text-md font-semibold text-silk-brown/90 px-2 py-1">
-                                            {icons.price}
-                                            <span className="font-medium text-base">
-                                                {t(`${room.slug}_price`)}
-                                            </span>
-                                        </div>
-                                    </div>
 
-                                    {/* 🌟 الزر يظل متاحاً دائماً ليسمح بالحجوزات المستقبلية */}
-                                    <NavLink
-                                        to={`/booking?room=${room.id}`}
-                                        className="block text-center w-full py-2.5 rounded-lg bg-silk-brown border border-silk-brown text-silk-cream font-bold text-lg tracking-wider transition-all duration-300 hover:bg-silk-dark hover:text-silk-cream hover:border-silk-brown/30 cursor-pointer"
-                                    >
-                                        {t('book_now', 'احجز الآن')}
-                                    </NavLink>
+                                        {/* 4. الزر */}
+                                        <div>
+                                            <NavLink
+                                                to={`/booking?room=${room.id}`}
+                                                className="block text-center w-full py-2.5 rounded-lg bg-silk-brown border border-silk-brown text-silk-cream font-bold text-lg tracking-wider transition-all duration-300 hover:bg-silk-dark hover:text-silk-cream hover:border-silk-brown/30 cursor-pointer"
+                                            >
+                                                {t('book_now', 'احجز الآن')}
+                                            </NavLink>
+                                        </div>
+
+                                    </div>
                                 </div>
                             </motion.div>
                         );
@@ -213,3 +213,46 @@ export default function RoomTypes() {
         </section>
     );
 }
+//  <div className="p-6 flex-grow">
+//                                     <div className="flex justify-between items-start mb-3">
+//                                         <h3 className="text-2xl font-bold text-silk-brown group-hover:text-silk-dark transition-colors duration-300">
+//                                             {room.name}
+//                                         </h3>
+//                                     </div>
+//                                     <p className="text-silk-dark/80 font-medium text-xl leading-relaxed mb-4 min-h-[48px]">
+//                                         {room.description}
+//                                     </p>
+//                                 </div>
+
+//                                 <div className="px-6 pb-6 space-y-4">
+//                                     <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-t-silk-brown">
+//                                         <div className="flex items-center justify-between gap-3 w-full text-md font-bold text-silk-brown/90">
+//                                             <div className="flex items-center gap-1">
+//                                                 {room.icon}
+//                                                 <span>
+//                                                     <span className='font-arabic font-bold text-xl'>{room.guests}</span>{' '}{t('guest_count')}
+//                                                 </span>
+//                                             </div>
+//                                             <div className="flex items-center gap-1">
+//                                                 {icons.bed}
+//                                                 <span>
+//                                                     <span className='font-arabic font-bold text-xl'>{room.beds}</span>{' '}{t(room.beds === 1 ? 'bed_single' : 'bed_plural')}
+//                                                 </span>
+//                                             </div>
+//                                         </div>
+//                                         <div className="flex items-center gap-1 text-md font-semibold text-silk-brown/90 px-2 py-1">
+//                                             {icons.price}
+//                                             <span className="font-medium text-base">
+//                                                 {t(`${room.slug}_price`)}
+//                                             </span>
+//                                         </div>
+//                                     </div>
+
+//                                     {/* 🌟 الزر يظل متاحاً دائماً ليسمح بالحجوزات المستقبلية */}
+//                                     <NavLink
+//                                         to={`/booking?room=${room.id}`}
+//                                         className="block text-center w-full py-2.5 rounded-lg bg-silk-brown border border-silk-brown text-silk-cream font-bold text-lg tracking-wider transition-all duration-300 hover:bg-silk-dark hover:text-silk-cream hover:border-silk-brown/30 cursor-pointer"
+//                                     >
+//                                         {t('book_now', 'احجز الآن')}
+//                                     </NavLink>
+//                                 </div>

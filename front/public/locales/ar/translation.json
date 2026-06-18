@@ -136,5 +136,19 @@
     "badge_best_value": "أفضل قيمة متبقية",
     "badge_extra_space": "مساحة إضافية وراحة",
     "badge_luxury_space": "خيار الرفاهية الواسع",
-    "modify_search_hint": "يرجى تعديل تواريخ الإقامة أو تقليل عدد الغرف المطلوبة."
+    "modify_search_hint": "يرجى تعديل تواريخ الإقامة أو تقليل عدد الغرف المطلوبة.",
+    "checking_resources": "جاري التحقق من الغرف والأسرة المتاحة لهذا التاريخ...",
+    "available_rooms_label": "الغرف المتاحة",
+    "available_doubles_label": "الأسرة المزدوجة",
+    "available_singles_label": "الأسرة المفردة",
+    "double_beds_input_label": "عدد الأسرّة المزدوجة",
+    "single_beds_input_label": "عدد الأسرّة المفردة",
+    "err_double_beds_min": "لا يمكن أن يكون عدد الأسرة المزدوجة أقل من صفر",
+    "err_single_beds_min": "لا يمكن أن يكون عدد الأسرة المفردة أقل من صفر",
+    "err_double_beds_max": "المتاح حالياً لهذا التاريخ هو {{max}} أسرة مزدوجة فقط",
+    "err_single_beds_max": "المتاح حالياً لهذا التاريخ هو {{max}} أسرة مفردة فقط",
+    "err_rooms_max": "المتاح حالياً لهذا التاريخ هو {{max}} غرف فقط",
+    "err_capacity_insufficient": "سعة الأسرة المختارة ({{bedCapacity}} أشخاص) لا تكفي لعدد الضيوف المطلوب ({{guestsCount}} أشخاص).",
+    "first_name": "الاسم الأول",
+    "last_name": "الاسم الثاني"
 }

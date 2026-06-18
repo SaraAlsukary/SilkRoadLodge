@@ -136,5 +136,19 @@
     "badge_best_value": "Meilleur Rapport Qualité-Prix",
     "badge_extra_space": "Espace Supplémentaire et Confort",
     "badge_luxury_space": "Option de Luxe Spacieuse",
-    "modify_search_hint": "Veuillez modifier vos dates de séjour ou réduire le nombre de chambres demandées."
+    "modify_search_hint": "Veuillez modifier vos dates de séjour ou réduire le nombre de chambres demandées.",
+    "checking_resources": "Vérification des chambres et lits disponibles pour cette date...",
+    "available_rooms_label": "Chambres disponibles",
+    "available_doubles_label": "Lits doubles",
+    "available_singles_label": "Lits simples",
+    "double_beds_input_label": "Nombre de lits doubles",
+    "single_beds_input_label": "Nombre de lits simples",
+    "err_double_beds_min": "Le nombre de lits doubles ne peut pas être inférieur à zéro",
+    "err_single_beds_min": "Le nombre de lits simples ne peut pas être inférieur à zéro",
+    "err_double_beds_max": "Seulement {{max}} lits doubles sont disponibles pour cette date",
+    "err_single_beds_max": "Seulement {{max}} lits simples sont disponibles pour cette date",
+    "err_rooms_max": "Seulement {{max}} chambres sont disponibles pour cette date",
+    "err_capacity_insufficient": "La capacité des lits sélectionnés ({{bedCapacity}} personnes) est insuffisante pour le nombre de clients requis ({{guestsCount}} personnes).",
+    "first_name": "Prénom",
+    "last_name": "Nom"
 }
