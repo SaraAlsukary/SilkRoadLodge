@@ -9,7 +9,7 @@ i18n
     .use(initReactI18next)
     .init({
         // اللغات المدعومة في موقعك بالكامل
-        supportedLngs: ['ar', 'en', 'ja', 'es', 'fr', 'zh'],
+        supportedLngs: ['ar', 'en', 'ja', 'es', 'fr', 'zh','de'],
 
         fallbackLng: 'en', // اللغة الافتراضية
 

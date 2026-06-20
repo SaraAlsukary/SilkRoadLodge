@@ -1,21 +1,102 @@
+# version: '3.8'
+
+# services:
+#   # واجهة React الخاصة بـ Silk
+#   frontend:
+#     build: ./front
+#     ports:
+#       - "8080:80"
+#     volumes:
+#       - ./back:/var/www
+#       - ./back/storage/app/public:/var/www/html/public/storage
+#     depends_on:
+#       - backend
+#     networks:
+#       - default
+#       - proxy_network # ربط الواجهة بشبكة الموجه
+
+#   # خلفية Laravel الخاصة بـ Silk
+#   backend:
+#     build: ./back
+#     volumes:
+#       - ./back:/var/www
+#       - /var/www/vendor
+#       - ./back/storage/app/public:/var/www/html/public/storage
+#     environment:
+#       - APP_ENV=production
+#       - APP_DEBUG=false
+#     depends_on:
+#       - db
+#     networks:
+#       - default # تأكيد وجوده في الشبكة الافتراضية للاتصال بالقاعدة
+#       - proxy_network #
+#   # قاعدة بيانات Silk
+#   db:
+#     image: mysql:8.0
+#     restart: always # مضاف لضمان إعادة التشغيل التلقائي عند حدوث خطأ
+#     environment:
+#       MYSQL_DATABASE: silk_db
+#       MYSQL_ROOT_PASSWORD: root_2424
+#     volumes:
+#       - db_data:/var/lib/mysql
+#     networks:
+#       - default # لتستطيع الحاويات الداخلية مثل الباك و phpMyAdmin رؤيتها
+
+#   # إضافة أداة تصفح قاعدة البيانات phpMyAdmin
+#   phpmyadmin:
+#     image: phpmyadmin/phpmyadmin
+#     restart: always
+#     ports:
+#       - "8085:80" # قمنا بتغيير المنفذ الخارجي إلى 8085 لأن المنفذ 8080 محجوز للفرونت إند لديك
+#     environment:
+#       PMA_HOST: db # اسم خدمة قاعدة البيانات بالأعلى ليرتبط بها تلقائياً
+#       MYSQL_ROOT_PASSWORD: root_2424 # كلمة مرور الـ root لتسهيل الدخول المباشر
+#     depends_on:
+#       - db
+#     networks:
+#       - default # لتكون في نفس شبكة قاعدة البيانات
+#       - proxy_network # مضاف اختياريًا في حال أردت ربطها بالموجه الخارجي مستقبلاً بدومين
+
+# volumes:
+#   db_data:
+
+# # تعريف الشبكة الخارجية الخاصة بالموجه المستقل
+# networks:
+#   default:
+#   proxy_network:
+#     external: true
+#     name: global-proxy_default
+
 version: '3.8'
 
 services:
-  # واجهة React الخاصة بـ Silk
+  # 1️⃣ الموقع الرئيسي للعملاء
   frontend:
     build: ./front
-    ports:
-      - "8080:80"
     volumes:
+      # تم حذف ربط ملفات الفرونت إند لأن Dockerfile سيقوم ببنائها وحفظها داخلياً
       - ./back:/var/www
       - ./back/storage/app/public:/var/www/html/public/storage
     depends_on:
       - backend
     networks:
       - default
-      - proxy_network # ربط الواجهة بشبكة الموجه
+      - proxy_network
 
-  # خلفية Laravel الخاصة بـ Silk
+  # 2️⃣ واجهة لوحة التحكم
+  dashboard:
+    build: ./dashboard
+    volumes:
+      # تم حذف ربط ملفات لوحة التحكم لأن Dockerfile سيقوم ببنائها داخلياً
+      - ./back:/var/www
+      - ./back/storage/app/public:/var/www/html/public/storage
+    depends_on:
+      - backend
+    networks:
+      - default
+      - proxy_network
+
+  # 3️⃣ خلفية Laravel 
   backend:
     build: ./back
     volumes:
@@ -28,39 +109,37 @@ services:
     depends_on:
       - db
     networks:
-      - default # تأكيد وجوده في الشبكة الافتراضية للاتصال بالقاعدة
-      - proxy_network #
-  # قاعدة بيانات Silk
+      - default
+      - proxy_network
+
+  # 4️⃣ قاعدة البيانات
   db:
     image: mysql:8.0
-    restart: always # مضاف لضمان إعادة التشغيل التلقائي عند حدوث خطأ
+    restart: always
     environment:
       MYSQL_DATABASE: silk_db
       MYSQL_ROOT_PASSWORD: root_2424
     volumes:
       - db_data:/var/lib/mysql
     networks:
-      - default # لتستطيع الحاويات الداخلية مثل الباك و phpMyAdmin رؤيتها
+      - default
 
-  # إضافة أداة تصفح قاعدة البيانات phpMyAdmin
+  # 5️⃣ أداة phpMyAdmin
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: always
-    ports:
-      - "8085:80" # قمنا بتغيير المنفذ الخارجي إلى 8085 لأن المنفذ 8080 محجوز للفرونت إند لديك
     environment:
-      PMA_HOST: db # اسم خدمة قاعدة البيانات بالأعلى ليرتبط بها تلقائياً
-      MYSQL_ROOT_PASSWORD: root_2424 # كلمة مرور الـ root لتسهيل الدخول المباشر
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: root_2424
     depends_on:
       - db
     networks:
-      - default # لتكون في نفس شبكة قاعدة البيانات
-      - proxy_network # مضاف اختياريًا في حال أردت ربطها بالموجه الخارجي مستقبلاً بدومين
+      - default
+      - proxy_network
 
 volumes:
   db_data:
 
-# تعريف الشبكة الخارجية الخاصة بالموجه المستقل
 networks:
   default:
   proxy_network:

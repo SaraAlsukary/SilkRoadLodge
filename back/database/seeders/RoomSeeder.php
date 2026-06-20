@@ -27,6 +27,7 @@ class RoomSeeder extends Seeder
                 'name' => [
                     'ar' => 'غرفة لشخص واحد',
                     'en' => 'Single Room',
+                    'de' => 'Einzelzimmer',
                     'fr' => 'Chambre Individuelle',
                     'es' => 'Habitación Individual',
                     'zh' => '单人间',
@@ -35,6 +36,7 @@ class RoomSeeder extends Seeder
                 'description' => [
                     'ar' => 'ملاذ هادئ ومريح مصمم بعناية لشخص واحد، يمنحك الخصوصية الكاملة مع إطلالة ساحرة.',
                     'en' => 'A peaceful and cozy retreat mindfully crafted for one person, offering complete privacy and a lovely view.',
+                    'de' => 'Ein ruhiger und gemütlicher Rückzugsort, sorgfältig für eine Person gestaltet, mit absoluter Privatsphäre und einer schönen Aussicht.',
                     'fr' => 'Un havre de paix calme et confortable conçu pour une personne, offrant une intimité totale.',
                     'es' => 'Un refugio tranquilo y acogedor diseñado cuidadosamente para una persona.',
                     'zh' => '为单人精心设计的宁静舒适避风港，为您提供完全的隐私以及迷人的景观。',
@@ -50,6 +52,7 @@ class RoomSeeder extends Seeder
                 'name' => [
                     'ar' => 'غرفة لشخصين بسرير مزدوج واحد',
                     'en' => 'Double Room',
+                    'de' => 'Doppelzimmer',
                     'fr' => 'Chambre Double (Un Grand Lit)',
                     'es' => 'Habitación Doble (Cama Matrimonial)',
                     'zh' => '大床双人间',
@@ -58,6 +61,7 @@ class RoomSeeder extends Seeder
                 'description' => [
                     'ar' => 'غرفة فسيحة ومثالية لشخصين، تحتوي على سرير مزدوج واحد كبير لراحة مثالية.',
                     'en' => 'A spacious room ideal for two guests, featuring one large double bed for a perfect night\'s rest.',
+                    'de' => 'Ein geräumiges Zimmer, ideal für zwei Gäste, mit einem großen Doppelbett für eine perfekte Nachtruhe.',
                     'fr' => 'Une chambre spacieuse idéale for deux personnes, comprenant un grand lit double.',
                     'es' => 'Una habitación espaciosa e ideal para dos personas, que cuenta con una cama doble grande.',
                     'zh' => '宽敞且理想的双人客房，配备一张大双人床，为您带来完美的舒适体验。',
@@ -73,6 +77,7 @@ class RoomSeeder extends Seeder
                 'name' => [
                     'ar' => 'غرفة لشخصين بسريرين منفصلين',
                     'en' => 'Twin Room',
+                    'de' => 'Zweibettzimmer',
                     'fr' => 'Chambre Lits Jumeaux',
                     'es' => 'Habitación Doble (Camas Separadas)',
                     'zh' => '双床双人间',
@@ -81,6 +86,7 @@ class RoomSeeder extends Seeder
                 'description' => [
                     'ar' => 'غرفة مريحة لشخصين، مجهزة بسريرين منفصلين تماماً لتوفر الخصوصية والراحة لكل ضيف.',
                     'en' => 'Comfortable accommodation for two guests, equipped with two separate single beds to provide convenience and privacy.',
+                    'de' => 'Komfortable Unterkunft für zwei Gäste, ausgestattet mit zwei separaten Einzelbetten für mehr Flexibilität und Privatsphäre.',
                     'fr' => 'Une chambre confortable pour deux personnes, équipée de deux lits entièrement séparés.',
                     'es' => 'Una habitación confortable para dos personas, equipada con dos camas completamente separadas.',
                     'zh' => '舒适的双人客房，配备两张完全独立的床，为每位宾客提供专属的隐私与舒适。',
@@ -96,6 +102,7 @@ class RoomSeeder extends Seeder
                 'name' => [
                     'ar' => 'غرفة لثلاثة أشخاص',
                     'en' => 'Triple Room',
+                    'de' => 'Dreibettzimmer',
                     'fr' => 'Chambre Triple',
                     'es' => 'Habitación Triple',
                     'zh' => '三人间',
@@ -104,6 +111,7 @@ class RoomSeeder extends Seeder
                 'description' => [
                     'ar' => 'خيار ممتاز للمجموعات الصغيرة والعائلات، تتسع لثلاثة أشخاص وتضم ثلاثة أسرة منفصلة ومريحة.',
                     'en' => 'An excellent choice for small groups and families, accommodating three guests with three separate beds.',
+                    'de' => 'Eine hervorragende Wahl für kleine Gruppen und Familien, geeignet für drei Gäste mit drei separaten Betten.',
                     'fr' => 'Un excellent choix pour les petits groupes et les familles, pouvant accueillir trois personnes.',
                     'es' => 'Una excelente opción para grupos pequeños y familias, con capacity para tres personas.',
                     'zh' => '小组出行和家庭的极佳选择，可容纳三人，配有三张独立且舒适的床。',
@@ -119,6 +127,7 @@ class RoomSeeder extends Seeder
                 'name' => [
                     'ar' => 'غرفة لأربعة أشخاص',
                     'en' => 'Quad Room',
+                    'de' => 'Vierbettzimmer',
                     'fr' => 'Chambre Quadruple',
                     'es' => 'Habitación Cuádruple',
                     'zh' => '四人间',
@@ -127,6 +136,7 @@ class RoomSeeder extends Seeder
                 'description' => [
                     'ar' => 'جناح عائلي واسع يتسع لأربعة أشخاص، مجهز بأربعة أسرة منفصلة لضمان راحة ورفاهية كل فرد.',
                     'en' => 'A generous family-style room that comfortably accommodates four guests, outfitted with four separate beds.',
+                    'de' => 'Ein großzügiges Familienzimmer, das bequem Platz für vier Gäste bietet und mit vier separaten Betten ausgestattet ist.',
                     'fr' => 'Une suite familiale spacieuse pouvant accueillir quatre personnes, équipée de quatre lits séparés.',
                     'es' => 'Una amplia suite familiar con capacidad para cuatro personas, equipada con cuatro camas independientes.',
                     'zh' => '宽敞的家庭套房，可容纳四人，配有四张独立的床，确保每位成员的舒适与惬意。',

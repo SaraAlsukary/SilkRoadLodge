@@ -13,6 +13,7 @@ export default function Header() {
     const languages = [
         { code: "ar", name: "العربية" },
         { code: "en", name: "English" },
+        { code: "de", name: "Deutsch" }, // 👈 تمت إضافة اللغة الألمانية هنا
         { code: "fr", name: "Français" },
         { code: "es", name: "Español" },
         { code: "zh", name: "简体中文" },

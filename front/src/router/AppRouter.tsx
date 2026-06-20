@@ -10,6 +10,7 @@ const About = lazy(() => import('../pages/About'));
 const RoomTypes = lazy(() => import('../pages/Rooms'));
 const Services = lazy(() => import('../pages/Services'));
 const Booking = lazy(() => import('../pages/Booking'));
+const Dashboard = lazy(() => import('../pages/Dashboard'));
 
 const Loader = <P extends object>(Component: ComponentType<P>) => {
     return (props: P) => (
@@ -24,7 +25,7 @@ const NotFoundLazy = Loader(NotFound);
 const ServicesLazy = Loader(Services);
 const RoomTypeLazy = Loader(RoomTypes);
 const BookingLazy = Loader(Booking);
-
+const DashboardLazy = Loader(Dashboard);
 
 // في الراوتر:
 const App = () => {
@@ -75,13 +76,19 @@ const App = () => {
                     path: 'services',
                     element: <ServicesLazy />
                 },
+                
                 {
                     path: '*', // أي مسار لا يطابق المسارات السابقة
                     element: <NotFoundLazy />,
                 },
 
             ],
+       
         },
+        {
+            path: '/manage-system-24',
+            element: <DashboardLazy />
+        }
     ]);
     return (
         <RouterProvider router={router} />
