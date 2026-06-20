@@ -373,7 +373,7 @@ export default function BookingRoom() {
                                         </div>
                                         <div>
                                             <label className="block text-xl font-bold text-silk-brown mb-2">{t('email_address')}</label>
-                                            <input type="email" name="customer_email" value={formData.customer_email} onChange={handleInputChange} dir='ltr' className={`w-full px-4 py-3 rounded-xl border bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all text-left dir-ltr ${errors.customer_email ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`} placeholder="example@email.com" />
+                                            <input type="email" name="customer_email" value={formData.customer_email} onChange={handleInputChange} dir='ltr' className={`w-full px-4 py-3 rounded-xl border bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all text-left dir-ltr ${errors.customer_email ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`} placeholder="info@silkroadlodge.com" />
                                             {errors.customer_email && <p className="text-rose-600 text-md mt-1.5 font-bold">{errors.customer_email}</p>}
                                         </div>
                                     </div>

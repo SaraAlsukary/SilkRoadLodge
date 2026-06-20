@@ -4,26 +4,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;600;700&display=swap');
 
 
-/* @font-face {
-  font-family: 'arabic';
-  src: url('./assets/fonts/DecoType-Thuluth.woff2') format('woff2');
-  font-display: swap;
-} */
-
-/* تعريف الخطوط المحلية من مجلد public (أوفلاين) */
-@font-face {
-  font-family: 'LucidaCalligraphy';
-  src: url('/fonts/LucidaUnicodeCalligraphy.woff2') format('woff2');
-  /* تم تعديل الاسم هنا ليصبح آمن وبدون مسافات */
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'YuMinchoLocal';
-  src: url('/fonts/yu-mincho-regular.woff2') format('woff2');
-  font-display: swap;
-}
-
 @theme {
   /* تعريف ألوان فندق طريق الحرير */
   --color-silk-brown: #8B5E3C;
@@ -38,8 +18,8 @@
   /* تعريف الخطوط المخصصة */
   /* --font-arabic: "Amiri", serif;*/
   --font-arabic: "Amiri", serif;
-  --font-english: "LucidaCalligraphy", serif;
-  --font-japanese: "YuMinchoLocal", serif;
+  /* --font-english: "LucidaCalligraphy", serif;
+  --font-japanese: "YuMinchoLocal", serif; */
 
 }
 
@@ -56,11 +36,4 @@
     font-family: var(--font-arabic);
   }
 
-  body.font-english {
-    font-family: var(--font-english);
-  }
-
-  body.font-japanese {
-    font-family: var(--font-japanese);
-  }
 }
