@@ -359,7 +359,7 @@ export default function AdminDashboard() {
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                   <h3 className="text-2xl font-bold flex items-center gap-3">
                     <span className="w-2 h-2 rounded-full bg-silk-sand animate-pulse" />
-                    قائمة الضيوف الحالية
+                    قائمة النزلاء الحالية
                   </h3>
                   <div className="flex gap-2 p-1.5 bg-black/10 dark:bg-white/5 rounded-2xl w-fit border border-inherit">
                     {['الكل', 'مؤكد', 'قيد الانتظار'].map(f => (
