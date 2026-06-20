@@ -84,7 +84,7 @@
     "night": "ليلة",
     "check_in_date": "تاريخ الوصول",
     "check_out_date": "تاريخ المغادرة",
-    "guests_count": "عدد الضيوف",
+    "guests_count": "عدد النزلاء",
     "rooms_count": "عدد الغرف",
     "extra_services": "الخدمات المتوفرة",
     "service_breakfast": "وجبة إفطار",
@@ -149,6 +149,6 @@
     "err_single_beds_max": "المتاح حالياً لهذا التاريخ هو {{max}} أسرة مفردة فقط",
     "err_rooms_max": "المتاح حالياً لهذا التاريخ هو {{max}} غرف فقط",
     "err_capacity_insufficient": "سعة الأسرة المختارة ({{bedCapacity}} أشخاص) لا تكفي لعدد الضيوف المطلوب ({{guestsCount}} أشخاص).",
-    "first_name": "الاسم الأول",
-    "last_name": "الاسم الثاني"
+    "first_name": "الاسم الشخصي",
+    "last_name": "اسم العائلة"
 }

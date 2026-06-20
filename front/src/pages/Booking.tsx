@@ -473,7 +473,7 @@ export default function BookingRoom() {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-xl font-bold text-silk-brown mb-2">{t('guests_count')}</label>
-                                            <div className={`flex items-center justify-between w-full px-4 py-2 rounded-xl border bg-white/80 transition-all ${errors.guests_count ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`}>
+                                            <div dir='ltr' className={`flex items-center justify-between w-full px-4 py-2 rounded-xl border bg-white/80 transition-all ${errors.guests_count ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`}>
                                                 <button type="button" onClick={() => handleCounterChange('guests_count', false, 1)} className="w-8 h-8 rounded-lg flex items-center justify-center bg-silk-sand/20 hover:bg-silk-sand/40 text-silk-brown font-bold text-xl transition-colors">-</button>
                                                 <span className="font-bold text-silk-dark text-lg w-8 text-center">{formData.guests_count}</span>
                                                 <button type="button" onClick={() => handleCounterChange('guests_count', true, 1)} className="w-8 h-8 rounded-lg flex items-center justify-center bg-silk-brown hover:bg-silk-dark text-white font-bold text-xl transition-colors">+</button>
@@ -482,7 +482,7 @@ export default function BookingRoom() {
                                         </div>
                                         <div>
                                             <label className="block text-xl font-bold text-silk-brown mb-2">{t('rooms_count')}</label>
-                                            <div className={`flex items-center justify-between w-full px-4 py-2 rounded-xl border bg-white/80 transition-all ${errors.rooms_count ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`}>
+                                            <div dir='ltr'  className={`flex items-center justify-between w-full px-4 py-2 rounded-xl border bg-white/80 transition-all ${errors.rooms_count ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`}>
                                                 <button type="button" onClick={() => handleCounterChange('rooms_count', false, 1)} className="w-8 h-8 rounded-lg flex items-center justify-center bg-silk-sand/20 hover:bg-silk-sand/40 text-silk-brown font-bold text-xl transition-colors">-</button>
                                                 <span className="font-bold text-silk-dark text-lg w-8 text-center">{formData.rooms_count}</span>
                                                 <button type="button" onClick={() => handleCounterChange('rooms_count', true, 1, hasFetchedResources ? availableResources.rooms : undefined)} className="w-8 h-8 rounded-lg flex items-center justify-center bg-silk-brown hover:bg-silk-dark text-white font-bold text-xl transition-colors">+</button>
@@ -493,22 +493,22 @@ export default function BookingRoom() {
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
                                         <div>
-                                            <label className="block text-xl font-bold text-silk-brown mb-2">{t('double_beds_input_label')}</label>
-                                            <div className={`flex items-center justify-between w-full px-4 py-2 rounded-xl border bg-white/80 transition-all ${errors.double_beds_count ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`}>
-                                                <button type="button" onClick={() => handleCounterChange('double_beds_count', false, 0)} className="w-8 h-8 rounded-lg flex items-center justify-center bg-silk-sand/20 hover:bg-silk-sand/40 text-silk-brown font-bold text-xl transition-colors">-</button>
-                                                <span className="font-bold text-silk-dark text-lg w-8 text-center">{formData.double_beds_count}</span>
-                                                <button type="button" onClick={() => handleCounterChange('double_beds_count', true, 0, hasFetchedResources ? availableResources.doubles : undefined)} className="w-8 h-8 rounded-lg flex items-center justify-center bg-silk-brown hover:bg-silk-dark text-white font-bold text-xl transition-colors">+</button>
-                                            </div>
-                                            {errors.double_beds_count && <p className="text-rose-600 text-md mt-1.5 font-bold">{errors.double_beds_count}</p>}
-                                        </div>
-                                        <div>
                                             <label className="block text-xl font-bold text-silk-brown mb-2">{t('single_beds_input_label')}</label>
-                                            <div className={`flex items-center justify-between w-full px-4 py-2 rounded-xl border bg-white/80 transition-all ${errors.single_beds_count ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`}>
+                                            <div dir='ltr' className={`flex items-center justify-between w-full px-4 py-2 rounded-xl border bg-white/80 transition-all ${errors.single_beds_count ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`}>
                                                 <button type="button" onClick={() => handleCounterChange('single_beds_count', false, 0)} className="w-8 h-8 rounded-lg flex items-center justify-center bg-silk-sand/20 hover:bg-silk-sand/40 text-silk-brown font-bold text-xl transition-colors">-</button>
                                                 <span className="font-bold text-silk-dark text-lg w-8 text-center">{formData.single_beds_count}</span>
                                                 <button type="button" onClick={() => handleCounterChange('single_beds_count', true, 0, hasFetchedResources ? availableResources.singles : undefined)} className="w-8 h-8 rounded-lg flex items-center justify-center bg-silk-brown hover:bg-silk-dark text-white font-bold text-xl transition-colors">+</button>
                                             </div>
                                             {errors.single_beds_count && <p className="text-rose-600 text-md mt-1.5 font-bold">{errors.single_beds_count}</p>}
+                                        </div>
+                                        <div>
+                                            <label className="block text-xl font-bold text-silk-brown mb-2">{t('double_beds_input_label')}</label>
+                                            <div dir='ltr' className={`flex items-center justify-between w-full px-4 py-2 rounded-xl border bg-white/80 transition-all ${errors.double_beds_count ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`}>
+                                                <button type="button" onClick={() => handleCounterChange('double_beds_count', false, 0)} className="w-8 h-8 rounded-lg flex items-center justify-center bg-silk-sand/20 hover:bg-silk-sand/40 text-silk-brown font-bold text-xl transition-colors">-</button>
+                                                <span className="font-bold text-silk-dark text-lg w-8 text-center">{formData.double_beds_count}</span>
+                                                <button type="button" onClick={() => handleCounterChange('double_beds_count', true, 0, hasFetchedResources ? availableResources.doubles : undefined)} className="w-8 h-8 rounded-lg flex items-center justify-center bg-silk-brown hover:bg-silk-dark text-white font-bold text-xl transition-colors">+</button>
+                                            </div>
+                                            {errors.double_beds_count && <p className="text-rose-600 text-md mt-1.5 font-bold">{errors.double_beds_count}</p>}
                                         </div>
                                     </div>
 
