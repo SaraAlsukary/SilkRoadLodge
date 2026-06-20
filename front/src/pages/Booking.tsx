@@ -153,7 +153,7 @@ export default function BookingRoom() {
     const validateStep1 = (): boolean => {
         const newErrors: Record<string, string> = {};
 
-        if (!formData.first_name.trim()) newErrors.first_name = t('err_name_req') || 'الاسم الأول مطلوب';
+        if (!formData.first_name.trim()) newErrors.first_name = t('err_name_req') || 'الاسم الشخصي مطلوب';
         else if (formData.first_name.trim().length < 2) newErrors.first_name = t('err_name_short') || 'الاسم قصير جداً';
 
         if (!formData.last_name.trim()) newErrors.last_name = t('err_name_req') || 'الاسم الأخير مطلوب';
@@ -322,12 +322,12 @@ export default function BookingRoom() {
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-xl font-bold text-silk-brown mb-2">{t('first_name') || 'الاسم الأول'}</label>
+                                            <label className="block text-xl font-bold text-silk-brown mb-2">{t('first_name') || 'الاسم الشخصي'}</label>
                                             <input type="text" name="first_name" value={formData.first_name} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all text-silk-dark ${errors.first_name ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`} placeholder="John" />
                                             {errors.first_name && <p className="text-rose-600 text-md mt-1.5 font-bold">{errors.first_name}</p>}
                                         </div>
                                         <div>
-                                            <label className="block text-xl font-bold text-silk-brown mb-2">{t('last_name') || 'الاسم الأخير'}</label>
+                                            <label className="block text-xl font-bold text-silk-brown mb-2">{t('last_name') || 'اسم العائلة'}</label>
                                             <input type="text" name="last_name" value={formData.last_name} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border bg-white/80 focus:outline-none focus:ring-2 focus:ring-silk-brown/50 font-medium transition-all text-silk-dark ${errors.last_name ? 'border-rose-500 ring-1 ring-rose-500/20' : 'border-silk-sand/40'}`} placeholder="Doe" />
                                             {errors.last_name && <p className="text-rose-600 text-md mt-1.5 font-bold">{errors.last_name}</p>}
                                         </div>

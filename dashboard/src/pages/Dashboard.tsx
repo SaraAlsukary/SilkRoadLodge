@@ -93,8 +93,8 @@ export default function AdminDashboard() {
     if (max !== undefined && newValue > max) {
       let errorMessage = '';
       if (field === 'rooms_count') errorMessage = `عذراً، أقصى عدد متاح للغرف هو ${max}`;
-      else if (field === 'double_beds_count') errorMessage = `عذراً، أقصى عدد متاح للأسرة المزدوجة هو ${max}`;
-      else if (field === 'single_beds_count') errorMessage = `عذراً، أقصى عدد متاح للأسرة المفردة هو ${max}`;
+      else if (field === 'double_beds_count') errorMessage = `عذراً، أقصى عدد متاح للأسرّة المزدوجة هو ${max}`;
+      else if (field === 'single_beds_count') errorMessage = `عذراً، أقصى عدد متاح للأسرّة المفردة هو ${max}`;
       else errorMessage = `الحد الأقصى المتاح هو ${max}`;
 
       setErrors(prev => ({ ...prev, [field]: errorMessage }));
@@ -119,10 +119,10 @@ export default function AdminDashboard() {
 
   const validateStep1 = (): boolean => {
     const newErrors: Record<string, string> = {};
-    if (!formData.first_name.trim()) newErrors.first_name = 'الاسم الأول مطلوب';
+    if (!formData.first_name.trim()) newErrors.first_name = 'الاسم الشخصي مطلوب';
     else if (formData.first_name.trim().length < 2) newErrors.first_name = 'الاسم قصير جداً';
 
-    if (!formData.last_name.trim()) newErrors.last_name = 'الاسم الأخير مطلوب';
+    if (!formData.last_name.trim()) newErrors.last_name = 'اسم العائلة مطلوب';
     else if (formData.last_name.trim().length < 2) newErrors.last_name = 'الاسم قصير جداً';
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -167,18 +167,18 @@ export default function AdminDashboard() {
     const doublesInt = parseInt(formData.double_beds_count) || 0;
     const singlesInt = parseInt(formData.single_beds_count) || 0;
 
-    if (guestsInt < 1) newErrors.guests_count = 'عدد الضيوف يجب أن يكون 1 على الأقل';
+    if (guestsInt < 1) newErrors.guests_count = 'عدد النزلاء يجب أن يكون 1 على الأقل';
     if (roomsInt < 1) newErrors.rooms_count = 'يجب حجز غرفة واحدة على الأقل';
 
     if (hasFetchedResources) {
       if (roomsInt > availableResources.rooms) newErrors.rooms_count = `عذراً، أقصى عدد متاح للغرف هو ${availableResources.rooms}`;
-      if (doublesInt > availableResources.doubles) newErrors.double_beds_count = `أقصى عدد متاح للأسرة المزدوجة هو ${availableResources.doubles}`;
-      if (singlesInt > availableResources.singles) newErrors.single_beds_count = `أقصى عدد متاح للأسرة المفردة هو ${availableResources.singles}`;
+      if (doublesInt > availableResources.doubles) newErrors.double_beds_count = `أقصى عدد متاح للأسرّة المزدوجة هو ${availableResources.doubles}`;
+      if (singlesInt > availableResources.singles) newErrors.single_beds_count = `أقصى عدد متاح للأسرّة المفردة هو ${availableResources.singles}`;
     }
 
     const totalBedCapacity = (doublesInt * 2) + singlesInt;
     if (totalBedCapacity < guestsInt && !newErrors.guests_count && !newErrors.double_beds_count && !newErrors.single_beds_count) {
-      newErrors.combination = `سعة الأسرة الحالية (${totalBedCapacity} شخص) لا تكفي لعدد الضيوف (${guestsInt} أشخاص)`;
+      newErrors.combination = `سعة الأسرّة الحالية (${totalBedCapacity} شخص) لا تكفي لعدد النزلاء (${guestsInt} أشخاص)`;
     }
 
     setErrors(newErrors);
@@ -193,7 +193,7 @@ export default function AdminDashboard() {
     const roomsInt = parseInt(formData.rooms_count);
     const doublesInt = parseInt(formData.double_beds_count);
     const singlesInt = parseInt(formData.single_beds_count);
-    const bookedRoomNames = `${roomsInt} × غرف (${doublesInt} أسرة مزدوجة + ${singlesInt} أسرة مفردة)`;
+    const bookedRoomNames = `${roomsInt} × غرف (${doublesInt} أسرّة مزدوجة + ${singlesInt} أسرّة مفردة)`;
 
     try {
       await createBooking({
@@ -447,12 +447,12 @@ export default function AdminDashboard() {
 
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div>
-                              <label className="block text-xl font-bold mb-2 opacity-80">الاسم الأول</label>
+                              <label className="block text-xl font-bold mb-2 opacity-80">الاسم الشخصي</label>
                               <input type="text" name="first_name" value={formData.first_name} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border outline-none transition-all ${theme.input} ${errors.first_name ? 'border-red-500' : ''}`} placeholder="أحمد" />
                               {errors.first_name && <p className="text-red-500 text-md mt-1 font-bold">{errors.first_name}</p>}
                             </div>
                             <div>
-                              <label className="block text-xl font-bold mb-2 opacity-80">الاسم الأخير</label>
+                              <label className="block text-xl font-bold mb-2 opacity-80">اسم العائلة</label>
                               <input type="text" name="last_name" value={formData.last_name} onChange={handleInputChange} className={`w-full px-4 py-3 rounded-xl border outline-none transition-all ${theme.input} ${errors.last_name ? 'border-red-500' : ''}`} placeholder="محمود" />
                               {errors.last_name && <p className="text-red-500 text-md mt-1 font-bold">{errors.last_name}</p>}
                             </div>
@@ -597,7 +597,7 @@ export default function AdminDashboard() {
 
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                             <div>
-                              <label className="block text-xl font-bold mb-2 opacity-80">عدد الضيوف</label>
+                              <label className="block text-xl font-bold mb-2 opacity-80">عدد النزلاء</label>
                               <div dir='ltr' className={`flex items-center justify-between w-full px-4 py-2 rounded-xl border transition-all ${theme.input} ${errors.guests_count ? 'border-red-500' : ''}`}>
                                 <button type="button" onClick={() => handleCounterChange('guests_count', false, 1)} className="w-8 h-8 rounded-lg flex items-center justify-center bg-black/20 dark:bg-white/10 hover:bg-black/30 dark:hover:bg-white/20 font-bold text-xl transition-colors">-</button>
                                 <span className="font-bold text-lg w-8 text-center">{formData.guests_count}</span>
@@ -618,7 +618,7 @@ export default function AdminDashboard() {
 
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2">
                             <div>
-                              <label className="block text-xl font-bold mb-2 opacity-80">أسرة مفردة</label>
+                              <label className="block text-xl font-bold mb-2 opacity-80">أسرّة مفردة</label>
                               <div dir='ltr' className={`flex items-center justify-between w-full px-4 py-2 rounded-xl border transition-all ${theme.input} ${errors.single_beds_count ? 'border-red-500' : ''}`}>
                                 <button type="button" onClick={() => handleCounterChange('single_beds_count', false, 0)} className="w-8 h-8 rounded-lg flex items-center justify-center bg-black/20 dark:bg-white/10 hover:bg-black/30 dark:hover:bg-white/20 font-bold text-xl transition-colors">-</button>
                                 <span className="font-bold text-lg w-8 text-center">{formData.single_beds_count}</span>
@@ -627,7 +627,7 @@ export default function AdminDashboard() {
                               {errors.single_beds_count && <p className="text-red-500 text-md mt-1 font-bold">{errors.single_beds_count}</p>}
                             </div>
                             <div>
-                              <label className="block text-xl font-bold mb-2 opacity-80">أسرة مزدوجة</label>
+                              <label className="block text-xl font-bold mb-2 opacity-80">أسرّة مزدوجة</label>
                               <div dir='ltr' className={`flex items-center justify-between w-full px-4 py-2 rounded-xl border transition-all ${theme.input} ${errors.double_beds_count ? 'border-red-500' : ''}`}>
                                 <button type="button" onClick={() => handleCounterChange('double_beds_count', false, 0)} className="w-8 h-8 rounded-lg flex items-center justify-center bg-black/20 dark:bg-white/10 hover:bg-black/30 dark:hover:bg-white/20 font-bold text-xl transition-colors">-</button>
                                 <span className="font-bold text-lg w-8 text-center">{formData.double_beds_count}</span>
