@@ -20,7 +20,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Silk Road Admin',
                 'phone' => '+963900000000', // يمكنكِ تعديل الرمز والرقم حسب الحاجة
                 'role' => 'admin',          // الـ enum الذي قمنا بضبطه سابقاً
-                'password' => Hash::make('admin_2424'), // كلمة مرور مشفرة وآمنة
+                'password' => Hash::make('Admin_0000$1'), // كلمة مرور مشفرة وآمنة
                 'email_verified_at' => now(),
             ]
         );
