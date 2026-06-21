@@ -15,7 +15,7 @@ class AdminSeeder extends Seeder
     {
         // التأكد من عدم تكرار حساب الأدمن إذا تم تشغيل الـ Seeder أكثر من مرة
         User::updateOrCreate(
-            ['email' => 'admin@silkroadlodge.com'], // شرط التحقق (إذا وجد الحساب لا يكرره بل يحدثه)
+            ['email' => 'info@silkroadlodge.com'], // شرط التحقق (إذا وجد الحساب لا يكرره بل يحدثه)
             [
                 'name' => 'Silk Road Admin',
                 'phone' => '+963900000000', // يمكنكِ تعديل الرمز والرقم حسب الحاجة

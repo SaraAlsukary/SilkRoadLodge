@@ -49,7 +49,73 @@ class BookingController extends Controller
     /**
      * إرسال وإنشاء حجز جديد
      */
-    public function store(Request $request)
+    // public function store(Request $request)
+    // {
+    //     $validatedData = $request->validate([
+    //         'customer_name'      => 'required|string|max:255',
+    //         'customer_phone'     => 'required|string|max:20',
+    //         'customer_email'     => 'required|email|max:255',
+    //         'gender'             => 'required|in:male,female,other',
+    //         'nationality'        => 'required|string|max:100',
+    //         'age'                => 'required|integer',
+    //         'guests_count'       => 'required|integer|min:1',
+    //         'rooms_count'        => 'required|integer|min:1',
+    //         'double_beds_count'  => 'required|integer|min:0',
+    //         'single_beds_count'  => 'required|integer|min:0',
+    //         'booked_room_names'  => 'required|string|max:1000',
+    //         'check_in'           => 'required|date|after_or_equal:today',
+    //         'check_out'          => 'required|date|after:check_in',
+    //         'requested_services' => 'nullable|array',
+    //         'notes'              => 'nullable|string|max:1000',
+    //     ]);
+
+    //     // 🌟 الفحص الرياضي الذكي (مطابق تماماً لما تراه واجهة React)
+    //     $overlappingBookings = Booking::where('status', 'confirmed')
+    //         ->where('check_in', '<', $request->check_out)
+    //         ->where('check_out', '>', $request->check_in)
+    //         ->get();
+
+    //     $usedRooms = $overlappingBookings->sum('rooms_count');
+    //     $usedDoubles = $overlappingBookings->sum('double_beds_count');
+    //     $usedSingles = $overlappingBookings->sum('single_beds_count');
+
+    //     // السعة القصوى للفندق
+    //     $availableRooms = max(0, 8 - $usedRooms);
+    //     $availableDoubles = max(0, 8 - $usedDoubles);
+    //     $availableSingles = max(0, 10 - $usedSingles);
+
+    //     // جدار الحماية: إذا كان الطلب أكبر من الموارد المتاحة
+    //     if ($request->rooms_count > $availableRooms ||
+    //         $request->double_beds_count > $availableDoubles ||
+    //         $request->single_beds_count > $availableSingles) {
+
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => __('messages.room_already_booked') ?? 'عذراً، الموارد المتبقية لا تكفي لتلبية هذا الطلب.'
+    //         ], 422);
+    //     }
+
+    //     // الحفظ المباشر في قاعدة البيانات (بدون أي ربط بجداول أخرى)
+    //     $validatedData['status'] = 'confirmed';
+    //     $booking = Booking::create($validatedData);
+
+    //     // إرسال الإيميلات
+    //     try {
+    //         \Illuminate\Support\Facades\Mail::to($booking->customer_email)->send(new \App\Mail\BookingConfirmed($booking));
+    //         $adminEmail = 'saraals6216@gmail.com';
+    //         // $adminEmail = 'info@silkroadlodge.com';
+    //         \Illuminate\Support\Facades\Mail::to($adminEmail)->send((new \App\Mail\AdminNewBookingMail($booking))->locale('ar'));
+    //     } catch (\Exception $e) {
+    //         \Illuminate\Support\Facades\Log::error('فشل إرسال إيميلات الحجز: ' . $e->getMessage());
+    //     }
+
+    //     return response()->json([
+    //         'success' => true,
+    //         'message' => __('messages.booking_created'),
+    //         'data' => $booking
+    //     ], 201);
+    // }
+        public function store(Request $request)
     {
         $validatedData = $request->validate([
             'customer_name'      => 'required|string|max:255',
@@ -69,7 +135,7 @@ class BookingController extends Controller
             'notes'              => 'nullable|string|max:1000',
         ]);
 
-        // 🌟 الفحص الرياضي الذكي (مطابق تماماً لما تراه واجهة React)
+        // 🌟 الفحص الرياضي الذكي
         $overlappingBookings = Booking::where('status', 'confirmed')
             ->where('check_in', '<', $request->check_out)
             ->where('check_out', '>', $request->check_in)
@@ -84,7 +150,7 @@ class BookingController extends Controller
         $availableDoubles = max(0, 8 - $usedDoubles);
         $availableSingles = max(0, 10 - $usedSingles);
 
-        // جدار الحماية: إذا كان الطلب أكبر من الموارد المتاحة
+        // جدار الحماية
         if ($request->rooms_count > $availableRooms ||
             $request->double_beds_count > $availableDoubles ||
             $request->single_beds_count > $availableSingles) {
@@ -95,18 +161,23 @@ class BookingController extends Controller
             ], 422);
         }
 
-        // الحفظ المباشر في قاعدة البيانات (بدون أي ربط بجداول أخرى)
+        // الحفظ المباشر في قاعدة البيانات
         $validatedData['status'] = 'confirmed';
         $booking = Booking::create($validatedData);
 
-        // إرسال الإيميلات
-        try {
-            \Illuminate\Support\Facades\Mail::to($booking->customer_email)->send(new \App\Mail\BookingConfirmed($booking));
-            // $adminEmail = 'saraals6216@gmail.com';
-            $adminEmail = 'info@silkroadlodge.com';
-            \Illuminate\Support\Facades\Mail::to($adminEmail)->send((new \App\Mail\AdminNewBookingMail($booking))->locale('ar'));
-        } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('فشل إرسال إيميلات الحجز: ' . $e->getMessage());
+        // 🌟 فحص ما إذا كان المستخدم الحالي مسجل دخوله وله دور (role) يساوي 'admin'
+        // 🌟 التعديل هنا: إضافة ('sanctum') داخل دالة auth
+        $isAdmin = auth('sanctum')->check() && auth('sanctum')->user()->role === 'admin';
+        // يتم إرسال الإيميلات فقط إذا لم يكن المستخدم "أدمن" (أي عميل عادي يحجز من الموقع)
+        if (!$isAdmin) {
+            try {
+                \Illuminate\Support\Facades\Mail::to($booking->customer_email)->send(new \App\Mail\BookingConfirmed($booking));
+                // $adminEmail = 'saraals6216@gmail.com';
+                $adminEmail = 'info@silkroadlodge.com';
+                \Illuminate\Support\Facades\Mail::to($adminEmail)->send((new \App\Mail\AdminNewBookingMail($booking))->locale('ar'));
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('فشل إرسال إيميلات الحجز: ' . $e->getMessage());
+            }
         }
 
         return response()->json([

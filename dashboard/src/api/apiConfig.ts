@@ -19,7 +19,7 @@ api.interceptors.request.use(
         // جلب لغة الموقع الحالية من i18next وتمريرها في الـ Header للباك إند
 
         // 💡 إذا كان لديكِ نظام تسجيل دخول (Admin)، يمكنكِ تمرير الـ Token تلقائياً هنا مستقبلاً
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('admin_token');
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`;
         }

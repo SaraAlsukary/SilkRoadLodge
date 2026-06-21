@@ -4,6 +4,7 @@ import { useBooking } from '../hooks/useBooking';
 import { nationalitiesData } from '../utils/countries';
 import { phoneCodesData } from '../utils/phoneCode';
 import { isValidPhoneNumber, type CountryCode } from 'libphonenumber-js';
+import LogoutButton from '../components/LogoutButton';
 
 const Icons = {
   Home: () => <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>,
@@ -24,8 +25,8 @@ export default function AdminDashboard() {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const [bookings, setBookings] = useState([
-    { id: 1, guestName: 'أحمد محمود', room: 3,double:2,single:1 ,checkIn: '2026-07-01', checkOut: '2026-07-05', status: 'مؤكد' },
-    { id: 2, guestName: 'سارة خالد', room: 2,double:1,single:1 ,checkIn: '2026-07-03', checkOut: '2026-07-07', status: 'قيد الانتظار' },
+    { id: 1, guestName: 'أحمد محمود', room: 3, double: 2, single: 1, checkIn: '2026-07-01', checkOut: '2026-07-05', status: 'مؤكد' },
+    { id: 2, guestName: 'سارة خالد', room: 2, double: 1, single: 1, checkIn: '2026-07-03', checkOut: '2026-07-07', status: 'قيد الانتظار' },
   ]);
 
   // --- حالات نموذج الحجز المتقدم ---
@@ -58,6 +59,8 @@ export default function AdminDashboard() {
         setIsCheckingResources(true);
         setHasFetchedResources(false);
         try {
+          // const res = await fetch(`http://127.0.0.1:8000/api/check-resources?check_in=${formData.check_in}&check_out=${formData.check_out}`);
+
           const res = await fetch(`https://silkroadlodge.com/api/check-resources?check_in=${formData.check_in}&check_out=${formData.check_out}`);
           if (res.ok) {
             const data = await res.json();
@@ -198,6 +201,7 @@ export default function AdminDashboard() {
     try {
       await createBooking({
         ...formData,
+        gender: formData.gender==='أنثى'?'female':"male",
         customer_name: `${formData.first_name} ${formData.last_name}`.trim(),
         customer_phone: `${formData.phone_code} ${formData.customer_phone}`,
         age: parseInt(formData.age),
@@ -309,7 +313,7 @@ export default function AdminDashboard() {
                 setActiveSidebarItem(item.id);
                 setIsSidebarOpen(false);
               }}
-              className={`w-full flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 text-xl ${activeSidebarItem === item.id
+              className={`w-full flex items-center cursor-pointer gap-4 px-5 py-4 rounded-2xl transition-all duration-300 text-xl ${activeSidebarItem === item.id
                 ? 'bg-silk-sand text-silk-dark font-bold shadow-lg shadow-silk-sand/20'
                 : `opacity-60 hover:opacity-100 hover:bg-silk-sand/10 ${isDarkMode ? 'text-white' : 'text-gray-800'}`
                 }`}
@@ -319,6 +323,9 @@ export default function AdminDashboard() {
             </button>
           ))}
         </nav>
+        <div className="p-8 pt-60 lg:pt-30 border-b border-inherit">
+          <LogoutButton />
+        </div>
       </aside>
 
       <main className="flex-1 flex flex-col min-w-0">
@@ -350,6 +357,7 @@ export default function AdminDashboard() {
               <motion.div key="dashboard" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="flex flex-col items-center justify-center py-20 opacity-50">
                 <Icons.Home />
                 <h2 className="mt-4 text-xl font-bold">مرحباً بك في لوحة تحكم SILK ROAD</h2>
+
                 <p className="text-xl mt-2">اختر "سجل الحجوزات" أو "إضافة حجز" من القائمة الجانبية</p>
               </motion.div>
             )}
@@ -364,7 +372,7 @@ export default function AdminDashboard() {
                   <div className="flex gap-2 p-1.5 bg-black/10 dark:bg-white/5 rounded-2xl w-fit border border-inherit">
                     {['الكل', 'مؤكد', 'قيد الانتظار'].map(f => (
                       <button key={f} onClick={() => setStatusFilter(f)}
-                        className={`px-5 py-2 rounded-xl text-md font-bold transition-all ${statusFilter === f ? 'bg-silk-sand text-silk-dark shadow-md' : 'hover:bg-white/5 opacity-70'}`}>
+                        className={`px-5 py-2 rounded-xl cursor-pointer text-md font-bold transition-all ${statusFilter === f ? 'bg-silk-sand text-silk-dark shadow-md' : 'hover:bg-white/5 opacity-70'}`}>
                         {f}
                       </button>
                     ))}
