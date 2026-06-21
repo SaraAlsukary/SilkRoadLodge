@@ -33,8 +33,8 @@ jobs:
             docker compose up -d --build
             
             # 4. تنفيذ هجرات قاعدة البيانات وتنظيف الكاش للـ Laravel (تم تفعيلها وتعديل اسم الحاوية إلى backend)
-            # docker compose exec -T backend php artisan migrate --force
-            docker compose exec -T backend php artisan migrate:fresh --seed --force
+            docker compose exec -T backend php artisan migrate --force
+            # docker compose exec -T backend php artisan migrate:fresh --seed --force
             docker compose exec -T backend php artisan config:cache
             docker compose exec -T backend php artisan route:cache
             docker compose exec -T backend php artisan view:cache
