@@ -5,12 +5,12 @@ export default function Login() {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [validationErrors, setValidationErrors] = useState<{ email?: string; password?: string }>({});
-    
+
     // 🌟 حالة جديدة لإظهار/إخفاء كلمة المرور
     const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const { login, isLoggingIn, loginError } = useAuth();
-
+    // hi
     const validateForm = () => {
         const errors: { email?: string; password?: string } = {};
         let isValid = true;
@@ -109,7 +109,7 @@ export default function Login() {
                                         : 'border-silk-sand focus:ring-silk-brown'}`}
                                 placeholder="••••••••"
                             />
-                            
+
                             {/* 🌟 زر إظهار/إخفاء كلمة المرور */}
                             <button
                                 type="button"
