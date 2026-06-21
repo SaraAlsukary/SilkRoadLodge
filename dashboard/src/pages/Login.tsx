@@ -54,7 +54,7 @@ export default function Login() {
     };
 
     // 🌟 شرط تعطيل الزر: جاري التحميل، أو الحقول فارغة، أو يوجد خطأ تحقق
-    const isButtonDisabled = isLoggingIn || !email || !password || !!validationErrors.email || !!validationErrors.password;
+    // const isButtonDisabled = isLoggingIn || !email || !password || !!validationErrors.email || !!validationErrors.password;
 
     return (
         <div className="min-h-screen bg-silk-cream flex items-center justify-center p-4 font-arabic" dir="rtl">
