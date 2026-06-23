@@ -20,7 +20,7 @@ Route::get('/rooms/{room}/booked-dates', [BookingController::class, 'getBookedDa
 Route::post('/admin/login', [AuthController::class, 'login']);
 
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum','admin')->group(function () {
 
     // مسار التحقق وجلب بيانات الأدمن الحالي (يستدعيه React في كل تحديث للصفحة)
     Route::get("/admin/me", [AuthController::class, 'me']);
@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/admin/logout', [AuthController::class, 'logout']);
 
     // 💡 أمثلة لمسارات إضافية قد تحتاجها للوحة التحكم مستقبلاً:
-    // Route::get('/admin/bookings', [BookingController::class, 'index']); // عرض كل الحجوزات للإدارة
-    // Route::delete('/admin/bookings/{id}', [BookingController::class, 'destroy']); // إلغاء حجز
+    Route::get('/admin/bookings', [BookingController::class, 'index']); // عرض كل الحجوزات للإدارة
+    Route::delete('/admin/bookings/{id}', [BookingController::class, 'destroy']); // إلغاء حجز
+    Route::put('/admin/bookings/{id}', [BookingController::class, 'update']); // تحديث حجز
 });

@@ -16,6 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
         // الطريقة الصحيحة في Laravel 11 لإضافة Middleware لـ API
         $middleware->appendToGroup('api', [
             \App\Http\Middleware\SetLocale::class,
+
+        ]);
+            $middleware->alias([
+            'admin' => \App\Http\Middleware\AdminMiddleware::class,
         ]);
 
     })
