@@ -32,7 +32,13 @@ export default function Dashboard() {
       setActiveSidebarItem('list');
     }, 1500);
   };
-
+  // ✨ 1. تأثير للصعود التلقائي لأعلى الشاشة فور نجاح العملية
+  useEffect(() => {
+    if (showSuccess) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [showSuccess]);
+ 
   const getPageTitle = () => sidebarNavigation.find(nav => nav.id === activeSidebarItem)?.name || 'لوحة التحكم';
 
   return (

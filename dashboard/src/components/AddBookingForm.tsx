@@ -27,7 +27,11 @@ export default function AddBookingForm({ theme, createBooking, isLoading, server
     const [ageDropdownOpen, setAgeDropdownOpen] = useState(false);
     const [phoneSearch, setPhoneSearch] = useState('');
     const [natSearch, setNatSearch] = useState('');
-
+    useEffect(() => {
+        if (step === 2) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }, [step]);
     useEffect(() => {
         const fetchResources = async () => {
             if (formData.check_in && formData.check_out && new Date(formData.check_out) > new Date(formData.check_in)) {

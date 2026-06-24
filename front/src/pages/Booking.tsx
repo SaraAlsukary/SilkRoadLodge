@@ -10,7 +10,7 @@ import BookingSuccess from '../components/booking/BookingSuccess';
 import Step1PersonalInfo from '../components/booking/Step1PersonalInfo';
 import Step2BookingDetails from '../components/booking/Step2BookingDetails';
 
-export default function BookingRoom() {
+export default function Booking() {
     const { t, i18n } = useTranslation();
     const currentLanguage = i18n.language;
     const isRtl = currentLanguage === 'ar';
@@ -32,13 +32,23 @@ export default function BookingRoom() {
         check_in: '', check_out: '', requested_services: [] as string[], notes: ''
     });
 
+    // ✨ 1. تأثير للصعود التلقائي لأعلى الشاشة فور نجاح العملية
+    useEffect(() => {
+        if (success) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }, [success]);
+    useEffect(() => {
+        if (step === 2) {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    }, [step]);
     useEffect(() => {
         const fetchResources = async () => {
             if (formData.check_in && formData.check_out && new Date(formData.check_out) > new Date(formData.check_in)) {
                 setIsCheckingResources(true);
                 setHasFetchedResources(false);
                 try {
-                    // const res = await fetch(`http://127.0.0.1:8000/api/check-resources?check_in=${formData.check_in}&check_out=${formData.check_out}`);
                     const res = await fetch(`https://silkroadlodge.com/api/check-resources?check_in=${formData.check_in}&check_out=${formData.check_out}`);
                     if (res.ok) {
                         const data = await res.json();
@@ -169,57 +179,68 @@ export default function BookingRoom() {
         } catch (err) { }
     };
 
-    if (success) return <BookingSuccess t={t} />;
+    // 💡 تمت إزالة الـ return المبكر القديم من هنا للاحتفاظ بحاوية الـ section الأساسية وبقاء الطول الكامل للصفحة.
 
     return (
         <section className="min-h-screen py-16 px-4 md:px-8 bg-silk-cream text-silk-dark transition-colors duration-300">
             <div className="max-w-3xl mx-auto">
-                <div className="text-center mb-10">
-                    <h2 className="text-4xl md:text-5xl font-bold text-silk-brown mb-3 tracking-wide">{t('book_your_stay')}</h2>
-                    <div className="w-20 h-1 bg-silk-sand mx-auto rounded-full mb-3"></div>
-                    <p className="text-silk-brown/70 font-medium text-lg">{t('booking_subtitle')}</p>
-                </div>
 
-                <div className="flex items-center justify-center mb-8 gap-4">
-                    <div className={`flex items-center justify-center w-10 h-10 rounded-full font-bold transition-all duration-300 ${step >= 1 ? 'bg-silk-brown text-silk-cream' : 'bg-silk-sand/30 text-silk-brown'}`}>1</div>
-                    <div className={`w-16 h-0.5 rounded-full ${step === 2 ? 'bg-silk-brown' : 'bg-silk-sand/30'}`}></div>
-                    <div className={`flex items-center justify-center w-10 h-10 rounded-full font-bold transition-all duration-300 ${step === 2 ? 'bg-silk-brown text-silk-cream' : 'bg-silk-sand/30 text-silk-brown'}`}>2</div>
-                </div>
+                {/* ✨ 2. إخفاء الهيدر وخطوات الحجز فقط في حال نجاح العملية ليعرض كرت النجاح بشكل نظيف ومستقل */}
+                {!success && (
+                    <>
+                        <div className="text-center mb-10">
+                            <h2 className="text-4xl md:text-5xl font-bold text-silk-brown mb-3 tracking-wide">{t('book_your_stay')}</h2>
+                            <div className="w-20 h-1 bg-silk-sand mx-auto rounded-full mb-3"></div>
+                            <p className="text-silk-brown/70 font-medium text-lg">{t('booking_subtitle')}</p>
+                        </div>
 
-                <div className="bg-white/40 backdrop-blur-md border border-silk-sand/20 rounded-2xl p-6 md:p-10 shadow-xl">
-                    <form onSubmit={handleSubmit} noValidate className="space-y-6">
-                        <AnimatePresence mode="wait">
-                            {step === 1 && (
-                                <Step1PersonalInfo
-                                    formData={formData}
-                                    setFormData={setFormData}
-                                    errors={errors}
-                                    setErrors={setErrors}
-                                    handleInputChange={handleInputChange}
-                                    t={t}
-                                    isRtl={isRtl}
-                                    currentLanguage={currentLanguage}
-                                />
-                            )}
-                            {step === 2 && (
-                                <Step2BookingDetails
-                                    formData={formData}
-                                    setFormData={setFormData}
-                                    errors={errors}
-                                    setErrors={setErrors}
-                                    handleInputChange={handleInputChange}
-                                    setStep={setStep}
-                                    availableResources={availableResources}
-                                    hasFetchedResources={hasFetchedResources}
-                                    isLoading={isLoading}
-                                    isCheckingResources={isCheckingResources}
-                                    serverError={serverError}
-                                    t={t}
-                                    isRtl={isRtl}
-                                />
-                            )}
-                        </AnimatePresence>
-                    </form>
+                        <div className="flex items-center justify-center mb-8 gap-4">
+                            <div className={`flex items-center justify-center w-10 h-10 rounded-full font-bold transition-all duration-300 ${step >= 1 ? 'bg-silk-brown text-silk-cream' : 'bg-silk-sand/30 text-silk-brown'}`}>1</div>
+                            <div className={`w-16 h-0.5 rounded-full ${step === 2 ? 'bg-silk-brown' : 'bg-silk-sand/30'}`}></div>
+                            <div className={`flex items-center justify-center w-10 h-10 rounded-full font-bold transition-all duration-300 ${step === 2 ? 'bg-silk-brown text-silk-cream' : 'bg-silk-sand/30 text-silk-brown'}`}>2</div>
+                        </div>
+                    </>
+                )}
+
+                <div className={`   ${success ? " " :"border border-silk-sand/20 bg-white/40 backdrop-blur-md   rounded-2xl p-6 md:p-10 shadow-xl" }`}>
+                    {/* ✨ 3. عرض مكون النجاح داخل الكارد الرئيسي بدلاً من الفورم عند اكتمال الحجز */}
+                    {success ? (
+                        <BookingSuccess t={t} />
+                    ) : (
+                        <form onSubmit={handleSubmit} noValidate className="space-y-6">
+                            <AnimatePresence mode="wait">
+                                {step === 1 && (
+                                    <Step1PersonalInfo
+                                        formData={formData}
+                                        setFormData={setFormData}
+                                        errors={errors}
+                                        setErrors={setErrors}
+                                        handleInputChange={handleInputChange}
+                                        t={t}
+                                        isRtl={isRtl}
+                                        currentLanguage={currentLanguage}
+                                    />
+                                )}
+                                {step === 2 && (
+                                    <Step2BookingDetails
+                                        formData={formData}
+                                        setFormData={setFormData}
+                                        errors={errors}
+                                        setErrors={setErrors}
+                                        handleInputChange={handleInputChange}
+                                        setStep={setStep}
+                                        availableResources={availableResources}
+                                        hasFetchedResources={hasFetchedResources}
+                                        isLoading={isLoading}
+                                        isCheckingResources={isCheckingResources}
+                                        serverError={serverError}
+                                        t={t}
+                                        isRtl={isRtl}
+                                    />
+                                )}
+                            </AnimatePresence>
+                        </form>
+                    )}
                 </div>
             </div>
         </section>

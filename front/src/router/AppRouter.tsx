@@ -11,7 +11,6 @@ const RoomTypes = lazy(() => import('../pages/Rooms'));
 const Services = lazy(() => import('../pages/Services'));
 const Booking = lazy(() => import('../pages/Booking'));
 
-
 const Loader = <P extends object>(Component: ComponentType<P>) => {
     return (props: P) => (
         <Suspense fallback={<Loading />}>
@@ -19,6 +18,7 @@ const Loader = <P extends object>(Component: ComponentType<P>) => {
         </Suspense>
     );
 };
+
 const HomeLazy = Loader(Home);
 const AboutLazy = Loader(About);
 const NotFoundLazy = Loader(NotFound);
@@ -26,8 +26,6 @@ const ServicesLazy = Loader(Services);
 const RoomTypeLazy = Loader(RoomTypes);
 const BookingLazy = Loader(Booking);
 
-
-// في الراوتر:
 const App = () => {
     const { i18n } = useTranslation();
 
@@ -35,60 +33,39 @@ const App = () => {
         const currentLang = i18n.language;
         document.body.dir = currentLang === "ar" ? "rtl" : "ltr";
 
+        // إزالة الكلاسات السابقة لتجنب تداخل الخطوط
         document.body.classList.remove("font-arabic", "font-english", "font-japanese");
 
+        // استخدام includes بدلاً من الشروط الخاطئة
         if (currentLang === "ar") {
             document.body.classList.add("font-arabic");
-        } else if (currentLang === "en" || "ja" || "es" || "fr") {
+        } else if (['en', 'es', 'fr'].includes(currentLang)) {
             document.body.classList.add("font-english");
-        } else if (currentLang === 'ja' || "zh") {
+        } else if (['ja', 'zh'].includes(currentLang)) {
             document.body.classList.add("font-japanese");
         }
 
     }, [i18n.language]);
+
     const router = createBrowserRouter([
         {
             path: '/',
             element: <MainLayout />,
-            // الصفحات التي ستعرض داخل الـ Layout
             children: [
-                {
-                    index: true, // المسار الرئيسي الافتراضي (/)
-                    element: <HomeLazy />
-
-                },
-                {
-                    path: 'about', // مسار صفحة حولنا (/about)
-                    element: <AboutLazy />,
-                },
-                {
-                    path: 'rooms', // مسار صفحة الغرف (/rooms)
-                    element: <RoomTypeLazy />,
-                }, {
-                    path: 'booking',
-                    element: <BookingLazy />
-                },
-                {
-                    path: 'contact', // مسار صفحة اتصل بنا (/contact)
-                    // element: <Contact />,
-                },
-                {
-                    path: 'services',
-                    element: <ServicesLazy />
-                },
-                
-                {
-                    path: '*', // أي مسار لا يطابق المسارات السابقة
-                    element: <NotFoundLazy />,
-                },
-
+                { index: true, element: <HomeLazy /> },
+                { path: 'about', element: <AboutLazy /> },
+                { path: 'rooms', element: <RoomTypeLazy /> },
+                { path: 'booking', element: <BookingLazy /> },
+                { path: 'contact' },
+                { path: 'services', element: <ServicesLazy /> },
+                { path: '*', element: <NotFoundLazy /> },
             ],
-       
         }
     ]);
+
     return (
         <RouterProvider router={router} />
-
     );
 }
+
 export default App;
