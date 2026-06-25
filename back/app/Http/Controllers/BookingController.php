@@ -17,7 +17,7 @@ class BookingController extends Controller
         public function index()
         {
             // استخدام paginate(10) بدلاً من get() لجلب 10 حجوزات لكل صفحة
-            $bookings = Booking::latest()->paginate(10);
+            $bookings = Booking::latest()->paginate(5);
 
             return response()->json([
                 'success' => true,

@@ -186,7 +186,7 @@ export default function BookingsList({ apiData, theme, updateBooking, cancelBook
             </div>
 
             {/* أزرار التنقل المرتبطة بالـ API مباشرة */}
-            {totalPages > 1 && (
+            {totalPages > 0 && (
                 <div className="flex items-center justify-center gap-4 mt-6">
                     <button
                         disabled={currentPage === 1}

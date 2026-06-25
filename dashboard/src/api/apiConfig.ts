@@ -3,9 +3,9 @@ import axios from 'axios';
 
 // 1. إنشاء نسخة مخصصة من Axios الإعدادات الأساسية
 const api = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api', // الرابط الأساسي للـ API الخاص بكِ
+    // baseURL: 'http://127.0.0.1:8000/api', // الرابط الأساسي للـ API الخاص بكِ
     // baseURL: 'http://88.223.92.93:8080/api',
-    // baseURL: 'https://silkroadlodge.com/api',
+    baseURL: 'https://silkroadlodge.com/api',
     timeout: 10000, // وقت حدوث مهلة للطلب (10 ثوانٍ)
     headers: {
         'Content-Type': 'application/json',
