@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useBooking } from '../hooks/useBooking';
 import { useAuth } from '../hooks/useAuth';
@@ -14,31 +14,33 @@ export default function Dashboard() {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const { isLoading: loadingUser, user, isError } = useAuth();
-  const { createBooking, isLoading, error: serverError, bookings: apiBookings, fetchAllBookings, updateBooking, deleteBooking } = useBooking();
+  const { createBooking, isLoading, error: serverError, bookings: apiBookings, fetchAllBookings, updateBooking, deleteBooking, cancelBooking } = useBooking();
 
   const theme = getTheme(isDarkMode);
 
+  // جلب الصفحة الأولى تلقائياً عند فتح سجل الحجوزات
   useEffect(() => {
     if (activeSidebarItem === 'list') {
-      fetchAllBookings();
+      fetchAllBookings(1);
     }
   }, [activeSidebarItem, fetchAllBookings]);
 
   const handleBookingSuccess = () => {
     setShowSuccess(true);
-    fetchAllBookings();
+    fetchAllBookings(1);
     setTimeout(() => {
       setShowSuccess(false);
       setActiveSidebarItem('list');
     }, 1500);
   };
-  // ✨ 1. تأثير للصعود التلقائي لأعلى الشاشة فور نجاح العملية
+
+  // تأثير للصعود التلقائي لأعلى الشاشة فور نجاح العملية
   useEffect(() => {
     if (showSuccess) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [showSuccess]);
- 
+
   const getPageTitle = () => sidebarNavigation.find(nav => nav.id === activeSidebarItem)?.name || 'لوحة التحكم';
 
   return (
@@ -109,13 +111,22 @@ export default function Dashboard() {
             {activeSidebarItem === 'dashboard' && (
               <motion.div key="dashboard" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="flex flex-col items-center justify-center py-20 opacity-50">
                 <Icons.Home />
-                <h2 className="mt-4 text-xl font-bold">مرحباً بك في لوحة تحكم SILK ROAD</h2>
+                <h2 className="mt-4 text-xl font-bold">مرحباً بك في لوحة تحكم فندق طريق الحرير</h2>
                 <p className="text-xl mt-2">اختر "سجل الحجوزات" أو "إضافة حجز" من القائمة الجانبية</p>
               </motion.div>
             )}
 
             {activeSidebarItem === 'list' && (
-              <BookingsList key="list" apiBookings={apiBookings} theme={theme} updateBooking={updateBooking} deleteBooking={deleteBooking} />
+              <BookingsList
+                key="list"
+                apiData={apiBookings}
+                onPageChange={(newPage) => fetchAllBookings(newPage)}
+                theme={theme}
+                updateBooking={updateBooking}
+                deleteBooking={deleteBooking}
+                cancelBooking={cancelBooking}
+                isLoading={isLoading}
+              />
             )}
 
             {activeSidebarItem === 'add' && (

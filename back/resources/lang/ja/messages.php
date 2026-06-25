@@ -60,4 +60,9 @@ return [
     'rooms_count' => '部屋数',
     'double_beds_count_label' => 'ダブルベッド:',
     'single_beds_count_label' => 'シングルベッド:',
+    'cancellation_email_subject' => '予約キャンセルのご確認',
+    'cancellation_title' => '予約がキャンセルされました',
+    'hello' => 'こんにちは',
+    'cancellation_confirmation' => 'ご要望通り、ご予約は正常にキャンセルされました。',
+    'hope_to_see_you_soon' => '近い将来、またお迎えできる機会を楽しみにしております。',
 ];

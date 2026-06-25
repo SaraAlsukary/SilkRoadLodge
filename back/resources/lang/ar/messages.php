@@ -59,5 +59,10 @@ return [
     // ... النصوص القديمة
     'rooms_count' => 'عدد الغرف',
     'double_beds_count_label' => 'الأسرّة المزدوجة:',
-    'single_beds_count_label' => 'الأسرّة المفردة:'
+    'single_beds_count_label' => 'الأسرّة المفردة:',
+    'cancellation_email_subject' => 'تأكيد إلغاء الحجز',
+    'cancellation_title' => 'تم إلغاء الحجز',
+    'hello' => 'مرحباً',
+    'cancellation_confirmation' => 'نود إعلامك بأنه قد تم إلغاء حجزك بنجاح بناءً على طلبك.',
+    'hope_to_see_you_soon' => 'نتمنى أن نحظى بفرصة الترحيب بك في المستقبل القريب.',
 ];

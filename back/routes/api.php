@@ -30,6 +30,11 @@ Route::middleware('auth:sanctum','admin')->group(function () {
 
     // 💡 أمثلة لمسارات إضافية قد تحتاجها للوحة التحكم مستقبلاً:
     Route::get('/admin/bookings', [BookingController::class, 'index']); // عرض كل الحجوزات للإدارة
+    // مسار الحذف والتعديل الأساسي يبقى كما هو
     Route::delete('/admin/bookings/{id}', [BookingController::class, 'destroy']); // إلغاء حجز
     Route::put('/admin/bookings/{id}', [BookingController::class, 'update']); // تحديث حجز
+
+    Route::put('/admin/bookings/{id}/cancel', [BookingController::class, 'cancelBooking']);
+    Route::delete('/admin/bookings/cancelled/clear', [BookingController::class, 'destroyAllCancelled']);
+    // مسار الحذف والتعديل الأساسي يبقى كما هو
 });

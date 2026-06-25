@@ -14,12 +14,16 @@ class BookingController extends Controller
     /**
      * عرض جميع الحجوزات
      */
-    public function index()
-    {
-        // تم إزالة with('rooms') لأننا لم نعد نعتمد على الربط
-        $bookings = Booking::latest()->get();
-        return response()->json(['success' => true, 'data' => $bookings], 200);
-    }
+        public function index()
+        {
+            // استخدام paginate(10) بدلاً من get() لجلب 10 حجوزات لكل صفحة
+            $bookings = Booking::latest()->paginate(10);
+
+            return response()->json([
+                'success' => true,
+                'data' => $bookings
+            ], 200);
+        }
 
     /**
      * فحص الموارد المتاحة (الغرف، الأسرة المزدوجة، الأسرة المفردة) للواجهة
@@ -152,17 +156,114 @@ class BookingController extends Controller
         $booking->update($validatedData);
         return response()->json(['success' => true, 'data' => $booking], 200);
     }
-
     /**
-     * حذف حجز
+     * حذف حجز نهائياً (بشرط أن يكون ملغياً فقط)
      */
     public function destroy(string $id)
     {
         $booking = Booking::find($id);
+
         if (!$booking) {
             return response()->json(['success' => false, 'message' => __('messages.booking_not_found')], 404);
         }
+
+        // الجدار الناري: منع الحذف إذا لم يكن الحجز ملغياً
+        if ($booking->status !== 'cancelled') {
+            return response()->json([
+                'success' => false,
+                'message' => 'لا يمكن حذف الحجز نهائياً لأنه لم يتم إلغاؤه بعد. الرجاء إلغاء الحجز أولاً.'
+            ], 403);
+        }
+
         $booking->delete();
-        return response()->json(['success' => true, 'message' => __('messages.booking_deleted')], 200);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'تم حذف الحجز الملغى نهائياً من النظام.'
+        ], 200);
+    }
+    /**
+     * حذف جميع الحجوزات الملغاة دفعة واحدة (تنظيف النظام)
+     */
+    public function destroyAllCancelled()
+    {
+        $deletedCount = Booking::where('status', 'cancelled')->delete();
+
+        if ($deletedCount === 0) {
+            return response()->json(['success' => false, 'message' => 'لا توجد حجوزات ملغاة لحذفها.'], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => "تم تنظيف النظام وحذف {$deletedCount} حجوزات ملغاة نهائياً."
+        ], 200);
+    }
+    /**
+     * حذف حجز
+     */
+
+
+    /**
+     * استنتاج لغة العميل بناءً على حقل الجنسية أو البلد
+     */
+    private function getLocaleFromNationality(string $nationality): string
+    {
+        // تحويل النص لحروف صغيرة لتسهيل البحث
+        $nationality = strtolower($nationality);
+
+        // قواميس الكلمات المفتاحية لكل لغة
+        $locales = [
+            'ar' => ['saudi', 'egypt', 'uae', 'emirates', 'jordan', 'syria', 'lebanon', 'morocco', 'iraq', 'yemen', 'oman', 'kuwait', 'qatar', 'bahrain', 'palestine', 'sudan', 'algeria', 'tunisia', 'libya', 'سعودي', 'مصر', 'امارات', 'عراق', 'مغرب'],
+            'fr' => ['france', 'french', 'belgium', 'canada', 'senegal', 'mali', 'cameroon', 'suisse', 'swiss'],
+            'es' => ['spain', 'mexico', 'argentina', 'colombia', 'peru', 'chile', 'venezuela', 'ecuador', 'guatemala', 'cuba', 'bolivia', 'paraguay', 'uruguay'],
+            'ja' => ['japan', 'japanese', 'اليابان'],
+            'de' => ['germany', 'german', 'austria', 'switzerland', 'ألمانيا', 'المانيا'],
+            'zh' => ['china', 'chinese', 'taiwan', 'hong kong', 'macau', 'الصين']
+        ];
+
+        // البحث في القواميس
+        foreach ($locales as $lang => $keywords) {
+            foreach ($keywords as $keyword) {
+                if (str_contains($nationality, $keyword)) {
+                    return $lang;
+                }
+            }
+        }
+
+        // اللغة الافتراضية إذا لم يتم العثور على تطابق
+        return 'en';
+    }
+
+    public function cancelBooking(string $id)
+    {
+        $booking = Booking::find($id);
+
+        if (!$booking) {
+            return response()->json(['success' => false, 'message' => __('messages.booking_not_found')], 404);
+        }
+
+        if ($booking->status === 'cancelled') {
+            return response()->json(['success' => false, 'message' => 'هذا الحجز ملغى مسبقاً.'], 400);
+        }
+
+        // تحديث الحالة فقط لإتاحة الموارد
+        $booking->update(['status' => 'cancelled']);
+
+        // 🌟 استنتاج اللغة وإرسال الإيميل
+        $lang = $this->getLocaleFromNationality($booking->nationality);
+
+        try {
+            \Illuminate\Support\Facades\Mail::to($booking->customer_email)
+                ->locale($lang) // إجبار الإيميل على استخدام هذه اللغة
+                ->send(new \App\Mail\BookingCancelledMail($booking));
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error('فشل إرسال إيميل الإلغاء: ' . $e->getMessage());
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'تم إلغاء الحجز بنجاح وإرسال بريد إلكتروني للعميل.',
+            'data' => $booking
+        ], 200);
     }
 }

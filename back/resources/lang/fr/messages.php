@@ -60,4 +60,9 @@ return [
     'rooms_count' => 'Nombre de chambres',
     'double_beds_count_label' => 'Lits doubles:',
     'single_beds_count_label' => 'Lits simples:',
+    'cancellation_email_subject' => 'Confirmation d\'annulation de réservation',
+    'cancellation_title' => 'Réservation annulée',
+    'hello' => 'Bonjour',
+    'cancellation_confirmation' => 'Nous vous informons que votre réservation a été annulée avec succès selon votre demande.',
+    'hope_to_see_you_soon' => 'Nous espérons avoir l\'opportunité de vous accueillir très bientôt.',
 ];

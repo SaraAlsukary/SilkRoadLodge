@@ -60,4 +60,9 @@ return [
     'rooms_count' => 'Número de habitaciones',
     'double_beds_count_label' => 'Camas dobles:',
     'single_beds_count_label' => 'Camas individuales:',
+    'cancellation_email_subject' => 'Confirmación de cancelación de reserva',
+    'cancellation_title' => 'Reserva cancelada',
+    'hello' => 'Hola',
+    'cancellation_confirmation' => 'Le informamos que su reserva ha sido cancelada con éxito según su solicitud.',
+    'hope_to_see_you_soon' => 'Esperamos tener la oportunidad de darle la bienvenida en un futuro próximo.',
 ];

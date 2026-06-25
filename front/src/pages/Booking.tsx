@@ -50,6 +50,7 @@ export default function Booking() {
                 setHasFetchedResources(false);
                 try {
                     const res = await fetch(`https://silkroadlodge.com/api/check-resources?check_in=${formData.check_in}&check_out=${formData.check_out}`);
+                    // const res = await fetch(`http://localhost:8000/api/check-resources?check_in=${formData.check_in}&check_out=${formData.check_out}`);
                     if (res.ok) {
                         const data = await res.json();
                         setAvailableResources({
@@ -202,7 +203,7 @@ export default function Booking() {
                     </>
                 )}
 
-                <div className={`   ${success ? " " :"border border-silk-sand/20 bg-white/40 backdrop-blur-md   rounded-2xl p-6 md:p-10 shadow-xl" }`}>
+                <div className={`   ${success ? " " : "border border-silk-sand/20 bg-white/40 backdrop-blur-md   rounded-2xl p-6 md:p-10 shadow-xl"}`}>
                     {/* ✨ 3. عرض مكون النجاح داخل الكارد الرئيسي بدلاً من الفورم عند اكتمال الحجز */}
                     {success ? (
                         <BookingSuccess t={t} />

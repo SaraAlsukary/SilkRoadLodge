@@ -60,4 +60,9 @@ return [
     'rooms_count' => '房间数量',
     'double_beds_count_label' => '双人床:',
     'single_beds_count_label' => '单人床:',
+    'cancellation_email_subject' => '预订取消确认',
+    'cancellation_title' => '预订已取消',
+    'hello' => '您好',
+    'cancellation_confirmation' => '我们想通知您，您的预订已根据您的要求成功取消。',
+    'hope_to_see_you_soon' => '我们期待在不久的将来能有机会再次为您服务。',
 ];

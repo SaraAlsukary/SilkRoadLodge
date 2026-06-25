@@ -59,4 +59,9 @@ return [
     'rooms_count' => 'Number of Rooms',
     'double_beds_count_label' => 'Double Beds:',
     'single_beds_count_label' => 'Single Beds:',
+    'cancellation_email_subject' => 'Booking Cancellation Confirmation',
+    'cancellation_title' => 'Booking Cancelled',
+    'hello' => 'Hello',
+    'cancellation_confirmation' => 'We would like to inform you that your booking has been successfully cancelled as per your request.',
+    'hope_to_see_you_soon' => 'We hope to have the opportunity to welcome you in the near future.',
 ];
