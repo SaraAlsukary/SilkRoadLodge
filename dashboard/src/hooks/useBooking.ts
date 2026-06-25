@@ -210,7 +210,7 @@ export function useBooking() {
         return true;
     };
 
-    const deleteAllBooking = async (id: string | number) => {
+    const deleteAllBooking = async () => {
         setCustomError(null);
         setSuccessMessage(null);
         await deleteAllBookingMutation.mutateAsync();
