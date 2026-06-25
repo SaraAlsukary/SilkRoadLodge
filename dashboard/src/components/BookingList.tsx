@@ -120,7 +120,7 @@ export default function BookingsList({ apiData, theme, updateBooking, cancelBook
                     <thead className="bg-black/20 text-md uppercase tracking-widest opacity-50">
                         <tr>
                             <th className="p-6 font-semibold">اسم النزيل</th>
-                            <th className="p-6 font-semibold">معلومات الاتصال</th>
+                            {/* <th className="p-6 font-semibold">معلومات الاتصال</th> */}
                             <th className="p-2 font-semibold text-center">عدد الغرف</th>
                             <th className="p-2 font-semibold text-center">الأسرّة المفردة</th>
                             <th className="p-2 font-semibold text-center">الأسرّة المزدوجة</th>
@@ -132,14 +132,14 @@ export default function BookingsList({ apiData, theme, updateBooking, cancelBook
                     <tbody className="divide-y divide-gray-200 dark:divide-white/5">
                         {filteredBookings.map(b => (
                             <motion.tr key={b.id} layout className="hover:bg-black/5 dark:hover:bg-white/[0.02] transition-colors">
-                                <td className="p-3">
+                                <td className="p-2">
                                     <p className="font-bold text-xl">{b.customer_name}</p>
                                     <p className="text-[11px] opacity-50 mt-1">GUEST ID: #{b.id}</p>
                                 </td>
-                                <td className="p-3">
+                                {/* <td className="p-2">
                                     <p className="font-bold text-lg text-right" dir="ltr">{b.customer_phone}</p>
                                     <p className="text-sm opacity-70 mt-1">{b.customer_email || 'غير متوفر'}</p>
-                                </td>
+                                </td> */}
                                 <td className="p-2 font-medium text-silk-sand text-xl text-center">{b.rooms_count}</td>
                                 <td className="p-2 font-medium text-silk-sand text-xl text-center">{b.single_beds_count}</td>
                                 <td className="p-2 font-medium text-silk-sand text-xl text-center">{b.double_beds_count}</td>
