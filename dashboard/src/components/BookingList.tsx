@@ -103,10 +103,17 @@ export default function BookingsList({ apiData, theme, updateBooking, cancelBook
                         />
                     </div>
 
-                    <div className="flex w-full md:w-auto gap-2 p-1.5 bg-black/10 dark:bg-white/5 rounded-2xl border border-inherit overflow-x-auto">
-                        {['الكل', 'مؤكد', 'ملغى'].map(f => (
-                            <button key={f} onClick={() => setStatusFilter(f)}
-                                className={`flex-1 md:flex-none px-5 py-2 rounded-xl cursor-pointer text-md font-bold transition-all whitespace-nowrap ${statusFilter === f ? 'bg-silk-sand text-silk-dark shadow-md' : 'hover:bg-white/5 opacity-70'}`}>
+                    <div className="flex w-full md:w-auto bg-black/10 dark:bg-white/5 rounded-2xl border border-white/10 dark:border-white/5 overflow-x-auto">
+                        {['الكل', 'مؤكد', 'ملغى'].map((f) => (
+                            <button
+                                key={f}
+                                onClick={() => setStatusFilter(f)}
+                                className={`flex-1 md:flex-none px-5 py-2 rounded-md cursor-pointer text-md font-bold transition-all whitespace-nowrap relative 
+                ${statusFilter === f
+                                        ? 'bg-silk-sand text-silk-dark shadow-md z-10'
+                                        : 'hover:bg-white/5 opacity-75 after:absolute after:left-0 after:top-1/2 after:-translate-y-1/2 after:h-10 after:w-[1.5px] after:bg-neutral-400 dark:after:bg-neutral-600 last:after:hidden'
+                                    }`}
+                            >
                                 {f}
                             </button>
                         ))}
