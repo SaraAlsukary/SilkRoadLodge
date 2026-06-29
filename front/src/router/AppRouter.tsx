@@ -6,7 +6,9 @@ import { useTranslation } from 'react-i18next';
 
 const Home = lazy(() => import('../pages/Home'));
 const NotFound = lazy(() => import('../pages/NotFound'));
+// const PalmyraMap = lazy(() => import('../components/PalmyraMap'));
 const About = lazy(() => import('../pages/About'));
+const Map = lazy(() => import('../pages/Map'));
 const RoomTypes = lazy(() => import('../pages/Rooms'));
 const Services = lazy(() => import('../pages/Services'));
 const Booking = lazy(() => import('../pages/Booking'));
@@ -25,6 +27,8 @@ const NotFoundLazy = Loader(NotFound);
 const ServicesLazy = Loader(Services);
 const RoomTypeLazy = Loader(RoomTypes);
 const BookingLazy = Loader(Booking);
+// const PalmyraMapLazy = Loader(PalmyraMap);
+const MapLazy = Loader(Map);
 
 const App = () => {
     const { i18n } = useTranslation();
@@ -57,6 +61,8 @@ const App = () => {
                 { path: 'rooms', element: <RoomTypeLazy /> },
                 { path: 'booking', element: <BookingLazy /> },
                 { path: 'contact' },
+                // { path: '3d-map', element: <PalmyraMapLazy /> },
+                { path: 'map', element: <MapLazy /> },
                 { path: 'services', element: <ServicesLazy /> },
                 { path: '*', element: <NotFoundLazy /> },
             ],

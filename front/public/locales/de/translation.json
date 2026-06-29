@@ -150,5 +150,48 @@
     "err_rooms_max": "Für dieses Datum sind nur {{max}} Zimmer verfügbar",
     "err_capacity_insufficient": "Die gewählte Bettenkapazität ({{bedCapacity}} Personen) reicht für die erforderliche Anzahl von Gästen ({{guestsCount}} Personen) nicht aus.",
     "first_name": "Vorname",
-    "last_name": "Nachname"
+    "last_name": "Nachname",
+    "location": "Unser Standort",
+    "places": {
+        "place_1": {
+            "name": "Kamelrennbahn",
+            "desc": "Kamelrennbahn"
+        },
+        "place_2": {
+            "name": "Seidenstraßen-Hotel",
+            "desc": "Seidenstraßen-Hotel"
+        },
+        "place_3": {
+            "name": "Burg Fakhr al-Din al-Ma'ani",
+            "desc": "Eine majestätische historische Burg."
+        },
+        "place_4": {
+            "name": "Museum von Palmyra",
+            "desc": "Es beherbergt eine umfangreiche Sammlung von Antiquitäten."
+        },
+        "place_5": {
+            "name": "Tempel des Bel",
+            "desc": "Ruinen eines im Jahr 32 n. Chr. gegründeten Tempels."
+        },
+        "place_6": {
+            "name": "Triumphbogen",
+            "desc": "Ein majestätischer römischer Triumphbogen."
+        },
+        "place_7": {
+            "name": "Römische Ruinen von Palmyra",
+            "desc": "Römische Ruinen von Palmyra"
+        },
+        "place_8": {
+            "name": "Römisches Theater von Palmyra",
+            "desc": "Römisches Theater von Palmyra"
+        },
+        "place_9": {
+            "name": "Tempel des Baalshamin",
+            "desc": "Tempel des Baalshamin"
+        },
+        "place_10": {
+            "name": "Tempel der Allat",
+            "desc": "Tempel der Allat"
+        }
+    }
 }

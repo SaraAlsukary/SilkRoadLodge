@@ -40,6 +40,7 @@ export default function Header() {
         { name: t("home"), href: "/" },
         { name: t("about"), href: "/about" },
         { name: t("rooms"), href: "/rooms" },
+        { name: t("location"), href: "/map" },
         { name: t("services_title"), href: "/services" },
     ];
 

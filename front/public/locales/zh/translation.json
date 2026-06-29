@@ -150,5 +150,48 @@
     "err_rooms_max": "此日期仅剩 {{max}} 间客房",
     "err_capacity_insufficient": "所选床位容量（{{bedCapacity}} 人）不足以满足所需的访客人数（{{guestsCount}} 人）。",
     "first_name": "名字",
-    "last_name": "姓氏"
+    "last_name": "姓氏",
+    "location": "我们的位置",
+    "places": {
+        "place_1": {
+            "name": "骆驼赛跑场",
+            "desc": "骆驼赛跑场"
+        },
+        "place_2": {
+            "name": "丝绸之路酒店",
+            "desc": "丝绸之路酒店"
+        },
+        "place_3": {
+            "name": "法赫尔丁·马尼城堡",
+            "desc": "雄伟的历史城堡。"
+        },
+        "place_4": {
+            "name": "巴尔米拉博物馆",
+            "desc": "馆藏丰富的古代文物。"
+        },
+        "place_5": {
+            "name": "贝尔神庙",
+            "desc": "建于公元32年的神庙遗址。"
+        },
+        "place_6": {
+            "name": "凯旋门",
+            "desc": "雄伟的罗马凯旋门。"
+        },
+        "place_7": {
+            "name": "巴尔米拉罗马遗迹",
+            "desc": "巴尔米拉罗马遗迹"
+        },
+        "place_8": {
+            "name": "巴尔米拉罗马剧院",
+            "desc": "巴尔米拉罗马剧院"
+        },
+        "place_9": {
+            "name": "巴尔·夏明神庙",
+            "desc": "巴尔·夏明神庙"
+        },
+        "place_10": {
+            "name": "阿拉特神庙",
+            "desc": "阿拉特神庙"
+        }
+    }
 }

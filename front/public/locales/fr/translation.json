@@ -150,5 +150,48 @@
     "err_rooms_max": "Seulement {{max}} chambres sont disponibles pour cette date",
     "err_capacity_insufficient": "La capacité des lits sélectionnés ({{bedCapacity}} personnes) est insuffisante pour le nombre de clients requis ({{guestsCount}} personnes).",
     "first_name": "Prénom",
-    "last_name": "Nom"
+    "last_name": "Nom",
+    "location": "Notre emplacement",
+    "places": {
+        "place_1": {
+            "name": "Hippodrome des chameaux",
+            "desc": "Hippodrome des chameaux"
+        },
+        "place_2": {
+            "name": "Hôtel de la Route de la Soie",
+            "desc": "Hôtel de la Route de la Soie"
+        },
+        "place_3": {
+            "name": "Château de Fakhr al-Din al-Ma'ani",
+            "desc": "Un majestueux château historique."
+        },
+        "place_4": {
+            "name": "Musée de Palmyre",
+            "desc": "Il abrite une large collection d'antiquités."
+        },
+        "place_5": {
+            "name": "Temple de Bel",
+            "desc": "Ruines d'un temple fondé en l'an 32 apr. J.-C."
+        },
+        "place_6": {
+            "name": "Arc de Triomphe",
+            "desc": "Un majestueux arc de triomphe romain."
+        },
+        "place_7": {
+            "name": "Ruines romaines de Palmyre",
+            "desc": "Ruines romaines de Palmyre"
+        },
+        "place_8": {
+            "name": "Théâtre romain de Palmyre",
+            "desc": "Théâtre romain de Palmyre"
+        },
+        "place_9": {
+            "name": "Temple de Baalshamin",
+            "desc": "Temple de Baalshamin"
+        },
+        "place_10": {
+            "name": "Temple d'Allat",
+            "desc": "Temple d'Allat"
+        }
+    }
 }

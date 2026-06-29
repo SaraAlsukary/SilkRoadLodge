@@ -150,5 +150,48 @@
     "err_rooms_max": "Solo hay {{max}} habitaciones disponibles para esta fecha",
     "err_capacity_insufficient": "La capacidad de las camas seleccionadas ({{bedCapacity}} personas) es insuficiente para el número de huéspedes requerido ({{guestsCount}} personas).",
     "first_name": "Nombre",
-    "last_name": "Apellido"
+    "last_name": "Apellido",
+    "location": "ubicación",
+    "places": {
+        "place_1": {
+            "name": "Hipódromo de camellos",
+            "desc": "Hipódromo de camellos"
+        },
+        "place_2": {
+            "name": "Hotel de la Ruta de la Seda",
+            "desc": "Hotel de la Ruta de la Seda"
+        },
+        "place_3": {
+            "name": "Castillo de Fakhr al-Din al-Ma'ani",
+            "desc": "Un majestuoso castillo histórico."
+        },
+        "place_4": {
+            "name": "Museo de Palmira",
+            "desc": "Alberga una amplia colección de antigüedades."
+        },
+        "place_5": {
+            "name": "Templo de Bel",
+            "desc": "Ruinas de un templo fundado en el año 32 d.C."
+        },
+        "place_6": {
+            "name": "Arco del Triunfo",
+            "desc": "Un majestuoso arco de triunfo romano."
+        },
+        "place_7": {
+            "name": "Ruines romanas de Palmira",
+            "desc": "Ruinas romanas de Palmira"
+        },
+        "place_8": {
+            "name": "Teatro romano de Palmira",
+            "desc": "Teatro romano de Palmira"
+        },
+        "place_9": {
+            "name": "Templo de Baalshamin",
+            "desc": "Templo de Baalshamin"
+        },
+        "place_10": {
+            "name": "Templo de Al-Lat",
+            "desc": "Templo de Al-Lat"
+        }
+    }
 }

@@ -150,5 +150,48 @@
     "err_rooms_max": "Only {{max}} rooms are available for this date",
     "err_capacity_insufficient": "The selected bed capacity ({{bedCapacity}} people) is insufficient for the required number of guests ({{guestsCount}} people).",
     "first_name": "First Name",
-    "last_name": "Last Name"
+    "last_name": "Last Name",
+    "location": "Our Location",
+    "places": {
+        "place_1": {
+            "name": "Camel Racing Track",
+            "desc": "Camel racing track"
+        },
+        "place_2": {
+            "name": "Silk Road Hotel",
+            "desc": "Silk Road Hotel"
+        },
+        "place_3": {
+            "name": "Fakhr al-Din al-Ma'ani Castle",
+            "desc": "A majestic historical castle."
+        },
+        "place_4": {
+            "name": "Palmyra Museum",
+            "desc": "Houses a wide collection of antiquities."
+        },
+        "place_5": {
+            "name": "Temple of Bel",
+            "desc": "Ruins of a temple founded in 32 AD."
+        },
+        "place_6": {
+            "name": "Arch of Triumph",
+            "desc": "A majestic Roman triumphal arch."
+        },
+        "place_7": {
+            "name": "Palmyra Roman Ruins",
+            "desc": "Palmyra Roman Ruins"
+        },
+        "place_8": {
+            "name": "Roman Theatre of Palmyra",
+            "desc": "Roman Theatre of Palmyra"
+        },
+        "place_9": {
+            "name": "Temple of Baalshamin",
+            "desc": "Temple of Baalshamin"
+        },
+        "place_10": {
+            "name": "Temple of Al-Lat",
+            "desc": "Temple of Al-Lat"
+        }
+    }
 }
