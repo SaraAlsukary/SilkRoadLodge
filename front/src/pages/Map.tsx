@@ -121,7 +121,7 @@
 //     );
 // }
 
-import { Viewer, Entity, CameraFlyTo, ImageryLayer, PointGraphics,  BillboardGraphics } from 'resium';
+import { Viewer, Entity, CameraFlyTo, ImageryLayer, PointGraphics, BillboardGraphics } from 'resium';
 import { Cartesian3, Color, SceneMode, Ion, UrlTemplateImageryProvider, CallbackProperty, Cartesian2 } from 'cesium';
 import 'cesium/Source/Widgets/widgets.css';
 import { useEffect, useMemo, useRef } from 'react';
@@ -143,7 +143,7 @@ export default function PalmyraMap() {
         { id: 4, name: "متحف تدمر", desc: "يضم مجموعة واسعة من الآثار.", lng: 38.27480489989539, lat: 34.555422621454, color: Color.fromCssColorString('#D4A373'), image: '/imgs/maps/mues.jpeg' },
         { id: 5, name: "معبد بل", desc: "أطلال معبد تأسس عام 32 ميلاديًا.", lng: 38.274068056293984, lat: 34.54748583298795, color: Color.fromCssColorString('#D4A373'), image: '/imgs/maps/bel.jpg' },
         { id: 6, name: "قوس النصر", desc: "بوابة نصر رومانية مهيبة.", lng: 38.27148117740909, lat: 34.549062978933634, color: Color.fromCssColorString('#D4A373'), image: '/imgs/maps/arch.jpg' },
-        { id: 7, name: "آثار تدمر الرومانية", desc: "آثار تدمر الرومانية", lng: 38.26804538049396, lat: 34.55154783564766, color: Color.fromCssColorString('#D4A373') , image: '/imgs/maps/ruins.jpg'},
+        { id: 7, name: "آثار تدمر الرومانية", desc: "آثار تدمر الرومانية", lng: 38.26804538049396, lat: 34.55154783564766, color: Color.fromCssColorString('#D4A373'), image: '/imgs/maps/ruins.jpg' },
         { id: 8, name: "مسرح تدمر", desc: "مسرح تدمر", lng: 38.26887093284579, lat: 34.55062630692691, color: Color.fromCssColorString('#D4A373'), image: '/imgs/maps/theater.jpg' },
         { id: 9, name: "معبد بعل شامين", desc: "معبد بعل شامين", lng: 38.28095411464662, lat: 34.68665512861772, color: Color.fromCssColorString('#D4A373'), image: '/imgs/maps/shamin.jpg' },
         { id: 10, name: "معبد اللات", desc: "معبد اللات", lng: 38.26162717970957, lat: 34.55513413085592, color: Color.fromCssColorString('#D4A373'), image: '/imgs/maps/lat.jpeg' },
@@ -193,7 +193,7 @@ export default function PalmyraMap() {
                     animation={false}
                     timeline={false}
                     fullscreenButton={false}
-                    
+
                 >
                     <ImageryLayer imageryProvider={lightMapProvider} />
 
@@ -225,7 +225,7 @@ export default function PalmyraMap() {
                                     image={loc.image}
                                     scale={0.30} // يمكنك تعديل الرقم لتكبير أو تصغير الصورة
                                     verticalOrigin={0}
-                                    
+
                                     // لضمان ظهور الصورة فوق إحداثيات النقطة وليس فوقها مباشرة
                                     pixelOffset={new Cartesian2(0, -25)} // رفع الصورة للأعلى بمقدار 25 بكسل لتجنب تغطية النقطة
                                 />
