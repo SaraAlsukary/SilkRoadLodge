@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { nationalitiesData } from '../../utils/countries';
 import { phoneCodesData } from '../../utils/phoneCode';
-
+import { LANGUAGE_PRIORITIES } from '../../utils/languages';
 interface Step1Props {
     formData: any;
     setFormData: React.Dispatch<React.SetStateAction<any>>;
@@ -27,14 +27,53 @@ export default function Step1PersonalInfo({ formData, setFormData, errors, setEr
 
     const processedPhoneCodes = useMemo(() => {
         const search = phoneSearch.toLowerCase();
-        return phoneCodesData.filter(pc => pc.code.includes(search) || pc.iso.toLowerCase().includes(search) || getCountryNameByIso(pc.iso).toLowerCase().includes(search));
-    }, [phoneSearch, currentLanguage]);
+        const priorities = LANGUAGE_PRIORITIES[currentLanguage] || [];
 
+        // 1. تصفية البيانات بناءً على البحث
+        const filtered = phoneCodesData.filter(pc =>
+            pc.code.includes(search) ||
+            pc.iso.toLowerCase().includes(search) ||
+            getCountryNameByIso(pc.iso).toLowerCase().includes(search)
+        );
+
+        // 2. ترتيب النتائج المفلترة لتظهر دول الأولوية أولاً
+        return filtered.sort((a, b) => {
+            const indexA = priorities.indexOf(a.iso.toLowerCase());
+            const indexB = priorities.indexOf(b.iso.toLowerCase());
+
+            if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+            if (indexA !== -1) return -1;
+            if (indexB !== -1) return 1;
+
+            // ✨ ترتيب أبجدي لأسماء الدول في القائمة المنسدلة للأرقام
+            const nameA = getCountryNameByIso(a.iso);
+            const nameB = getCountryNameByIso(b.iso);
+            return nameA.localeCompare(nameB, currentLanguage);
+        });
+    }, [phoneSearch, currentLanguage]); // تأكد من وجود currentLanguage في المصفوفة هنا
+
+    // ✨ تحديث معالجة الجنسيات (بحث + ترتيب الأولويات)
     const processedNationalities = useMemo(() => {
         const search = natSearch.toLowerCase();
-        return currentNationalities.filter((nat: any) => nat.label.toLowerCase().includes(search) || nat.iso?.toLowerCase().includes(search));
-    }, [natSearch, currentLanguage]);
+        const priorities = LANGUAGE_PRIORITIES[currentLanguage] || [];
 
+        const filtered = currentNationalities.filter((nat: any) =>
+            nat.label.toLowerCase().includes(search) ||
+            nat.iso?.toLowerCase().includes(search)
+        );
+
+        return filtered.sort((a: any, b: any) => {
+            const indexA = priorities.indexOf(a.iso?.toLowerCase());
+            const indexB = priorities.indexOf(b.iso?.toLowerCase());
+
+            if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+            if (indexA !== -1) return -1;
+            if (indexB !== -1) return 1;
+
+            // ✨ السطر السحري: ترتيب باقي الدول أبجدياً حسب لغة الواجهة!
+            return a.label.localeCompare(b.label, currentLanguage);
+        });
+    }, [natSearch, currentLanguage, currentNationalities]);
     return (
         <motion.div key="step1" initial={{ opacity: 0, x: isRtl ? 20 : -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: isRtl ? -20 : 20 }} transition={{ duration: 0.3 }} className="space-y-5">
             <h3 className="text-2xl font-bold text-silk-brown border-b border-silk-sand/30 pb-2 mb-4">{t('personal_info')}</h3>
