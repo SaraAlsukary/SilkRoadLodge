@@ -24,8 +24,7 @@ return [
 
     // Pied de page
     'looking_forward' => 'Nous nous réjouissons de votre visite et de vous offrir un séjour confortable.',
-    'automated_email_footer' => 'Ceci est un e-mail automatisé, veuillez ne pas y répondre directement.',
-
+  'automated_email_footer' => 'Si vous avez des questions, n\'hésitez pas à nous contacter en répondant directement à cet e-mail ou via nos numéros de téléphone.',
     // Services supplémentaires
     'bedouin_tent_title' => 'Expérience sous tente bédouine',
     'safari_tour_title' => 'Excursion Safari dans le désert',

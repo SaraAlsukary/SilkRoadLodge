@@ -134,9 +134,18 @@
             background-color: #faf7f2;
             text-align: center;
             font-size: 13px;
-            color: #888;
+            color: #6b4423;
             border-top: 1px solid #e8e1d7;
             padding: 20px;
+        }
+
+        .phone-numbers {
+            margin-top: 10px;
+            direction: ltr !important;
+            display: block;
+            font-weight: bold;
+            color: #8b5e34;
+            font-size: 14px;
         }
 
         @media only screen and (max-width: 600px) {
@@ -273,9 +282,12 @@
                 </p>
             </div>
             <div class="footer">
-                <p style="margin: 0;">
-                    {{ __('messages.automated_email_footer', ['default' => 'هذه رسالة تلقائية، يرجى عدم الرد عليها مباشرة.']) }}
+                <p style="margin: 0; line-height: 1.5;">
+                    {{ __('messages.automated_email_footer') }}
                 </p>
+                <div class="phone-numbers">
+                    +963 125 930 077 &nbsp;&nbsp;|&nbsp;&nbsp; +963 982 221 918
+                </div>
             </div>
         </div>
     </div>

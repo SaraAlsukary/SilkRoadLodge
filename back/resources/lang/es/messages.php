@@ -24,8 +24,7 @@ return [
 
     // Pie de página
     'looking_forward' => 'Esperamos su visita y brindarle una estancia confortable.',
-    'automated_email_footer' => 'Este es un correo electrónico automático, por favor no responda directamente.',
-
+    'automated_email_footer' => 'Si tiene alguna pregunta, no dude en ponerse en contacto con nosotros respondiendo directamente a este correo electrónico o a través de nuestros números de teléfono.',
     // Servicios adicionales
     'bedouin_tent_title' => 'Experiencia en tienda beduina',
     'safari_tour_title' => 'Excursión de safari por el desierto',

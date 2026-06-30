@@ -24,8 +24,7 @@ return [
 
     // 页脚
     'looking_forward' => '我们衷心期待您的光临，并为您提供舒适的住宿体验。',
-    'automated_email_footer' => '此邮件为系统自动发送，请勿直接回复。',
-
+   'automated_email_footer' => '如果您有任何疑问，请随时通过直接回复此邮件或通过我们的电话号码与我们联系。',
     // 附加服务
     'bedouin_tent_title' => '贝都因帐篷体验',
     'safari_tour_title' => '沙漠野生动物园之旅',

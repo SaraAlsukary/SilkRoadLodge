@@ -24,8 +24,7 @@ return [
 
     // Fußzeile & Grußformel
     'looking_forward' => 'Wir freuen uns auf Ihren Besuch und darauf, Ihnen einen angenehmen Aufenthalt zu bereiten.',
-    'automated_email_footer' => 'Dies ist eine automatisch generierte E-Mail, bitte antworten Sie nicht direkt darauf.',
-
+  'automated_email_footer' => 'Wenn Sie Fragen haben, zögern Sie bitte nicht, uns direkt durch eine Antwort auf diese E-Mail oder über unsere Telefonnummern zu kontaktieren.',
     // Übersetzungen für Zusatzleistungen
     'bedouin_tent_title' => 'Beduinenzelt-Erlebnis',
     'safari_tour_title' => 'Wüstensafari-Tour',

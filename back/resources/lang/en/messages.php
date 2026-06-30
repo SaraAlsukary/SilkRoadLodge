@@ -24,8 +24,7 @@ return [
 
     // Footer & Sign-off
     'looking_forward' => 'We look forward to your visit and providing you with a comfortable stay.',
-    'automated_email_footer' => 'This is an automated email, please do not reply directly.',
-
+  'automated_email_footer' => 'If you have any questions, please feel free to contact us by replying directly to this email or through our phone numbers.',
     // Additional Services Translations
     'bedouin_tent_title' => 'Bedouin Tent Experience',
     'safari_tour_title' => 'Desert Safari Tour',

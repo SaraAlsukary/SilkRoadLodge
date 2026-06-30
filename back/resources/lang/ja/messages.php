@@ -24,8 +24,7 @@ return [
 
     // フッター
     'looking_forward' => '皆様のお越しを心よりお待ちしております。快適な滞在をお楽しみください。',
-    'automated_email_footer' => 'このメールは自動送信されています。直接返信しないでください。',
-
+ 'automated_email_footer' => 'ご不明な点がございましたら、このメールに直接返信いただくか、お電話にてお気軽にお問い合わせください。',
     // 追加サービス
     'bedouin_tent_title' => 'ベドウィン・テント体験',
     'safari_tour_title' => '砂漠サファリツアー',
