@@ -5,7 +5,10 @@ services:
   frontend:
     container_name: frontend
     build: ./front
-    restart: unless-stopped
+    volumes:
+      # تم حذف ربط ملفات الفرونت إند لأن Dockerfile سيقوم ببنائها وحفظها داخلياً
+      - ./back:/var/www
+      - ./back/storage/app/public:/var/www/html/public/storage
     depends_on:
       - backend
     networks:
@@ -16,7 +19,10 @@ services:
   dashboard:
     container_name: dashboard
     build: ./dashboard
-    restart: unless-stopped
+    volumes:
+      # تم حذف ربط ملفات لوحة التحكم لأن Dockerfile سيقوم ببنائها داخلياً
+      - ./back:/var/www
+      - ./back/storage/app/public:/var/www/html/public/storage
     depends_on:
       - backend
     networks:
@@ -27,7 +33,6 @@ services:
   backend:
     container_name: backend
     build: ./back
-    restart: unless-stopped
     volumes:
       - ./back:/var/www
       - /var/www/vendor
@@ -44,7 +49,7 @@ services:
   # 4️⃣ قاعدة البيانات
   db:
     image: mysql:8.0
-    restart: unless-stopped
+    restart: always
     environment:
       MYSQL_DATABASE: silk_db
       MYSQL_ROOT_PASSWORD: root_2424
@@ -57,7 +62,7 @@ services:
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin/phpmyadmin
-    restart: unless-stopped
+    restart: always
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: root_2424
